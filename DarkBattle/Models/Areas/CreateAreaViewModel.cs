@@ -10,6 +10,7 @@
 
     public class CreateAreaViewModel
     {
+
         [Required]
         [MinLength(NameMinLenght)]
         [MaxLength(NameMaxLenght)]

@@ -1,3 +1,4 @@
+using DarkBattle.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DarkBattle
 {
@@ -24,6 +26,9 @@ namespace DarkBattle
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //TODO : Configurate Db
+            services.AddDbContext<DarkBattleDbContext>
+                (opt => opt.UseSqlServer(@"Server=.;Database=QuizSystem;Trusted_Connection=True;MultipleActiveResultSets=true"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

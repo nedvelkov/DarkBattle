@@ -16,6 +16,14 @@
         public DbSet<Consumable> Consumables { get; init; }
         public DbSet<Area> Areas { get; init; }
 
+        public DarkBattleDbContext()
+        {
+
+        }
+        public DarkBattleDbContext(DbContextOptions<DarkBattleDbContext> options):base(options)
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
