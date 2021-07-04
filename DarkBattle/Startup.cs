@@ -27,8 +27,9 @@ namespace DarkBattle
         {
             services.AddControllersWithViews();
             //TODO : Configurate Db
-            services.AddDbContext<DarkBattleDbContext>
-                (opt => opt.UseSqlServer(@"Server=.;Database=QuizSystem;Trusted_Connection=True;MultipleActiveResultSets=true"));
+            services.AddDbContext<DarkBattleDbContext>(opt => 
+                    opt.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +38,8 @@ namespace DarkBattle
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+
             }
             else
             {
