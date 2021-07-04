@@ -1,0 +1,52 @@
+﻿@model DarkBattle.Models.CreateAreaViewModel
+
+@{
+    ViewData["Title"] = "Add Areas";
+}
+
+
+<h4>Create new area</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddAreas">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label">Image url address</label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinLevelEnterence" class="control-label"> Minimum level of champion</label>
+                <input asp-for="MinLevelEnterence" class="form-control" />
+                <span asp-validation-for="MinLevelEnterence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxLevelCreatures" class="control-label">Max level creatures</label>
+                <input asp-for="MaxLevelCreatures" class="form-control" />
+                <span asp-validation-for="MaxLevelCreatures" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Areas">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
