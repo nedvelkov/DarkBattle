@@ -17,15 +17,37 @@ namespace DarkBattle.Controllers
 
         public AdminController(DarkBattleDbContext data) => this.data = data;
 
-        public IActionResult AddCreature()
+        public IActionResult AddCreature([FromQuery] string creatureId)
         {
+            if (creatureId != null)
+            {
+                var copyCreature = this.data
+                         .Creatures
+                         .Where(x => x.Id == creatureId)
+                         .Select(x => new CreateCreatureViewModel
+                         {
+                             Name = x.Name,
+                             Image = x.ImageUrl,
+                             Attack = x.Attack,
+                             Defense = x.Defense,
+                             Health = x.Health,
+                             Block = x.Block,
+                             Level = x.Level,
+                             Gold = x.Gold,
+                             Expirience = x.Expirience
+                         }).First();
+                return View(copyCreature);
+            }
             return View();
         }
 
         [HttpPost]
         public IActionResult AddCreature(CreateCreatureViewModel model)
         {
-            //TODO : Configurate Db
+            if (this.ModelState.IsValid==false)
+            {
+                return View(model);
+            }
             var creature = new Creature
             {
                 Name = model.Name,
@@ -36,10 +58,8 @@ namespace DarkBattle.Controllers
                 Block = model.Block,
                 Level = model.Level,
                 Gold = model.Gold,
-                Expirience = model.Expiriece
+                Expirience = model.Expirience
             };
-
-            ;
 
             this.data.Creatures.Add(creature);
             this.data.SaveChanges();
@@ -48,12 +68,16 @@ namespace DarkBattle.Controllers
         }
         public IActionResult Creatures()
         {
-            var creatures = new List<CreatureListViewModel>();
-            creatures.Add(new CreatureListViewModel
-            {
-                Name = "Anubis",
-                Level = 2,
-            });
+            var creatures=  this.data
+                .Creatures
+                .Select(x => new CreatureListViewModel
+                {
+                    Id=x.Id,
+                    Name = x.Name,
+                    Level = x.Level,
+                    Area = x.Area.Name
+                })
+                .ToList();
             return View(creatures);
         }
         public IActionResult AddAreas()
@@ -64,17 +88,20 @@ namespace DarkBattle.Controllers
         [HttpPost]
         public IActionResult AddAreas(CreateAreaViewModel model)
         {
-            //TODO : Configurate Db
-            //var area = new Area
-            //{
-            //    Name = model.Name,
-            //    ImageUrl = model.ImageUrl,
-            //    Description = model.Description,
-            //    MinLevelEnterence = model.MinLevelEnterence,
-            //    MaxLevelCreatures = model.MaxLevelCreatures,
-            //};
-            //this.data.Areas.Add(area);
-            //this.data.SaveChanges();
+            if (this.ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+            var area = new Area
+            {
+                Name = model.Name,
+                ImageUrl = model.ImageUrl,
+                Description = model.Description,
+                MinLevelEnterence = model.MinLevelEnterence,
+                MaxLevelCreatures = model.MaxLevelCreatures,
+            };
+            this.data.Areas.Add(area);
+            this.data.SaveChanges();
 
             return Redirect("/");
         }
@@ -82,27 +109,27 @@ namespace DarkBattle.Controllers
         public IActionResult Areas()
         {
             //TODO : Configurate Db
-            //var areas = this.data
-            //    .Areas
-            //    .Select(x => new AreasListViewModel
-            //    {
-            //        Name = x.Name,
-            //        Description = x.Description,
-            //        CraturesCount = x.Creatures.Count
-            //    })
-            //    .ToList();
-
-            var areas = new List<AreasListViewModel>();
-            areas.Add(new AreasListViewModel
-            {
-                Id="1",
-                Name = "Valey",
-                Description = "Beginer teritory",
-                MinLevel=1,
-                MaxLevel=5,
-                CraturesCount=0
-            });
+            var areas = this.data
+                .Areas
+                .Select(x => new AreasListViewModel
+                {
+                    Name = x.Name,
+                    MinLevel=x.MinLevelEnterence,
+                    MaxLevel=x.MaxLevelCreatures,
+                    Description = x.Description,
+                    CraturesCount = x.Creatures.Count
+                })
+                .ToList();
             return View(areas);
+        }
+
+        public IActionResult Test([FromQuery]string creatureId)
+        {
+            if (creatureId != null)
+            {
+                return Json("Done");
+            }
+            return View();
         }
     }
 }

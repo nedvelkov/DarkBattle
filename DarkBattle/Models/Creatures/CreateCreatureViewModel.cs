@@ -37,7 +37,7 @@
         public int Gold { get; set; }
 
         [Range(MinValue,MaxLevelCreature)]
-        public int Expiriece { get; set; }
+        public int Expirience { get; set; }
 
     }
 }

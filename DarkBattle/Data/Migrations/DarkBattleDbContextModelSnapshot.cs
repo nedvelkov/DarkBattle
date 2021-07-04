@@ -57,7 +57,14 @@ namespace DarkBattle.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Level")
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaxLevelCreatures")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinLevelEnterence")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")

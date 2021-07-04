@@ -6,4 +6,8 @@ DarkBattle is a browser game, that take place in Dark ages. It is RPG (role plai
 * Mage
 
 Each class has it own strength and weakness.
+Game will have different areas with requirements of minimum level for champions.
+
+
+
 	
