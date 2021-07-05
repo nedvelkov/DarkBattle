@@ -51,8 +51,8 @@
                 <label asp-for="@item.CreaturesCount">@item.CreaturesCount</label>
             </td>
             <td>
-                                                                                            @*TODO redirect to Add creaturte*@
-                <button type="button" class="btn btn-link justify-content-md-center" asp-action="Test">Add creatures</button>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="EditArea" asp-route-areaId="@item.Id">Edit area</a>|
+                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AddCreature" asp-route-creatureId="@item.Id">Copy</a>
             </td>
         </tr>
 }

@@ -12,6 +12,8 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using DarkBattle.Services;
+    using DarkBattle.ViewModels;
+    using System.Diagnostics;
 
     public class AdminController : Controller
     {
@@ -39,7 +41,7 @@
         }
 
         [HttpPost]
-        public IActionResult AddCreature(CreateCreatureViewModel model)
+        public IActionResult AddCreature(CreatureViewModel model)
         {
             if (this.ModelState.IsValid == false)
             {
@@ -62,7 +64,7 @@
         }
 
         [HttpPost]
-        public IActionResult AddAreas(CreateAreaViewModel model)
+        public IActionResult AddAreas(AreaViewModel model)
         {
             if (this.ModelState.IsValid == false)
             {
@@ -82,13 +84,44 @@
             return View(areas);
         }
 
-        public IActionResult Test([FromQuery] string creatureId)
+        public IActionResult EditArea([FromQuery] string areaId)
         {
-            if (creatureId != null)
+                var area = this.areaService.GetArea(areaId);
+                if (area == null)
+                {
+                    //TODO : Error invalid area
+                    return Json(areaId);
+                }
+
+                return View(area);
+        }
+        [HttpPost]
+        public IActionResult EditArea(AreaViewModel model)
+        {
+            if (this.ModelState.IsValid == false)
+            {
+                //TODO : Error invalid data
+                return Json(this.ModelState);
+            }
+
+            this.areaService.EditArea(model);
+
+            return Redirect("/");
+        }
+
+        public IActionResult Test([FromQuery] string id)
+        {
+            if (id != null)
             {
                 return Json("Done");
             }
             return View();
+        }
+
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
         }
     }
 }
