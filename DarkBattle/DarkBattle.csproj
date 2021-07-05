@@ -24,7 +24,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DarkBatlle.Data\DarkBatlle.Data.csproj" />
-    <ProjectReference Include="..\DarkBattle.Models\DarkBattle.Models.csproj" />
+    <ProjectReference Include="..\DarkBattle.Services\DarkBattle.Services.csproj" />
+    <ProjectReference Include="..\DarkBattle.ViewModels\DarkBattle.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using System.Reflection;
+using DarkBattle.Services;
 
 namespace DarkBattle
 {
@@ -33,7 +34,9 @@ namespace DarkBattle
                     opt.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(Assembly.GetEntryAssembly());
-            
+            services.AddTransient<ICreatureService, CreatureService>();
+            services.AddTransient<IAreaService, AreaService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

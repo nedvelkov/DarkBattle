@@ -11,70 +11,49 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using DarkBattle.Services;
 
-    public class AdminController:Controller
+    public class AdminController : Controller
     {
-        private readonly DarkBattleDbContext data;
-        private readonly IMapper mapper;
+        private readonly ICreatureService creatureService;
+        private readonly IAreaService areaService;
 
-        public AdminController(DarkBattleDbContext data,
-                                IMapper mapper)
+        public AdminController(ICreatureService creatureService,
+                                IAreaService areaService)
         {
-            this.data = data;
-            this.mapper = mapper;
+            this.creatureService = creatureService;
+            this.areaService = areaService;
         }
 
         public IActionResult AddCreature([FromQuery] string creatureId)
         {
+
             if (creatureId != null)
             {
-                var copyCreature = this.data
-                         .Creatures
-                         .Where(x => x.Id == creatureId)
-                         .ProjectTo<CreateCreatureViewModel>(mapper.ConfigurationProvider)
-                         .First();
+                var copyCreature = this.creatureService
+                                       .ReturnCreatureViewModel(creatureId);
                 return View(copyCreature);
             }
+
             return View();
         }
 
         [HttpPost]
         public IActionResult AddCreature(CreateCreatureViewModel model)
         {
-            if (this.ModelState.IsValid==false)
+            if (this.ModelState.IsValid == false)
             {
                 return View(model);
             }
-            var creature = new Creature
-            {
-                Name = model.Name,
-                ImageUrl = model.Image,
-                Attack = model.Attack,
-                Defense = model.Defense,
-                Health = model.Health,
-                Block = model.Block,
-                Level = model.Level,
-                Gold = model.Gold,
-                Expirience = model.Expirience
-            };
 
-            this.data.Creatures.Add(creature);
-            this.data.SaveChanges();
+            this.creatureService.AddCreature(model);
 
             return Redirect("/");
         }
         public IActionResult Creatures()
         {
-            var creatures=  this.data
-                .Creatures
-                .Select(x => new CreatureListViewModel
-                {
-                    Id=x.Id,
-                    Name = x.Name,
-                    Level = x.Level,
-                    Area = x.Area.Name
-                })
-                .ToList();
+            var creatures = this.creatureService.CreatureCollection();
+
             return View(creatures);
         }
         public IActionResult AddAreas()
@@ -89,38 +68,21 @@
             {
                 return View(model);
             }
-            var area = new Area
-            {
-                Name = model.Name,
-                ImageUrl = model.ImageUrl,
-                Description = model.Description,
-                MinLevelEnterence = model.MinLevelEnterence,
-                MaxLevelCreatures = model.MaxLevelCreatures,
-            };
-            this.data.Areas.Add(area);
-            this.data.SaveChanges();
+
+            this.areaService.AddAreas(model);
 
             return Redirect("/");
         }
 
         public IActionResult Areas()
         {
-            //TODO : Configurate Db
-            var areas = this.data
-                .Areas
-                .Select(x => new AreasListViewModel
-                {
-                    Name = x.Name,
-                    MinLevel=x.MinLevelEnterence,
-                    MaxLevel=x.MaxLevelCreatures,
-                    Description = x.Description,
-                    CraturesCount = x.Creatures.Count
-                })
-                .ToList();
+
+            var areas = this.areaService.AreasCollection();
+
             return View(areas);
         }
 
-        public IActionResult Test([FromQuery]string creatureId)
+        public IActionResult Test([FromQuery] string creatureId)
         {
             if (creatureId != null)
             {
