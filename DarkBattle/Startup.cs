@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using System.Reflection;
 using DarkBattle.Services;
+using DarkBattle.MappingConfiguration;
 
 namespace DarkBattle
 {
@@ -33,7 +34,8 @@ namespace DarkBattle
             services.AddDbContext<DarkBattleDbContext>(opt => 
                     opt.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddAutoMapper(Assembly.GetEntryAssembly());
+
+            services.AddAutoMapper(typeof(DarkBattleProfile));
             services.AddTransient<ICreatureService, CreatureService>();
             services.AddTransient<IAreaService, AreaService>();
 
