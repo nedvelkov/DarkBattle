@@ -1,4 +1,4 @@
-﻿using DarkBattle.Models;
+﻿using DarkBattle.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

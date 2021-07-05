@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkBattle", "DarkBattle\DarkBattle.csproj", "{B7DB4965-2E45-4CE4-9793-893E589CA037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DarkBattle", "DarkBattle\DarkBattle.csproj", "{B7DB4965-2E45-4CE4-9793-893E589CA037}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkBatlle.Data", "DarkBatlle.Data\DarkBatlle.Data.csproj", "{BF8AE5DC-F90E-4D17-87DC-D8AD7850B89B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkBattle.Services", "DarkBattle.Services\DarkBattle.Services.csproj", "{A8CBB235-C5AC-4D0F-A934-54AB6E1DD387}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkBattle.Models", "DarkBattle.Models\DarkBattle.Models.csproj", "{251C2E3B-F683-4FAC-9630-F23714D79026}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkBattle.ConsoleUI", "DarkBattle.ConsoleUI\DarkBattle.ConsoleUI.csproj", "{4883620E-D832-45C4-B57E-2FEBA261F749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{B7DB4965-2E45-4CE4-9793-893E589CA037}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7DB4965-2E45-4CE4-9793-893E589CA037}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7DB4965-2E45-4CE4-9793-893E589CA037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8AE5DC-F90E-4D17-87DC-D8AD7850B89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8AE5DC-F90E-4D17-87DC-D8AD7850B89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8AE5DC-F90E-4D17-87DC-D8AD7850B89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8AE5DC-F90E-4D17-87DC-D8AD7850B89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8CBB235-C5AC-4D0F-A934-54AB6E1DD387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8CBB235-C5AC-4D0F-A934-54AB6E1DD387}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8CBB235-C5AC-4D0F-A934-54AB6E1DD387}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8CBB235-C5AC-4D0F-A934-54AB6E1DD387}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251C2E3B-F683-4FAC-9630-F23714D79026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251C2E3B-F683-4FAC-9630-F23714D79026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251C2E3B-F683-4FAC-9630-F23714D79026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251C2E3B-F683-4FAC-9630-F23714D79026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4883620E-D832-45C4-B57E-2FEBA261F749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4883620E-D832-45C4-B57E-2FEBA261F749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4883620E-D832-45C4-B57E-2FEBA261F749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4883620E-D832-45C4-B57E-2FEBA261F749}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

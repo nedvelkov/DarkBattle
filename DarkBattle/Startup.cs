@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using System.Reflection;
 
 namespace DarkBattle
 {
@@ -29,6 +31,8 @@ namespace DarkBattle
             //TODO : Configurate Db
             services.AddDbContext<DarkBattleDbContext>(opt => 
                     opt.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(Assembly.GetEntryAssembly());
             
         }
 

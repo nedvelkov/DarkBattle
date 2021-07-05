@@ -1,21 +1,28 @@
-﻿using DarkBattle.Data;
-using DarkBattle.Data.Models;
-using DarkBattle.Models;
-using DarkBattle.Models.Areas;
-using DarkBattle.Models.Creatures;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DarkBattle.Controllers
+﻿namespace DarkBattle.Controllers
 {
+    using DarkBattle.Data;
+    using DarkBattle.Models;
+    using DarkBattle.ViewModels.Areas;
+    using DarkBattle.ViewModels.Creatures;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+
     public class AdminController:Controller
     {
         private readonly DarkBattleDbContext data;
+        private readonly IMapper mapper;
 
-        public AdminController(DarkBattleDbContext data) => this.data = data;
+        public AdminController(DarkBattleDbContext data,
+                                IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper;
+        }
 
         public IActionResult AddCreature([FromQuery] string creatureId)
         {
@@ -24,18 +31,8 @@ namespace DarkBattle.Controllers
                 var copyCreature = this.data
                          .Creatures
                          .Where(x => x.Id == creatureId)
-                         .Select(x => new CreateCreatureViewModel
-                         {
-                             Name = x.Name,
-                             Image = x.ImageUrl,
-                             Attack = x.Attack,
-                             Defense = x.Defense,
-                             Health = x.Health,
-                             Block = x.Block,
-                             Level = x.Level,
-                             Gold = x.Gold,
-                             Expirience = x.Expirience
-                         }).First();
+                         .ProjectTo<CreateCreatureViewModel>(mapper.ConfigurationProvider)
+                         .First();
                 return View(copyCreature);
             }
             return View();
