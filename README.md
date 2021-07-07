@@ -20,6 +20,7 @@ Controller conception:
 * Class
 * Merchant
 * Consumbles
+
 Progress :
 * Area controller with edit, create and index view
 * Creature controller with edit, create and index view
