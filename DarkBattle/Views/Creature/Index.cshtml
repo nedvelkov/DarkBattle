@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DarkBattle.ViewModels.Creatures.CreatureListViewModel>
+
+@{
+    ViewData["Title"] = "Creatures";
+}
+
+<h1>Creatures</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Area)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Area)
+            </td>
+            <td>
+                <a asp-action="Create" asp-route-creatureId="@item.Id">Copy</a> |
+                <a asp-action="Edit" asp-route-creatureId="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-creatureId="@item.Id">Delete</a> |
+                <a asp-action="AddToArea" asp-route-creatureId="@item.Id">Add to area</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
