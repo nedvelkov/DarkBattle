@@ -38,6 +38,7 @@ namespace DarkBattle
             services.AddAutoMapper(typeof(DarkBattleProfile));
             services.AddTransient<ICreatureService, CreatureService>();
             services.AddTransient<IAreaService, AreaService>();
+            services.AddTransient<IValidator, Validator>();
 
         }
 

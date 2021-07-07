@@ -47,7 +47,10 @@
                 <button type="button" class="btn btn-link justify-content-md-center" asp-controller="Admin" asp-action="Areas">Select Area</button>
             </td>
             <td>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AddCreature" asp-route-creatureId="@item.Id">Copy</a>
+                <a asp-action="AddCreature" asp-route-creatureId="@item.Id">Copy</a> |
+                <a asp-action="EditCreature" asp-route-creatureId="@item.Id">Edit</a> |
+                <a asp-action="DeleteCreature" asp-route-creatureId="@item.Id">Delete</a>
+
             </td>
         </tr>
 }

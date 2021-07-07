@@ -19,12 +19,22 @@
     {
         private readonly ICreatureService creatureService;
         private readonly IAreaService areaService;
+        private readonly IValidator validator;
 
         public AdminController(ICreatureService creatureService,
+            IValidator validator,
                                 IAreaService areaService)
         {
             this.creatureService = creatureService;
             this.areaService = areaService;
+            this.validator = validator;
+        }
+
+        public IActionResult Creatures()
+        {
+            var creatures = this.creatureService.CreatureCollection();
+
+            return View(creatures);
         }
 
         public IActionResult AddCreature([FromQuery] string creatureId)
@@ -33,7 +43,7 @@
             if (creatureId != null)
             {
                 var copyCreature = this.creatureService
-                                       .ReturnCreatureViewModel(creatureId);
+                                       .GetCreature(creatureId);
                 return View(copyCreature);
             }
 
@@ -52,11 +62,38 @@
 
             return Redirect("/");
         }
-        public IActionResult Creatures()
-        {
-            var creatures = this.creatureService.CreatureCollection();
 
-            return View(creatures);
+        public IActionResult EditCreature([FromQuery] string creatureId)
+        {
+            var creature = this.creatureService.GetCreature(creatureId);
+            if (this.validator.IsValid(creature) == false)
+            {
+                return Error("Invalid creature model");
+            }
+            return View(creature);
+        }
+
+        [HttpPost]
+        public IActionResult EditCreature(CreatureViewModel model)
+        {
+            if (this.ModelState.IsValid == false)
+            {
+                return View();
+            }
+
+            this.creatureService.EditCreature(model);
+
+            return Redirect("/");
+        }
+
+        //Areas
+
+        public IActionResult Areas()
+        {
+
+            var areas = this.areaService.AreasCollection();
+
+            return View(areas);
         }
         public IActionResult AddAreas()
         {
@@ -76,52 +113,53 @@
             return Redirect("/");
         }
 
-        public IActionResult Areas()
-        {
-
-            var areas = this.areaService.AreasCollection();
-
-            return View(areas);
-        }
-
         public IActionResult EditArea([FromQuery] string areaId)
         {
-                var area = this.areaService.GetArea(areaId);
-                if (area == null)
-                {
-                    //TODO : Error invalid area
-                    return Json(areaId);
-                }
+            var area = this.areaService.GetArea(areaId);
+            if (area == null)
+            {
+                return Error("Invalid area model");
+            }
 
-                return View(area);
+            return View(area);
         }
         [HttpPost]
         public IActionResult EditArea(AreaViewModel model)
         {
             if (this.ModelState.IsValid == false)
             {
-                //TODO : Error invalid data
-                return Json(this.ModelState);
+                return Error("Invalid area model");
             }
 
             this.areaService.EditArea(model);
 
-            return Redirect("/");
+            return Redirect("/Admin/Areas");
         }
+
+        public IActionResult DeleteArea([FromQuery] string id)
+        {
+            this.areaService.DeleteArea(id);
+
+            return Redirect("/Admin/Areas");
+        }
+
+
+
 
         public IActionResult Test([FromQuery] string id)
         {
             if (id != null)
             {
-                return Json("Done");
+                return Redirect("/");
             }
             return View();
         }
 
-        public IActionResult Error()
+        public IActionResult Error(string error)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-
+            return View(error);
         }
+
+
     }
 }
