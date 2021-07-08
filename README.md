@@ -24,6 +24,7 @@ Controller conception:
 Progress :
 * Area controller with edit, create and index view
 * Creature controller with edit, create and index view
+<<<<<<< HEAD
 * Item controller with edit, create and index view# DarkBattle
 This repository is for my project assignment - Web application.
 
@@ -72,6 +73,9 @@ Implamented services and automaping. Project is split in different libraries.
 
 	
 
+=======
+* Item controller with edit, create and index view
+>>>>>>> 948dfb0f6b93ec8fd36079a66347ad94dffdabf9
 
 Implamented services and automaping. Project is split in different libraries.
 
