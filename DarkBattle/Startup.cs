@@ -44,6 +44,8 @@ namespace DarkBattle
             services.AddTransient<IValidator, Validator>();
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IConsumableService, ConsumableService>();
+            services.AddTransient<IMerchantService, MerchantService>();
+            services.AddTransient<IChampionClassService, ChampionClassService>();
 
         }
 

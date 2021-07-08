@@ -35,7 +35,7 @@
 
             this.areaService.Add(model);
 
-            return Redirect("/Area/Index");
+            return Redirect("/Area");
         }
 
         public IActionResult Edit([FromQuery] string areaId)

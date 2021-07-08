@@ -8,15 +8,19 @@
     {
         [Key]
         [Required]
-        public string Id { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
-        public string Name { get; init; }
+        public string Name { get; set; }
 
         [Required]
         public string Description { get; set; }
 
+        [Required]
+        public string ImageUrl { get; set; }
+
         public ICollection<Item> Items { get; set; } = new List<Item>();
+
         public ICollection<Consumable> Consumables { get; set; } = new List<Consumable>();
     }
 }

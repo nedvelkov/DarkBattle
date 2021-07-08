@@ -6,6 +6,8 @@
     using DarkBattle.ViewModels.Areas;
     using DarkBattle.ViewModels.Items;
     using DarkBattle.ViewModels.Consumables;
+    using DarkBattle.ViewModels.Merchants;
+    using DarkBattle.ViewModels.ChampionClasses;
 
     public class DarkBattleProfile:Profile
     {
@@ -64,6 +66,26 @@
             this.CreateMap<Consumable, ConsumableListViewModel>();
 
             this.CreateMap<ConsumableListViewModel, Consumable>();
+
+            //Merchant
+            this.CreateMap<MerchantViewModel, Merchant>();
+
+            this.CreateMap<Merchant, MerchantViewModel>();
+
+
+            this.CreateMap<Merchant, MerchantListViewModel>();
+
+            this.CreateMap<MerchantListViewModel, Merchant>();
+
+            //ChampionClass
+            this.CreateMap<ChampionClassViewModel, ChampionClass>();
+
+            this.CreateMap<ChampionClass, ChampionClassViewModel>();
+
+
+            this.CreateMap<ChampionClass, ChampionClassListViewModel>();
+
+            this.CreateMap<ChampionClassListViewModel, ChampionClass>();
         }
     }
 }

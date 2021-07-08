@@ -1,11 +1,9 @@
 ﻿namespace DarkBattle.Data
 {
-    using DarkBattle.Data.Models;
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+    using DarkBattle.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -15,6 +13,7 @@
         public DbSet<Merchant> Merchants { get; init; }
         public DbSet<Consumable> Consumables { get; init; }
         public DbSet<Area> Areas { get; init; }
+        public DbSet<ChampionClass> ChampionClasses { get; init; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

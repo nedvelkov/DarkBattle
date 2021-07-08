@@ -25,13 +25,11 @@ namespace DarkBattle.ViewModels.Items
         public string ImageUrl { get; set; }
 
         [Required]
-        [Range(MinValue, MaxLevelCreature)]
-
+        [Range(MinValue, MaxItemAttack)]
         public int Attack { get; set; }
 
         [Required]
-        [Range(MinValue, MaxLevelCreature)]
-
+        [Range(MinValue, MaxItemDefense)]
         public int Defense { get; set; }
 
         [Required]
@@ -39,12 +37,12 @@ namespace DarkBattle.ViewModels.Items
         public string ObtainBy { get; set; }
 
         [Required]
-        [Range(MinValue, MaxLevelCreature)]
+        [Range(MinValue, MaxChampionLevel)]
         [DisplayName("Required level")]
         public int RequiredLevel { get; set; }
 
         [Required]
-        [Range(MinValue, MaxLevelCreature)]
+        [Range(MinValue, int.MaxValue)]
         public int Value { get; set; }
     }
 }

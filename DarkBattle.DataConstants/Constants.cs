@@ -15,5 +15,13 @@
 
         //Consumable
         public const int MaxHealthRestore = 350;
+
+        //Item
+        public const int MaxItemAttack = 350;
+        public const int MaxItemDefense = 400;
+
+        //Champion
+        public const int MaxChampionLevel = 50;
+
     }
 }

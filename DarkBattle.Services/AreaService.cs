@@ -64,8 +64,7 @@
             var areas = this.data
                             .Areas
                             .Include(x => x.Creatures)
-                            .Select(x => this.mapper.Map<AreasListViewModel>(x))
-                            // .ProjectTo<AreasListViewModel>(mapper.ConfigurationProvider)
+                            .ProjectTo<AreasListViewModel>(mapper.ConfigurationProvider)
                             .ToList();
             return areas;
         }

@@ -82,8 +82,9 @@ namespace DarkBattle.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Agility")
-                        .HasColumnType("int");
+                    b.Property<string>("ChampionClassId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Expirence")
                         .HasColumnType("int");
@@ -94,11 +95,34 @@ namespace DarkBattle.Data.Migrations
                     b.Property<int>("Gold")
                         .HasColumnType("int");
 
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChampionClassId");
+
+                    b.ToTable("Champions");
+                });
+
+            modelBuilder.Entity("DarkBattle.Data.Models.ChampionClass", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Agility")
+                        .HasColumnType("int");
+
                     b.Property<int>("Health")
                         .HasColumnType("int");
 
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -112,7 +136,7 @@ namespace DarkBattle.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Champions");
+                    b.ToTable("ChampionClasses");
                 });
 
             modelBuilder.Entity("DarkBattle.Data.Models.Consumable", b =>
@@ -247,6 +271,10 @@ namespace DarkBattle.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -489,6 +517,17 @@ namespace DarkBattle.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DarkBattle.Data.Models.Champion", b =>
+                {
+                    b.HasOne("DarkBattle.Data.Models.ChampionClass", "ChampionClass")
+                        .WithMany("Champions")
+                        .HasForeignKey("ChampionClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChampionClass");
+                });
+
             modelBuilder.Entity("DarkBattle.Data.Models.Consumable", b =>
                 {
                     b.HasOne("DarkBattle.Data.Models.Creature", null)
@@ -578,6 +617,11 @@ namespace DarkBattle.Data.Migrations
             modelBuilder.Entity("DarkBattle.Data.Models.Area", b =>
                 {
                     b.Navigation("Creatures");
+                });
+
+            modelBuilder.Entity("DarkBattle.Data.Models.ChampionClass", b =>
+                {
+                    b.Navigation("Champions");
                 });
 
             modelBuilder.Entity("DarkBattle.Data.Models.Creature", b =>
