@@ -6,11 +6,11 @@
 
     public interface ICreatureService
     {
-        public void AddCreature(CreatureViewModel model);
+        public void Add(CreatureViewModel model);
+        public void Edit(CreatureViewModel model);
         public CreatureViewModel GetCreature(string id);
+        public ICollection<CreatureListViewModel> CreaturesCollection();
         public bool Delete(string id);
-        public void EditCreature(CreatureViewModel model);
-        public ICollection<CreatureListViewModel> CreatureCollection();
 
     }
 }

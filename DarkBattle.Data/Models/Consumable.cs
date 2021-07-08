@@ -11,13 +11,13 @@
         public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
-        public string Name { get; init; }
+        public string Name { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }
 
         [Required]
-        public int RestoreHealth { get; init; }
+        public int RestoreHealth { get; set; }
 
         [Required]
         public int Value { get; set; }

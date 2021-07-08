@@ -22,7 +22,7 @@
             this.mapper = mapper;
         }
 
-        public void AddAreas(AreaViewModel model)
+        public void Add(AreaViewModel model)
         {
             model.Id = Guid.NewGuid().ToString();
             var area = this.mapper.Map<Area>(model);
@@ -31,7 +31,7 @@
             this.data.SaveChanges();
         }
 
-        public void EditArea(AreaViewModel model)
+        public void Edit(AreaViewModel model)
         {
             var area = this.data.Areas.Single(x => x.Id == model.Id);
 
@@ -70,7 +70,7 @@
             return areas;
         }
 
-        public bool DeleteArea(string id)
+        public bool Delete(string id)
         {
             var area = GetAreaById(id);
             if (area == null)

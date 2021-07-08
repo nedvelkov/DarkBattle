@@ -23,7 +23,7 @@
             this.mapper = mapper;
         }
 
-        public void AddItem(ItemViewModel model)
+        public void Add(ItemViewModel model)
         {
             model.Id = Guid.NewGuid().ToString();
             var item = this.mapper.Map<Item>(model);
@@ -31,7 +31,7 @@
             this.data.SaveChanges();
         }
 
-        public void EditItem(ItemViewModel model)
+        public void Edit(ItemViewModel model)
         {
             var item = this.data.Items.Single(x => x.Id == model.Id);
 
@@ -58,7 +58,7 @@
             return item;
         }
 
-        public ICollection<ItemListViewModel> ItemCollection()
+        public ICollection<ItemListViewModel> ItemsCollection()
         {
             var items = this.data
                 .Items
@@ -68,7 +68,7 @@
             return items;
         }
 
-        public bool DeleteItem(string id)
+        public bool Delete(string id)
         {
             var item = GetItemById(id);
             if (item == null)

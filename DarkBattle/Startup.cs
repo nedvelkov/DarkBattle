@@ -43,6 +43,7 @@ namespace DarkBattle
             services.AddTransient<IAreaService, AreaService>();
             services.AddTransient<IValidator, Validator>();
             services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IConsumableService, ConsumableService>();
 
         }
 

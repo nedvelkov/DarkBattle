@@ -1,8 +1,9 @@
 ﻿namespace DarkBattle.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     using DarkBattle.Services;
     using DarkBattle.ViewModels.Creatures;
-    using Microsoft.AspNetCore.Mvc;
 
     public class CreatureController:Controller
     {
@@ -13,7 +14,7 @@
         public IActionResult Index()
         {
             
-            return View(this.creatureService.CreatureCollection());
+            return View(this.creatureService.CreaturesCollection());
         }
 
         public IActionResult Create([FromQuery] string creatureId)
@@ -36,7 +37,7 @@
                 return View(model);
             }
 
-            this.creatureService.AddCreature(model);
+            this.creatureService.Add(model);
 
             return Redirect("/Creature");
         }
@@ -61,7 +62,7 @@
                 return View();
             }
 
-            this.creatureService.EditCreature(model);
+            this.creatureService.Edit(model);
 
             return Redirect("/Creature");
         }

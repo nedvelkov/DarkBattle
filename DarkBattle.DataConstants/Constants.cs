@@ -12,5 +12,8 @@
 
         //Creature
         public const int MaxLevelCreature = 50;
+
+        //Consumable
+        public const int MaxHealthRestore = 350;
     }
 }

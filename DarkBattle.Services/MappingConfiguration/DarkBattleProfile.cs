@@ -5,6 +5,8 @@
     using DarkBattle.ViewModels.Creatures;
     using DarkBattle.ViewModels.Areas;
     using DarkBattle.ViewModels.Items;
+    using DarkBattle.ViewModels.Consumables;
+
     public class DarkBattleProfile:Profile
     {
         public DarkBattleProfile()
@@ -52,6 +54,16 @@
             this.CreateMap<Item, ItemListViewModel>();
 
             this.CreateMap<ItemListViewModel, Item>();
+
+            //Consumable
+            this.CreateMap<ConsumableViewModel, Consumable>();
+
+            this.CreateMap<Consumable,ConsumableViewModel>();
+
+
+            this.CreateMap<Consumable, ConsumableListViewModel>();
+
+            this.CreateMap<ConsumableListViewModel, Consumable>();
         }
     }
 }

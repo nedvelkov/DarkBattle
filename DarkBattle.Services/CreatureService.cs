@@ -1,13 +1,15 @@
 ﻿namespace DarkBattle.Services
 {
-    using DarkBattle.ViewModels.Creatures;
-    using DarkBattle.Data;
-    using AutoMapper;
-    using DarkBattle.Data.Models;
-    using System.Linq;
-    using AutoMapper.QueryableExtensions;
-    using System.Collections.Generic;
     using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+   
+    using DarkBattle.Data;
+    using DarkBattle.Data.Models;
+    using DarkBattle.ViewModels.Creatures;
 
     public class CreatureService : ICreatureService
     {
@@ -20,7 +22,7 @@
             this.mapper = mapper;
         }
 
-        public void AddCreature(CreatureViewModel model)
+        public void Add(CreatureViewModel model)
         {
             model.Id = Guid.NewGuid().ToString();
             var creature = this.mapper.Map<Creature>(model);
@@ -28,7 +30,7 @@
             this.data.SaveChanges();
         }
 
-        public void EditCreature(CreatureViewModel model)
+        public void Edit(CreatureViewModel model)
         {
             var creature = this.data.Creatures.Single(x => x.Id == model.Id);
 
@@ -56,6 +58,16 @@
             return creature;
         }
 
+
+        public ICollection<CreatureListViewModel> CreaturesCollection()
+        {
+            var creatures = this.data
+                .Creatures
+                .ProjectTo<CreatureListViewModel>(mapper.ConfigurationProvider)
+                .ToList();
+
+            return creatures;
+        }
         public bool Delete(string id)
         {
             var creature = GetCreatureById(id);
@@ -69,16 +81,6 @@
             this.data.SaveChanges();
 
             return true;
-        }
-
-        public ICollection<CreatureListViewModel> CreatureCollection()
-        {
-            var creatures = this.data
-                .Creatures
-                .ProjectTo<CreatureListViewModel>(mapper.ConfigurationProvider)
-                .ToList();
-
-            return creatures;
         }
 
 

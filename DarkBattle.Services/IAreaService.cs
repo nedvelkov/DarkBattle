@@ -6,14 +6,14 @@
 
     public interface IAreaService
     {
-        public void AddAreas(AreaViewModel model);
+        public void Add(AreaViewModel model);
 
-        public void EditArea(AreaViewModel model);
+        public void Edit(AreaViewModel model);
         
         public AreaViewModel GetArea(string id);
 
         public ICollection<AreasListViewModel> AreasCollection();
 
-        public bool DeleteArea(string id);  
+        public bool Delete(string id);  
     }
 }

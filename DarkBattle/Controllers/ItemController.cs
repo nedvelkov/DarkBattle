@@ -12,7 +12,7 @@
         public IActionResult Index()
         {
 
-            return View(this.itemService.ItemCollection());
+            return View(this.itemService.ItemsCollection());
         }
 
         public IActionResult Create([FromQuery] string itemId)
@@ -35,7 +35,7 @@
                 return View(model);
             }
 
-            this.itemService.AddItem(model);
+            this.itemService.Add(model);
 
             return Redirect("/Item");
         }
@@ -60,14 +60,14 @@
                 return View();
             }
 
-            this.itemService.EditItem(model);
+            this.itemService.Edit(model);
 
             return Redirect("/Item");
         }
 
         public IActionResult Delete([FromQuery] string itemId)
         {
-            if (this.itemService.DeleteItem(itemId) == false)
+            if (this.itemService.Delete(itemId) == false)
             {
                 return Redirect("/Home/Error");
             }

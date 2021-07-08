@@ -7,14 +7,14 @@
 
     public interface IItemService
     {
-        public void AddItem(ItemViewModel model);
+        public void Add(ItemViewModel model);
 
-        public void EditItem(ItemViewModel model);
+        public void Edit(ItemViewModel model);
 
         public ItemViewModel GetItem(string id);
 
-        public ICollection<ItemListViewModel> ItemCollection();
+        public ICollection<ItemListViewModel> ItemsCollection();
 
-        public bool DeleteItem(string id);
+        public bool Delete(string id);
     }
 }

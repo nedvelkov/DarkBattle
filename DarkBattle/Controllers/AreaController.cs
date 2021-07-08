@@ -33,7 +33,7 @@
                 return View(model);
             }
 
-            this.areaService.AddAreas(model);
+            this.areaService.Add(model);
 
             return Redirect("/Area/Index");
         }
@@ -57,14 +57,14 @@
                 return Redirect("/Home/Error");
             }
 
-            this.areaService.EditArea(model);
+            this.areaService.Edit(model);
 
             return Redirect("/Area");
         }
 
         public IActionResult Delete([FromQuery] string areaId)
         {
-            if (this.areaService.DeleteArea(areaId) == false)
+            if (this.areaService.Delete(areaId) == false)
             {
                 return Redirect("/Home/Error");
 
