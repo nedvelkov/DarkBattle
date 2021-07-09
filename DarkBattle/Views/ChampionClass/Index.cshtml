@@ -14,9 +14,10 @@
     @foreach (var item in Model)
     {
         <div class="card-body">
-            <img scr="@Url.Content(@item.ImageUrl)"
-                 alt="@item.Name" class="imagChClasses" />
+            <img src="@Url.Content(@item.ImageUrl)"
+                 alt="@item.Name" class="imagChClasses" title="@item.Name" />
             <div class="body">
+                <span>@item.Name</span>
                 <ul class="list-group-item text-left">
                     <li> <a asp-action="Edit" asp-route-classId="@item.Id">Edit</a> </li>
                     <li> <a asp-action="Delete" asp-route-classId="@item.Id">Delete</a> </li>
