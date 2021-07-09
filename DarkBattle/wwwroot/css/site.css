@@ -69,3 +69,8 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+.imagChClasses {
+    display: block;
+    width: 10%;
+    height:50%;
+}
