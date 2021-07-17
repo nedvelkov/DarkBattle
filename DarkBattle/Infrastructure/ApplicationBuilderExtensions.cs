@@ -1,5 +1,7 @@
 ﻿namespace DarkBattle.Infrastructure
 {
+    using System.Linq;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,12 @@
 
             data.Database.Migrate();
 
+            var roles= data.UserRoles.Any();
+
+            if (roles == false)
+            {
+                //data.UserRoles.Add()
+            }
           //  SeedCategories(data);
 
             return app;

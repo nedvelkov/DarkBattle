@@ -10,8 +10,10 @@ namespace DarkBattle
 
     using DarkBattle.Data;
     using DarkBattle.MappingConfiguration;
-    using DarkBattle.Services;
+    using DarkBattle.Services.Interface;
+    using DarkBattle.Services.Models;
     using DarkBattle.Infrastructure;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Startup
     {
@@ -27,9 +29,21 @@ namespace DarkBattle
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 6;
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.User.RequireUniqueEmail = true;
+            })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(config=>
+            {
+                config.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
 
             services.AddAutoMapper(typeof(DarkBattleProfile))
                     .AddTransient<ICreatureService, CreatureService>()
@@ -38,7 +52,8 @@ namespace DarkBattle
                     .AddTransient<IItemService, ItemService>()
                     .AddTransient<IConsumableService, ConsumableService>()
                     .AddTransient<IMerchantService, MerchantService>()
-                    .AddTransient<IChampionClassService, ChampionClassService>();
+                    .AddTransient<IChampionClassService, ChampionClassService>()
+                    .AddTransient<IAreaCreatureService, AreaCreatureService>();
 
         }
 

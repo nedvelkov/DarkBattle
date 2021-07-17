@@ -18,6 +18,17 @@
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
+
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity<Area>()
+        //        .HasMany(c => c.Creatures)
+        //        .WithOne(c => c.Area)
+        //        .HasForeignKey(c => c.AreaId)
+        //        .OnDelete(DeleteBehavior.Restrict);
+
+        //}
     }
 }
