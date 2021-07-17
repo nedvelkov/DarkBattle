@@ -31,14 +31,6 @@
             this.CreateMap<Area, AreaViewModel>();
             this.CreateMap<AreaViewModel, Area>();
 
-
-
-            //this.CreateMap<Area, AreasListViewModel>()
-            //    .ForMember(x => x.MinLevel, y => y.MapFrom(l => l.MinLevelEnterence))
-            //    .ForMember(x => x.MaxLevel, y => y.MapFrom(l => l.MaxLevelCreatures));
-            ////.ReverseMap()
-            ////.ForPath(x => x.Creatures.Count, y => y.MapFrom(l => l.CreaturesCount)); 
-            ///
             this.CreateMap<Area, AreasListViewModel>()
                 .ForMember(x=>x.MaxLevel,y=>y.MapFrom(i=>i.MaxLevelCreatures))
                 .ForMember(x=>x.MinLevel,y=>y.MapFrom(i=>i.MinLevelEnterence))
@@ -48,7 +40,6 @@
                 .ForMember(x => x.MinLevelEnterence, y => y.MapFrom(l => l.MinLevel))
                 .ForMember(x => x.MaxLevelCreatures, y => y.MapFrom(l => l.MaxLevel))
                 .ForMember(x => x.Creatures, opt => opt.Ignore());
-            //.ForMember(x => x.Creatures.Count, y => y.MapFrom(l => l.CreaturesCount));
 
 
             //Items
@@ -90,6 +81,11 @@
             this.CreateMap<ChampionClass, ChampionClassListViewModel>();
 
             this.CreateMap<ChampionClassListViewModel, ChampionClass>();
+
+            //AreaCreatures
+
+            this.CreateMap<Creature, CreatureAreaViewModel>();
+            this.CreateMap<Area, AreaCreatureViewModel>();
         }
     }
 }
