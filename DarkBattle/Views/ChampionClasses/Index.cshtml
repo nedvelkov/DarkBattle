@@ -1,0 +1,28 @@
+﻿@model IEnumerable<DarkBattle.ViewModels.ChampionClasses.ChampionClassListViewModel>
+
+@{
+    ViewData["Title"] = "Champion classes";
+}
+
+<h1>Champion classes</h1>
+<hr />
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="row mt-2 mb-2">
+    @foreach (var item in Model)
+    {
+        <div class="card-body col-3">
+            <img src="@Url.Content(@item.ImageUrl)"
+                 alt="@item.Name" class="imagChClasses" title="@item.Name" />
+            <div class="body">
+                <span>@item.Name</span>
+                <ul class="list-group-item text-left">
+                    <li> <a asp-action="Edit" asp-route-classId="@item.Id">Edit</a> </li>
+                    <li> <a asp-action="Delete" asp-route-classId="@item.Id">Delete</a> </li>
+                </ul>
+            </div>
+        </div>
+    }
+</div>

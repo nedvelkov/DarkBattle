@@ -1,0 +1,61 @@
+﻿@using DarkBattle.ViewModels.MerchantItems
+@model MerchantItemAddViewModel
+
+@{
+    ViewData["Title"] = Model.MerchantName;
+}
+
+<h1>@Model.MerchantName</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Name</label>
+            </th>
+            <th>
+                <label>Type</label>
+
+            </th>
+            <th>
+                <label>Obtain by</label>
+            </th>
+            <th>
+                <label>Required level</label>
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ItemCollection)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ObtainBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequiredLevel)
+                </td>
+                <td>
+                    <img src="@item.ImageUrl" class="imageItemMerchant" alt="@item.Name">
+                </td>
+                <td>
+                    <a asp-action="Add" asp-route-itemId="@item.Id" asp-route-merchantId="@Model.MerchantId" class="btn btn-primary">Add</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Model.ItemCollection.Count == 0)
+{
+    <a asp-controller="Items" asp-action="Create" class="btn btn-primary">Add new items in game</a>
+
+}

@@ -1,0 +1,37 @@
+﻿@using DarkBattle.ViewModels.AreaCreatures
+@using DarkBattle.ViewModels.Creatures
+
+@model DarkBattle.ViewModels.AreaCreatures.AreaCreatureAddViewModel
+
+@{
+    ViewData["Title"] = Model.Area.Name;
+}
+
+<h1>@Model.Area.Name</h1>
+<h3>@Model.Area.Description</h3>
+<hr />
+
+<form method="post">
+    <div class="row">
+        @foreach (var creature in Model.Creatures)
+        {
+            <div class="form-group col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="@creature.ImageUrl" class="card-img-top" alt="@creature.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@creature.Name</h5>
+                        <p class="card-text">Level: @creature.Level</p>
+                        <p class="card-text">Attack: @creature.Attack </p>
+                        <p class="card-text">Expirience: @creature.Expirience </p>
+                        <a asp-action="Add" asp-route-creatureId="@creature.Id" asp-route-areaId="@Model.Area.Id" class="btn btn-primary">Add</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</form>
+@if (Model.Creatures.Count == 0)
+{
+    <a asp-controller="Creatures" asp-action="Create" class="btn btn-primary">Add new creatures in game</a>
+
+}
