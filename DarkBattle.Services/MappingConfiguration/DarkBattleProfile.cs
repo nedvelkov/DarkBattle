@@ -68,9 +68,9 @@
             this.CreateMap<Merchant, MerchantViewModel>();
 
 
-            this.CreateMap<Merchant, MerchantListViewModel>();
-
-            this.CreateMap<MerchantListViewModel, Merchant>();
+            this.CreateMap<Merchant, MerchantListViewModel>()
+                .ForMember(x => x.ConsumableCount, y=>y.MapFrom(i=>i.Consumables.Count))
+                .ForMember(x => x.ItemCount, y => y.MapFrom(i => i.Items.Count));
 
             //ChampionClass
             this.CreateMap<ChampionClassViewModel, ChampionClass>();

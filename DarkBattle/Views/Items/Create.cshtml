@@ -37,8 +37,15 @@
                 <span asp-validation-for="Defense" class="text-danger"></span>
             </div>
             <div class="form-group">
+
                 <label asp-for="ObtainBy" class="control-label"></label>
-                <input asp-for="ObtainBy" class="form-control" />
+                <select asp-for="ObtainBy" class="form-control">
+                    <option value="" selected></option>
+                    @foreach (var item in Model.ChampionClasses)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
                 <span asp-validation-for="ObtainBy" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -31,6 +31,12 @@
             this.data.SaveChanges();
         }
 
+        public ItemViewModel GetChamponClasses()
+                => new ItemViewModel
+                {
+                    ChampionClasses = this.data.ChampionClasses.Select(x => x.Name).ToList()
+                };
+
         public void Edit(ItemViewModel model)
         {
             var item = this.data.Items.Single(x => x.Id == model.Id);
@@ -55,6 +61,7 @@
             var item = this.mapper
                             .Map<ItemViewModel>
                             (this.GetItemById(id));
+            item.ChampionClasses= this.data.ChampionClasses.Select(x => x.Name).ToList();
             return item;
         }
 

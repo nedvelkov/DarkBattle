@@ -32,16 +32,13 @@
         }
 
         public MerchantItemAddViewModel Items(string merchantId)
-        {
-            Func<Item, bool> func = x => x.MerchantId == null;
-            return GetListView(func, merchantId);
-        }
+            => GetListView(x => x.MerchantId == null, merchantId);
+        
 
         public MerchantItemPageModel ItemsSellByMerchant(string merchantId)
         {
             var merchant = GetMerchant(merchantId);
-            Func<Item, bool> func = x => x.MerchantId == merchantId;
-            var items = GetItems<ItemViewModel>(func);
+            var items = GetItems<ItemViewModel>(x => x.MerchantId == merchantId);
 
             return new MerchantItemPageModel()
             {
@@ -56,15 +53,15 @@
             var merchant= this.ItemsSellByMerchant(model.MerchantId);
             if (model.SelectItemLevel != 0)
             {
-                merchant.ItemCollection = SortList<ItemViewModel>((x => x.RequiredLevel == model.SelectItemLevel),merchant.ItemCollection);
+                merchant.ItemCollection = SortList((x => x.RequiredLevel == model.SelectItemLevel),merchant.ItemCollection);
             }
             if (model.SelectItemType != null)
             {
-                merchant.ItemCollection = SortList<ItemViewModel>((x => x.Type == model.SelectItemType), merchant.ItemCollection);
+                merchant.ItemCollection = SortList((x => x.Type == model.SelectItemType), merchant.ItemCollection);
             }
             if(model.SelectObteinBy != null)
             {
-                merchant.ItemCollection = SortList<ItemViewModel>((x => x.ObtainBy == model.SelectObteinBy), merchant.ItemCollection);
+                merchant.ItemCollection = SortList((x => x.ObtainBy == model.SelectObteinBy), merchant.ItemCollection);
             }
 
             return merchant;

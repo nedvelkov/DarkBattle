@@ -2,6 +2,7 @@
 namespace DarkBattle.ViewModels.Items
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
@@ -44,5 +45,7 @@ namespace DarkBattle.ViewModels.Items
         [Required]
         [Range(MinValue, int.MaxValue)]
         public int Value { get; set; }
+
+        public ICollection<string> ChampionClasses { get; set; }
     }
 }

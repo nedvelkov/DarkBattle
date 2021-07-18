@@ -530,13 +530,17 @@ namespace DarkBattle.Data.Migrations
 
             modelBuilder.Entity("DarkBattle.Data.Models.Consumable", b =>
                 {
-                    b.HasOne("DarkBattle.Data.Models.Creature", null)
+                    b.HasOne("DarkBattle.Data.Models.Creature", "Creature")
                         .WithMany("Consumables")
                         .HasForeignKey("CreatureId");
 
-                    b.HasOne("DarkBattle.Data.Models.Merchant", null)
+                    b.HasOne("DarkBattle.Data.Models.Merchant", "Merchant")
                         .WithMany("Consumables")
                         .HasForeignKey("MerchantId");
+
+                    b.Navigation("Creature");
+
+                    b.Navigation("Merchant");
                 });
 
             modelBuilder.Entity("DarkBattle.Data.Models.Creature", b =>

@@ -3,7 +3,10 @@
     using System;
     using System.Linq;
     using System.Collections.Generic;
-    
+
+    using Microsoft.EntityFrameworkCore;
+
+
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
 
@@ -64,6 +67,8 @@
         {
             var merchants = this.data
                             .Merchants
+                            .Include(x=>x.Items)
+                            .Include(x=>x.Consumables)
                             .ProjectTo<MerchantListViewModel>(mapper.ConfigurationProvider)
                             .ToList();
 

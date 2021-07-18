@@ -23,5 +23,9 @@
         public int Value { get; set; }
 
         public ICollection<Champion> ChampionConsumables { get; set; } = new List<Champion>();
+        public string CreatureId { get; set; }
+        public Creature Creature { get; set; }
+        public string MerchantId { get; set; }
+        public Merchant Merchant { get; set; }
     }
 }

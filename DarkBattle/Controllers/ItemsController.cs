@@ -15,7 +15,7 @@
             return View(this.itemService.ItemsCollection());
         }
 
-        public IActionResult Create([FromQuery] string itemId)
+        public IActionResult Create(string itemId)
         {
             if (itemId != null)
             {
@@ -24,7 +24,7 @@
                 return View(copyCreature);
             }
 
-            return View();
+            return View(this.itemService.GetChamponClasses());
         }
 
         [HttpPost]

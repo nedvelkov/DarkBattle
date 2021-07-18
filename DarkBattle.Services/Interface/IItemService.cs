@@ -13,6 +13,8 @@
 
         public ItemViewModel GetItem(string id);
 
+        public ItemViewModel GetChamponClasses();
+
         public ICollection<ItemListViewModel> ItemsCollection();
 
         public bool Delete(string id);
