@@ -86,6 +86,11 @@
 
             this.CreateMap<Creature, CreatureAreaViewModel>();
             this.CreateMap<Area, AreaCreatureViewModel>();
+
+            //MerchantItems
+
+            this.CreateMap<Item, MerchantItemsListView>();
+            this.CreateMap<MerchantItemsListView, Item>();
         }
     }
 }

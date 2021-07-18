@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DarkBattle.ViewModels.Items
+﻿namespace DarkBattle.ViewModels.Items
 {
-  public  class ItemListViewModel
+    using System.ComponentModel;
+
+    public  class ItemListViewModel
     {
         public string Id { get; set; }
 
