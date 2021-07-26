@@ -16,6 +16,8 @@
         {
             using var scopedServices = app.ApplicationServices.CreateScope();
 
+            var services = scopedServices.ServiceProvider;
+
             var data = scopedServices.ServiceProvider.GetService<ApplicationDbContext>();
 
             data.Database.Migrate();

@@ -1,14 +1,16 @@
 ﻿@{ 
     if (this.User.IsInRole("Player"))
     {
+        Layout = "_LayoutPlayer";
 
     }
     else if (this.User.IsInRole("Admin"))
     {
+        Layout = "_Layout";
 
     }
     else
     {
-    Layout = "_Layout";
+        Layout = "_Layout";
     }
 }

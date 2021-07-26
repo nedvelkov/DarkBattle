@@ -5,7 +5,7 @@
 
     using DarkBattle.Data.Models;
 
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<Player>
     {
         public DbSet<Item> Items { get; init; }
         public DbSet<Champion> Champions { get; init; }

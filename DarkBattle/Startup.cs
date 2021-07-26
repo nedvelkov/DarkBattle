@@ -14,6 +14,7 @@ namespace DarkBattle
     using DarkBattle.Services.Models;
     using DarkBattle.Infrastructure;
     using Microsoft.AspNetCore.Mvc;
+    using DarkBattle.Data.Models;
 
     public class Startup
     {
@@ -21,7 +22,6 @@ namespace DarkBattle
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -29,7 +29,7 @@ namespace DarkBattle
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => {
+            services.AddDefaultIdentity<Player>(options => {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
@@ -55,7 +55,8 @@ namespace DarkBattle
                     .AddTransient<IChampionClassService, ChampionClassService>()
                     .AddTransient<IAreaCreatureService, AreaCreatureService>()
                     .AddTransient<IMerchantItemsService, MerchantItemsService>()
-                    .AddTransient<IMerchantConsumablesService, MerchantConsumablesService>();
+                    .AddTransient<IMerchantConsumablesService, MerchantConsumablesService>()
+                    .AddTransient<IStatisticService, StatisticService>();
 
         }
 
