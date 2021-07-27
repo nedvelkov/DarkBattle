@@ -13,7 +13,7 @@
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.Home;
 
-    using static WebStatistics;
+    using static DarkBattleRoles;
 
     public class HomeController : Controller
     {
@@ -27,7 +27,11 @@
         {
             if (this.User.Identity.IsAuthenticated == false)
             {
-                return RedirectToAction("Presentation");
+                return RedirectToAction(nameof(this.Presentation));
+            }
+            if (this.User.IsInRole(PlayerRoleName))
+            {
+                return RedirectToAction("Index", "Champions");
             }
             return View();
         }

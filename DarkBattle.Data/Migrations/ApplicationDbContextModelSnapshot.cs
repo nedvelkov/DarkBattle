@@ -16,7 +16,7 @@ namespace DarkBattle.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ChampionConsumable", b =>
@@ -102,9 +102,14 @@ namespace DarkBattle.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PlayerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ChampionClassId");
+
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("Champions");
                 });
@@ -543,7 +548,13 @@ namespace DarkBattle.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DarkBattle.Data.Models.Player", "Player")
+                        .WithMany("Champions")
+                        .HasForeignKey("PlayerId");
+
                     b.Navigation("ChampionClass");
+
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("DarkBattle.Data.Models.Consumable", b =>
@@ -658,6 +669,11 @@ namespace DarkBattle.Data.Migrations
                     b.Navigation("Consumables");
 
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("DarkBattle.Data.Models.Player", b =>
+                {
+                    b.Navigation("Champions");
                 });
 #pragma warning restore 612, 618
         }

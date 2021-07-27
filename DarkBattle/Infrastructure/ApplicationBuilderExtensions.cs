@@ -1,12 +1,18 @@
 ﻿namespace DarkBattle.Infrastructure
 {
+    using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
     
     using DarkBattle.Data;
+    using DarkBattle.Data.Models;
+
+    using static DarkBattle.DarkBattleRoles;
 
     public static class ApplicationBuilderExtensions
     {
@@ -24,13 +30,99 @@
 
             var roles= data.UserRoles.Any();
 
-            if (roles == false)
-            {
-                //data.UserRoles.Add()
-            }
-          //  SeedCategories(data);
+            SeedAdministrator(services);
+            SeedModerator(services);
+            SeedPlayerRole(services);
 
             return app;
+        }
+
+        private static void SeedAdministrator(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<Player>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task
+                .Run(async () =>
+                {
+                    if (await roleManager.RoleExistsAsync(AdministratorRoleName))
+                    {
+                        return;
+                    }
+
+                    var role = new IdentityRole { Name = AdministratorRoleName };
+
+                    await roleManager.CreateAsync(role);
+
+                    const string adminEmail = "admin@darkbattle.com";
+                    const string adminPassword = "admin123";
+
+                    var user = new Player
+                    {
+                        Email = adminEmail,
+                        UserName = adminEmail,
+                    };
+
+                    await userManager.CreateAsync(user, adminPassword);
+
+                    await userManager.AddToRoleAsync(user, role.Name);
+                })
+                .GetAwaiter()
+                .GetResult();
+        }
+
+        private static void SeedModerator(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<Player>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task
+                .Run(async () =>
+                {
+                    if (await roleManager.RoleExistsAsync(ModeratorRoleName))
+                    {
+                        return;
+                    }
+
+                    var role = new IdentityRole { Name = ModeratorRoleName };
+
+                    await roleManager.CreateAsync(role);
+
+                    const string email = "moderator@darkbattle.com";
+                    const string password = "moderator123";
+
+                    var user = new Player
+                    {
+                        Email = email,
+                        UserName = email,
+                    };
+
+                    await userManager.CreateAsync(user, password);
+
+                    await userManager.AddToRoleAsync(user, role.Name);
+                })
+                .GetAwaiter()
+                .GetResult();
+        }
+        private static void SeedPlayerRole(IServiceProvider services)
+        {
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task
+                .Run(async () =>
+                {
+                    if (await roleManager.RoleExistsAsync(PlayerRoleName))
+                    {
+                        return;
+                    }
+
+                    var role = new IdentityRole { Name = PlayerRoleName };
+
+                    await roleManager.CreateAsync(role);
+
+                })
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }

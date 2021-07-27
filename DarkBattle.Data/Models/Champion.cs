@@ -35,5 +35,9 @@
 
         public ICollection<Consumable> ChampionConsumables { get; set; } = new List<Consumable>();
 
+        public string PlayerId { get; init; }
+
+        public Player Player { get; init; }
+
     }
 }
