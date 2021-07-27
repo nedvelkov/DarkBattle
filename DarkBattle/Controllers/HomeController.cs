@@ -23,8 +23,14 @@
         {
             this.statitstic = statitstic;
         }
-
-        public IActionResult Index() => View();
+        public IActionResult Index()
+        {
+            if (this.User.Identity.IsAuthenticated == false)
+            {
+                return RedirectToAction("Presentation");
+            }
+            return View();
+        }
 
         public IActionResult Privacy() => View();
 
@@ -37,26 +43,16 @@
         public IActionResult Presentation()
         {
             var presentation = new List<PresentationViewModel>();
-            var players = this.statitstic.TotalPlayers();
             var online = this.statitstic.TotalOnlinePlayers();
             var championClasses = this.statitstic.TotalChampionClass();
             var areas = this.statitstic.TotalAreas();
-
-            var presentationStatistc = new Dictionary<string, int>();
-            presentationStatistc.Add("Total players", players);
-            presentationStatistc.Add("Online players", online);
-
-            var areasStatistic = new Dictionary<string, int>();
-            areasStatistic.Add("Battle zones", areas);
-
-            var classStatistic = new Dictionary<string, int>();
-            classStatistic.Add("Chose from", championClasses);
 
             presentation.Add(new PresentationViewModel
             {
                 SlideName = nameof(WebStatistics.Presentation),
                 Description = WebStatistics.Presentation,
-                Statistics = presentationStatistc,
+                Statistic="Online players",
+                StatisticValue=online.ToString(),
                 ImageUrl = "https://images2.alphacoders.com/123/123862.jpg"
             });
 
@@ -64,7 +60,8 @@
             {
                 SlideName = nameof(WebStatistics.Areas),
                 Description = WebStatistics.Areas,
-                Statistics = areasStatistic,
+                Statistic = "Conquare all",
+                StatisticValue = $"{areas} battle zones",
                 ImageUrl = "http://wallpoper.com/images/00/22/25/59/dark-battle_00222559.jpg"
             });
 
@@ -72,7 +69,8 @@
             {
                 SlideName = nameof(WebStatistics.ChooseClass),
                 Description = WebStatistics.ChooseClass,
-                Statistics = classStatistic,
+                Statistic = "Chosse from",
+                StatisticValue = $"{championClasses} unique champions",
                 ImageUrl = "https://mmoculture.com/wp-content/uploads/2014/08/MU-Classic-characters.jpg"
             });
 
