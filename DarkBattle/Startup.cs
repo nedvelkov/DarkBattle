@@ -56,7 +56,9 @@ namespace DarkBattle
                     .AddTransient<IAreaCreatureService, AreaCreatureService>()
                     .AddTransient<IMerchantItemsService, MerchantItemsService>()
                     .AddTransient<IMerchantConsumablesService, MerchantConsumablesService>()
-                    .AddTransient<IStatisticService, StatisticService>();
+                    .AddTransient<IStatisticService, StatisticService>()
+                    .AddTransient<IPlayerService, PlayerService>()
+                    .AddTransient<IChampionService, ChampionService>();
 
         }
 

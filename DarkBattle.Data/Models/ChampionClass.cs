@@ -8,7 +8,7 @@
     {
         [Key]
         [Required]
-        public string Id { get; set; } = Guid.NewGuid().ToString(); // int!!!
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         public string Name { get; set; }
@@ -27,6 +27,8 @@
 
         [Required]
         public string ImageUrl { get; set; }
+
+        public string Description { get; set; }
 
         public ICollection<Champion> Champions { get; set; } = new List<Champion>();
     }

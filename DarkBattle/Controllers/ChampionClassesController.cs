@@ -33,7 +33,7 @@
 
             this.classService.Add(model);
 
-            return Redirect("/ChampionClass");
+            return Redirect("/ChampionClasses");
         }
 
         public IActionResult Edit([FromQuery] string classId)
@@ -57,7 +57,7 @@
 
             this.classService.Edit(model);
 
-            return Redirect("/ChampionClass");
+            return Redirect("/ChampionClasses");
         }
 
         public IActionResult Delete([FromQuery] string classId)
@@ -68,7 +68,7 @@
 
             }
 
-            return Redirect("/ChampionClass");
+            return Redirect("/ChampionClasses");
         }
     }
 }

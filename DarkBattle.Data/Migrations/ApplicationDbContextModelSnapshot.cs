@@ -122,6 +122,9 @@ namespace DarkBattle.Data.Migrations
                     b.Property<int>("Agility")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Health")
                         .HasColumnType("int");
 

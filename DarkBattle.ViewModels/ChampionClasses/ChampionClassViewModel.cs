@@ -36,5 +36,8 @@
         [RegularExpression(ImageRegex, ErrorMessage = "Provided url addres is not correct.")]
         public string ImageUrl { get; set; }
 
+        [Required]
+        public string Description { get; set; }
+
     }
 }

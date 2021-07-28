@@ -74,13 +74,14 @@
 
             //ChampionClass
             this.CreateMap<ChampionClassViewModel, ChampionClass>();
-
             this.CreateMap<ChampionClass, ChampionClassViewModel>();
 
 
             this.CreateMap<ChampionClass, ChampionClassListViewModel>();
-
             this.CreateMap<ChampionClassListViewModel, ChampionClass>();
+
+            this.CreateMap<ChampionClassPresentationModel, ChampionClass>();
+            this.CreateMap<ChampionClass, ChampionClassPresentationModel>();
 
             //AreaCreatures
 
