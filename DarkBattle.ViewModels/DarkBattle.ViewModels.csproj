@@ -8,4 +8,8 @@
     <ProjectReference Include="..\DarkBattle.DataConstants\DarkBattle.DataConstants.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Players\" />
+  </ItemGroup>
+
 </Project>

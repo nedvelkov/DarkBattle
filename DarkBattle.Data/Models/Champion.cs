@@ -14,16 +14,13 @@
         public string Name { get; set; }
 
         [Required]
-        public int Expirience { get; set; }
+        public int Experience { get; set; }
 
         [Required]
         public int Level { get; set; }
 
         [Required]
         public int Gold { get; set; }
-
-        [Required]
-        public int Expirence { get; set; }
 
         [Required]
         public string ChampionClassId { get; set; }

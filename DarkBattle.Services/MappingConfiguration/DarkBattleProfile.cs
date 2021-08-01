@@ -8,6 +8,7 @@
     using DarkBattle.ViewModels.Consumables;
     using DarkBattle.ViewModels.Merchants;
     using DarkBattle.ViewModels.ChampionClasses;
+    using DarkBattle.Services.ServiceModels;
 
     public class DarkBattleProfile:Profile
     {
@@ -26,8 +27,6 @@
                 .ForMember(x => x.Area, y => y.MapFrom(a => a.Area.Name));
 
             //Area
-
-
             this.CreateMap<Area, AreaViewModel>();
             this.CreateMap<AreaViewModel, Area>();
 
@@ -92,6 +91,16 @@
 
             this.CreateMap<Item, MerchantItemsListView>();
             this.CreateMap<MerchantItemsListView, Item>();
+
+
+            //Champions
+
+            this.CreateMap<Champion, ChampionServiceModel>()
+                .ForMember(x => x.ChampionId, y => y.MapFrom(i => i.Id))
+                .ForMember(x => x.ChampionClassId, y => y.MapFrom(i => i.ChampionClassId))
+                .ForMember(x => x.ChampionClass, y => y.MapFrom(i => i.ChampionClass.Name))
+                .ForMember(x => x.ImageUrl, y => y.MapFrom(i => i.ChampionClass.ImageUrl));
+
         }
     }
 }

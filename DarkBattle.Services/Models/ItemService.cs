@@ -32,10 +32,12 @@
         }
 
         public ItemViewModel GetChamponClasses()
-                => new ItemViewModel
-                {
-                    ChampionClasses = this.data.ChampionClasses.Select(x => x.Name).ToList()
-                };
+        {
+            return new ItemViewModel
+            {
+                ChampionClasses = this.data.ChampionClasses.Select(x => x.Name).ToList()
+            };
+        }
 
         public void Edit(ItemViewModel model)
         {
