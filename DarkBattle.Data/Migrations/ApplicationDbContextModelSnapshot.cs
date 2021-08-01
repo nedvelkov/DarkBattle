@@ -86,6 +86,9 @@ namespace DarkBattle.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("CurrentHealth")
+                        .HasColumnType("int");
+
                     b.Property<int>("Experience")
                         .HasColumnType("int");
 

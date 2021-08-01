@@ -28,6 +28,8 @@
         [Required]
         public ChampionClass ChampionClass { get; set; }
 
+        public int CurrentHealth { get; set; }
+
         public ICollection<Item> Items { get; set; } = new List<Item>();
 
         public ICollection<Consumable> ChampionConsumables { get; set; } = new List<Consumable>();
