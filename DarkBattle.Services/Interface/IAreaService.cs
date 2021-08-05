@@ -1,7 +1,7 @@
 ﻿namespace DarkBattle.Services.Interface
 {
     using System.Collections.Generic;
-
+    using DarkBattle.Services.ServiceModels;
     using DarkBattle.ViewModels.Areas;
 
     public interface IAreaService
@@ -14,6 +14,8 @@
 
         public ICollection<AreasListViewModel> AreasCollection();
 
-        public bool Delete(string id);  
+        public bool Delete(string id);
+
+        public ICollection<AreaServiceModel> AreaServiceCollection();
     }
 }

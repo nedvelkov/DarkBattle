@@ -12,7 +12,7 @@
     using DarkBattle.Data.Models;
     using DarkBattle.ViewModels.Areas;
     using DarkBattle.Services.Interface;
-
+    using DarkBattle.Services.ServiceModels;
 
     public class AreaService : IAreaService
     {
@@ -63,14 +63,12 @@
         }
 
         public ICollection<AreasListViewModel> AreasCollection()
-        {
-            var areas = this.data
-                            .Areas
-                            .Include(x => x.Creatures)
-                            .Select(this.mapper.Map<AreasListViewModel>)
-                            .ToList();
-            return areas;
-        }
+            => GetAreaCollection<AreasListViewModel>();
+
+
+        public ICollection<AreaServiceModel> AreaServiceCollection()
+                => GetAreaCollection<AreaServiceModel>();
+
 
         public bool Delete(string id)
         {
@@ -91,5 +89,11 @@
                 => this.data
                     .Areas
                     .FirstOrDefault(x => x.Id == id);
+
+        private ICollection<T> GetAreaCollection<T>()
+            => this.data.Areas
+                        .Include(x => x.Creatures)
+                        .Select(this.mapper.Map<T>)
+                        .ToList();
     }
 }

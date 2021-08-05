@@ -30,6 +30,9 @@
             this.CreateMap<Area, AreaViewModel>();
             this.CreateMap<AreaViewModel, Area>();
 
+            this.CreateMap<Area, AreaServiceModel>();
+            this.CreateMap<AreaServiceModel, Area>();
+
             this.CreateMap<Area, AreasListViewModel>()
                 .ForMember(x=>x.MaxLevel,y=>y.MapFrom(i=>i.MaxLevelCreatures))
                 .ForMember(x=>x.MinLevel,y=>y.MapFrom(i=>i.MinLevelEnterence))
@@ -101,6 +104,9 @@
                 .ForMember(x => x.ChampionClass, y => y.MapFrom(i => i.ChampionClass.Name))
                 .ForMember(x => x.ImageUrl, y => y.MapFrom(i => i.ChampionClass.ImageUrl));
 
+            this.CreateMap<Champion, ChampionBarServiceModel>()
+                .ForMember(x => x.ChampionId, y => y.MapFrom(i => i.Id))
+                .ForMember(x => x.BaseHealth, y => y.MapFrom(i => i.ChampionClass.Health));
         }
     }
 }

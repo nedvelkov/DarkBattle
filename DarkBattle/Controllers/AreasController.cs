@@ -1,17 +1,23 @@
 ﻿namespace DarkBattle.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
+    using DarkBattle.Infrastructure;
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.Areas;
-    using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using DarkBattle.Services.ServiceModels;
+    using Microsoft.AspNetCore.Authorization;
+
     public class AreasController : Controller
     {
         private readonly IAreaService areaService;
+        private readonly IChampionService championService;
 
-        public AreasController(IAreaService areaService) => this.areaService = areaService;
+        public AreasController(IAreaService areaService, IChampionService championService)
+        {
+            this.areaService = areaService;
+            this.championService = championService;
+        }
 
         public IActionResult Index()
         {
@@ -71,6 +77,25 @@
             }
 
             return Redirect("/Areas");
+        }
+
+        public IActionResult BattleZones(string championId)
+        {
+
+            if (championId == null)
+            {
+                return RedirectToAction("Index", "Champions");
+            }
+
+            var playerId = this.User.GetId();
+
+            var model = new BattleZoneViewModel
+            {
+                Champion = this.championService.ChampionBar(championId, playerId),
+                Areas = this.areaService.AreaServiceCollection()
+            };
+            return View(model);
+
         }
     }
 }
