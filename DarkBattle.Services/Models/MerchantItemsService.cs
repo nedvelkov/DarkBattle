@@ -8,18 +8,24 @@
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
+    using DarkBattle.Services.ServiceModels;
     using DarkBattle.ViewModels.Items;
     using DarkBattle.ViewModels.MerchantItems;
+    using Microsoft.EntityFrameworkCore;
 
     public class MerchantItemsService : IMerchantItemsService
     {
         private readonly ApplicationDbContext data;
         private readonly IMapper mapper;
+        private readonly IChampionService championService;
 
-        public MerchantItemsService(ApplicationDbContext data, IMapper mapper)
-        {
+        public MerchantItemsService(ApplicationDbContext data,
+                                    IMapper mapper,
+                                    IChampionService championService)
+{
             this.data = data;
             this.mapper = mapper;
+            this.championService = championService;
         }
 
         public void Add(string itemId, string merchantId)
@@ -105,5 +111,10 @@
 
         private ICollection<T> SortList<T>(Func<T, bool> func, ICollection<T> collection)
             => collection.Where(func).ToList();
+
+        public void SellItems(string championId, string merchantId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

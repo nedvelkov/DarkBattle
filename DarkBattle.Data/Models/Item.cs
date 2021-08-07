@@ -37,6 +37,8 @@ namespace DarkBattle.Data.Models
         [Required]
         public int Value { get; set; }
 
+        public bool Equipped { get; set; }
+
         public ICollection<Champion> Champions { get; set; } = new List<Champion>();
 
         public string CreatureId { get; set; }

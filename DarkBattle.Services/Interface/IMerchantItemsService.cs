@@ -1,6 +1,6 @@
 ﻿namespace DarkBattle.Services.Interface
 {
-
+    using DarkBattle.Services.ServiceModels;
     using DarkBattle.ViewModels.MerchantItems;
 
    public interface IMerchantItemsService
@@ -11,8 +11,10 @@
         public MerchantItemAddViewModel Items(string merchantId);
 
         public MerchantItemPageModel ItemsSellByMerchant(string merchantId);
+
         public MerchantItemPageModel SortedItemsSellByMerchant(MerchantItemPageModel model);
 
+        public void SellItems(string championId, string merchantId);
 
     }
 }

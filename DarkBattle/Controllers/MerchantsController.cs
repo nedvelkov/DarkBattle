@@ -4,6 +4,7 @@
 
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.Merchants;
+    using DarkBattle.Infrastructure;
 
     public class MerchantsController:Controller
     {
@@ -74,6 +75,13 @@
                 return Redirect("/Home/Error");
             }
             return Redirect("/Merchants");
+        }
+
+        public IActionResult Market(string championId)
+        {
+            var playerId = this.User.GetId();
+            var model = this.merchantService.AllMerchants(championId, playerId);
+            return View(model);
         }
     }
 }

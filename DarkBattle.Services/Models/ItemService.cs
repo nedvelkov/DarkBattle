@@ -46,7 +46,7 @@
             var properties = model.GetType().GetProperties();
             foreach (var prop in properties)
             {
-                if (prop.Name == "Id")
+                if (prop.Name == "Id" || prop.Name== "ChampionClasses" || prop.Name=="ItemType")
                 {
                     continue;
                 }

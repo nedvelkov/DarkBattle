@@ -16,6 +16,6 @@
 
         public bool Delete(string id);
 
-        public ICollection<AreaServiceModel> AreaServiceCollection();
+        public ICollection<AreaServiceViewModel> AreaServiceCollection();
     }
 }

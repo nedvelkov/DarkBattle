@@ -239,6 +239,9 @@ namespace DarkBattle.Data.Migrations
                     b.Property<int>("Defense")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Equipped")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

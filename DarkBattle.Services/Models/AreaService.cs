@@ -66,8 +66,8 @@
             => GetAreaCollection<AreasListViewModel>();
 
 
-        public ICollection<AreaServiceModel> AreaServiceCollection()
-                => GetAreaCollection<AreaServiceModel>();
+        public ICollection<AreaServiceViewModel> AreaServiceCollection()
+                => GetAreaCollection<AreaServiceViewModel>();
 
 
         public bool Delete(string id)

@@ -1,7 +1,7 @@
 ﻿namespace DarkBattle.Services.Interface
 {
     using System.Collections.Generic;
-
+    using DarkBattle.Services.ServiceModels;
     using DarkBattle.ViewModels.Merchants;
 
     public  interface IMerchantService
@@ -15,5 +15,8 @@
         public ICollection<MerchantListViewModel> MerchantsCollection();
 
         public bool Delete(string id);
+
+        public MerchantMarketViewModel AllMerchants(string championId, string playerId);
+
     }
 }

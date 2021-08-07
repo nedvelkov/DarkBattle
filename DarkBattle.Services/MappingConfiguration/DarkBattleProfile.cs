@@ -30,8 +30,8 @@
             this.CreateMap<Area, AreaViewModel>();
             this.CreateMap<AreaViewModel, Area>();
 
-            this.CreateMap<Area, AreaServiceModel>();
-            this.CreateMap<AreaServiceModel, Area>();
+            this.CreateMap<Area, AreaServiceViewModel>();
+            this.CreateMap<AreaServiceViewModel, Area>();
 
             this.CreateMap<Area, AreasListViewModel>()
                 .ForMember(x=>x.MaxLevel,y=>y.MapFrom(i=>i.MaxLevelCreatures))
@@ -54,10 +54,15 @@
 
             this.CreateMap<ItemListViewModel, Item>();
 
+            this.CreateMap<Item, ItemViewServiceModel>();
+
+
             //Consumable
             this.CreateMap<ConsumableViewModel, Consumable>();
 
             this.CreateMap<Consumable,ConsumableViewModel>();
+
+            this.CreateMap<Consumable, ConsumableViewServiceModel>();
 
 
             this.CreateMap<Consumable, ConsumableListViewModel>();
@@ -68,6 +73,8 @@
             this.CreateMap<MerchantViewModel, Merchant>();
 
             this.CreateMap<Merchant, MerchantViewModel>();
+
+            this.CreateMap<Merchant, MerchantServiceModel>();
 
 
             this.CreateMap<Merchant, MerchantListViewModel>()

@@ -21,7 +21,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+                <select asp-for="Type" class="form-control">
+                    <option value="@Model.Type" selected></option>
+                    @foreach (var item in Model.ItemType)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,7 +47,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="ObtainBy" class="control-label"></label>
-                <input asp-for="ObtainBy" class="form-control" />
+                <select asp-for="ObtainBy" class="form-control">
+                    <option value="@Model.ObtainBy" selected></option>
+                    @foreach (var item in Model.ChampionClasses)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+
                 <span asp-validation-for="ObtainBy" class="text-danger"></span>
             </div>
             <div class="form-group">
