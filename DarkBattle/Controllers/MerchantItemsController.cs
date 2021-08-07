@@ -7,7 +7,7 @@
     using DarkBattle.Infrastructure;
     using DarkBattle.Services.ServiceModels;
 
-    public class MerchantItemsController:Controller
+    public class MerchantItemsController : Controller
     {
         private readonly IMerchantItemsService service;
         private readonly IChampionService championService;
@@ -32,11 +32,11 @@
         }
         public IActionResult SellItems(MerchantItemPageModel model)
         {
-             var  merchant = this.service.SortedItemsSellByMerchant(model);
+            var merchant = this.service.SortedItemsSellByMerchant(model);
             return View(merchant);
         }
 
-        public IActionResult SellItemsToChampion(string championId,string merchantId)
+        public IActionResult SellItemsToChampion(string championId, string merchantId)
         {
             var playerId = this.User.GetId();
             var champion = this.championService.ChampionBar(championId, playerId);
@@ -47,6 +47,12 @@
                 Items = items
             };
             return View(model);
+        }
+
+        public IActionResult SellItem(string championId, string itemId, string merchantId)
+        {
+            this.service.SellItem(championId, itemId);
+            return Redirect($"SellItemsToChampion?championId={championId}&merchantId={merchantId}");
         }
     }
 }

@@ -79,6 +79,11 @@
 
         public IActionResult Market(string championId)
         {
+            if (championId == null)
+            {
+                return RedirectToAction("Index", "Champions");
+            }
+
             var playerId = this.User.GetId();
             var model = this.merchantService.AllMerchants(championId, playerId);
             return View(model);

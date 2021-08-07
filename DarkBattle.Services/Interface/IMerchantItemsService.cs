@@ -14,7 +14,7 @@
 
         public MerchantItemPageModel SortedItemsSellByMerchant(MerchantItemPageModel model);
 
-        public void SellItems(string championId, string merchantId);
+        public bool SellItem(string championId, string itemId);
 
     }
 }

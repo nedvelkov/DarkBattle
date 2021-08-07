@@ -73,6 +73,28 @@
             return merchant;
         }
 
+        public bool SellItem(string championId, string itemId)
+        {
+            var champion = this.data
+                                .Champions
+                                .Include(x=>x.Items)
+                                .Single(x => x.Id == championId);
+            var item = this.data.Items.Single(x => x.Id == itemId);
+            var cost = item.Value;
+            if (cost > champion.Gold)
+            {
+                return false;
+            }
+            if (champion.Items.Any(x=>x.Id==itemId))
+            {
+                return false;
+            }
+            champion.Items.Add(item);
+            champion.Gold -= cost;
+            this.data.SaveChanges();
+
+            return true;
+        }
 
         public void Remove(string itemId, string merchantId)
         {
@@ -112,9 +134,6 @@
         private ICollection<T> SortList<T>(Func<T, bool> func, ICollection<T> collection)
             => collection.Where(func).ToList();
 
-        public void SellItems(string championId, string merchantId)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
