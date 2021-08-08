@@ -14,6 +14,7 @@
         public DbSet<Consumable> Consumables { get; init; }
         public DbSet<Area> Areas { get; init; }
         public DbSet<ChampionClass> ChampionClasses { get; init; }
+        public DbSet<Gear> Gears { get; init; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -21,14 +22,15 @@
 
         }
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    builder.Entity<Area>()
-        //        .HasMany(c => c.Creatures)
-        //        .WithOne(c => c.Area)
-        //        .HasForeignKey(c => c.AreaId)
-        //        .OnDelete(DeleteBehavior.Restrict);
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Champion>()
+                .HasOne(g => g.Gear)
+                .WithOne(c => c.Champion)
+                .HasForeignKey<Gear>(x => x.ChampionId);
 
-        //}
+
+            base.OnModelCreating(builder);
+        }
     }
 }

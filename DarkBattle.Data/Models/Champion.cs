@@ -38,5 +38,7 @@
 
         public Player Player { get; init; }
 
+        public string GearId { get; init; }
+        public Gear Gear { get; set; }
     }
 }

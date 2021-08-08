@@ -57,6 +57,14 @@
 
             this.CreateMap<Item, ItemViewServiceModel>();
 
+            //Gear
+
+            this.CreateMap<Gear, GearServiceModel>()
+                .ForMember(x => x.GearId, y => y.MapFrom(x => x.Id))
+                .ForMember(x => x.ChampionId, y => y.MapFrom(x => x.ChampionId))
+                .ForMember(x => x.EquipedItems, opt => opt.Ignore());
+
+
 
             //Consumable
             this.CreateMap<ConsumableViewModel, Consumable>();

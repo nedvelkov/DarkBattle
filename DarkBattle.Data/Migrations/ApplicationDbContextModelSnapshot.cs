@@ -92,6 +92,9 @@ namespace DarkBattle.Data.Migrations
                     b.Property<int>("Experience")
                         .HasColumnType("int");
 
+                    b.Property<string>("GearId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Gold")
                         .HasColumnType("int");
 
@@ -225,6 +228,23 @@ namespace DarkBattle.Data.Migrations
                     b.ToTable("Creatures");
                 });
 
+            modelBuilder.Entity("DarkBattle.Data.Models.Gear", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ChampionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChampionId")
+                        .IsUnique()
+                        .HasFilter("[ChampionId] IS NOT NULL");
+
+                    b.ToTable("Gears");
+                });
+
             modelBuilder.Entity("DarkBattle.Data.Models.Item", b =>
                 {
                     b.Property<string>("Id")
@@ -241,6 +261,9 @@ namespace DarkBattle.Data.Migrations
 
                     b.Property<bool>("Equipped")
                         .HasColumnType("bit");
+
+                    b.Property<string>("GearId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -270,6 +293,8 @@ namespace DarkBattle.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatureId");
+
+                    b.HasIndex("GearId");
 
                     b.HasIndex("MerchantId");
 
@@ -587,11 +612,24 @@ namespace DarkBattle.Data.Migrations
                     b.Navigation("Area");
                 });
 
+            modelBuilder.Entity("DarkBattle.Data.Models.Gear", b =>
+                {
+                    b.HasOne("DarkBattle.Data.Models.Champion", "Champion")
+                        .WithOne("Gear")
+                        .HasForeignKey("DarkBattle.Data.Models.Gear", "ChampionId");
+
+                    b.Navigation("Champion");
+                });
+
             modelBuilder.Entity("DarkBattle.Data.Models.Item", b =>
                 {
                     b.HasOne("DarkBattle.Data.Models.Creature", "Creature")
                         .WithMany("Items")
                         .HasForeignKey("CreatureId");
+
+                    b.HasOne("DarkBattle.Data.Models.Gear", null)
+                        .WithMany("Items")
+                        .HasForeignKey("GearId");
 
                     b.HasOne("DarkBattle.Data.Models.Merchant", "Merchant")
                         .WithMany("Items")
@@ -658,6 +696,11 @@ namespace DarkBattle.Data.Migrations
                     b.Navigation("Creatures");
                 });
 
+            modelBuilder.Entity("DarkBattle.Data.Models.Champion", b =>
+                {
+                    b.Navigation("Gear");
+                });
+
             modelBuilder.Entity("DarkBattle.Data.Models.ChampionClass", b =>
                 {
                     b.Navigation("Champions");
@@ -667,6 +710,11 @@ namespace DarkBattle.Data.Migrations
                 {
                     b.Navigation("Consumables");
 
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("DarkBattle.Data.Models.Gear", b =>
+                {
                     b.Navigation("Items");
                 });
 
