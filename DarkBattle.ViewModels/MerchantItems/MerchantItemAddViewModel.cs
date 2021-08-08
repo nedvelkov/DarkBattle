@@ -10,6 +10,6 @@
         public string MerchantId { get; init; }
         public string MerchantName { get; init; }
 
-        public ICollection<MerchantItemsListView> ItemCollection { get; set; }
+        public ICollection<ItemsListView> ItemCollection { get; set; }
     }
 }

@@ -39,7 +39,9 @@
             <td>
                 <a asp-action="Create" asp-route-creatureId="@item.Id">Copy</a> |
                 <a asp-action="Edit" asp-route-creatureId="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-creatureId="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-creatureId="@item.Id">Delete</a> |
+                <a asp-controller="CreatureItems" asp-action="CreatureItems" asp-route-creatureId="@item.Id">Items</a> |
+                <a asp-controller="CreatureConsumables" asp-action="CreatureConsumables" asp-route-creatureId="@item.Id">Consumables</a>
             </td>
         </tr>
 }

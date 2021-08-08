@@ -85,8 +85,8 @@
                                                                      .ToLower()
                                                                      .Contains(model.SearchTerm.ToLower()))
                                                         .ToList();
-
             }
+
             listCreatures.Creatures = model.Sorting switch
             {
                 CreatureSorting.Attack=>listCreatures.Creatures.OrderByDescending(x=>x.Attack).ToList(),

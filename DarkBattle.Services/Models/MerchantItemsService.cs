@@ -112,7 +112,7 @@
         {
             var merchant = GetMerchant(merchantId);
 
-            var items = GetItems<MerchantItemsListView>(func);
+            var items = GetItems<ItemsListView>(func);
             return new MerchantItemAddViewModel()
             {
                 MerchantId = merchant.Id,

@@ -46,20 +46,31 @@
     </div>
 </form>
 
-<div class="row">
-    @foreach (var creature in Model.Creatures)
-    {
-        <div class="form-group col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img src="@creature.ImageUrl" class="card-img-top" alt="@creature.Name">
-                <div class="card-body">
-                    <h5 class="card-title">@creature.Name</h5>
-                    <p class="card-text">Level: @creature.Level</p>
-                    <p class="card-text">Attack: @creature.Attack </p>
-                    <p class="card-text">Expirience: @creature.Expirience </p>
-                    <a asp-action="Remove" asp-route-creatureId="@creature.Id" asp-route-areaId="@Model.Area.Id" class="btn btn-primary">Remove</a>
+@if (Model.Creatures.Count == 0)
+{
+    <a class="btn btn-primary" asp-controller="AreaCreatures" asp-action="CreatureToArea" asp-route-areaId="@Model.Area.Id">Add creatures to area</a>
+}
+else
+{
+    <div class="row">
+        @foreach (var creature in Model.Creatures)
+        {
+            <div class="form-group col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="@creature.ImageUrl" class="card-img-top" alt="@creature.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@creature.Name</h5>
+                        <p class="card-text">Level: @creature.Level</p>
+                        <p class="card-text">Attack: @creature.Attack </p>
+                        <p class="card-text">Expirience: @creature.Expirience </p>
+                        <a asp-action="Remove" asp-route-creatureId="@creature.Id" asp-route-areaId="@Model.Area.Id" class="btn btn-primary">Remove</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+}
+
+<div>
+    <a class="btn btn-primary" asp-controller="Areas" asp-action="Index">Back to List</a>
 </div>

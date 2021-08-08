@@ -21,6 +21,7 @@
 
             this.CreateMap<Creature, CreatureViewModel>()
                 .ForMember(x => x.ImageUrl, y => y.MapFrom(i => i.ImageUrl));
+            this.CreateMap<Creature, CreatureServiceModel>();
 
 
             this.CreateMap<Creature, CreatureListViewModel>()
@@ -99,8 +100,8 @@
 
             //MerchantItems
 
-            this.CreateMap<Item, MerchantItemsListView>();
-            this.CreateMap<MerchantItemsListView, Item>();
+            this.CreateMap<Item, ItemsListView>();
+            this.CreateMap<ItemsListView, Item>();
 
 
             //Champions

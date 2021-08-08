@@ -24,12 +24,12 @@ namespace DarkBattle.Data.Migrations
                     b.Property<string>("ChampionConsumablesId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ChampionConsumablesId1")
+                    b.Property<string>("ChampionsId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("ChampionConsumablesId", "ChampionConsumablesId1");
+                    b.HasKey("ChampionConsumablesId", "ChampionsId");
 
-                    b.HasIndex("ChampionConsumablesId1");
+                    b.HasIndex("ChampionsId");
 
                     b.ToTable("ChampionConsumable");
                 });
@@ -518,15 +518,15 @@ namespace DarkBattle.Data.Migrations
 
             modelBuilder.Entity("ChampionConsumable", b =>
                 {
-                    b.HasOne("DarkBattle.Data.Models.Champion", null)
+                    b.HasOne("DarkBattle.Data.Models.Consumable", null)
                         .WithMany()
                         .HasForeignKey("ChampionConsumablesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DarkBattle.Data.Models.Consumable", null)
+                    b.HasOne("DarkBattle.Data.Models.Champion", null)
                         .WithMany()
-                        .HasForeignKey("ChampionConsumablesId1")
+                        .HasForeignKey("ChampionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
