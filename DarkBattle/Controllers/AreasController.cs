@@ -8,6 +8,8 @@
     using DarkBattle.Services.ServiceModels;
     using Microsoft.AspNetCore.Authorization;
 
+    [Authorize(Roles = "Admin,Player")]
+
     public class AreasController : Controller
     {
         private readonly IAreaService areaService;
@@ -78,6 +80,8 @@
 
             return Redirect("/Areas");
         }
+
+        [Authorize(Roles = "Player")]
 
         public IActionResult BattleZones(string championId)
         {

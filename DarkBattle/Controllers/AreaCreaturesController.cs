@@ -4,7 +4,9 @@
 
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.AreaCreatures;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize(Roles = "Admin")]
     public class AreaCreaturesController : Controller
     {
         private readonly IAreaCreatureService service;

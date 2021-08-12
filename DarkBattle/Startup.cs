@@ -27,6 +27,7 @@ namespace DarkBattle
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<Player>(options => {
@@ -40,6 +41,7 @@ namespace DarkBattle
             })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews(config=>
             {
                 config.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -61,7 +63,8 @@ namespace DarkBattle
                     .AddTransient<IChampionService, ChampionService>()
                     .AddTransient<IBattleService, BattleService>()
                     .AddTransient<ICreatureItemsService, CreatureItemsService>()
-                    .AddTransient<ICreatureConsumablesService, CreatureConsumablesService>();
+                    .AddTransient<ICreatureConsumablesService, CreatureConsumablesService>()
+                    .AddTransient<IBankService, BankService>();
 
         }
 
@@ -78,15 +81,14 @@ namespace DarkBattle
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection()
                 .UseStaticFiles()
                 .UseRouting()
-                .UseAuthorization()
                 .UseAuthentication()
+                .UseAuthorization()
                 .UseEndpoints
                     (endpoints =>
                         {
