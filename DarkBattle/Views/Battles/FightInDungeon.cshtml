@@ -1,0 +1,60 @@
+﻿@using DarkBattle.Services.ServiceModels
+
+@model BattleViewModel
+
+
+<partial name="_ChampionBar" model="@Model.Champion" />
+
+@{
+    ViewData["Title"] = $"Battle zone:{Model.AreaName}";
+}
+
+<style>
+    body {
+        background-image: url('@Model.AreaImg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+<h1>Battle zone: @Model.AreaName</h1>
+<hr />
+<div class="row mb-3">
+    <div class="col-4">
+        <div class="card" style="width:300px;">
+            <img class="card-img-top" src="@Model.ChampionImg" alt="@Model.Champion.Name" style="height:350px">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Champion.Name</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 text-center">
+        <h3 class="text-center">VS</h3>
+        @foreach (var line in Model.BattleLog)
+        {
+            <div class="text-white bg-dark font-weight-bold">
+                @line
+            </div>
+        }
+    </div>
+    <div class="col-4">
+        <div class="card" style="width:300px;">
+            <img class="card-img-top" src="@Model.CreatureImg" alt="@Model.CreatureName" style="height:350px">
+            <div class="card-body">
+                <h5 class="card-title">@Model.CreatureName</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <a asp-controller="Battles" asp-action="FightCreature" asp-route-championId="@Model.Champion.ChampionId" asp-route-areaId="@Model.AreaId" class="btn btn-primary w-100 mb-2 @(Model.Champion.CurrentHealth==1?"disabled":string.Empty)">Fight again</a>
+    </div>
+    <div class="col-4">
+        <a asp-controller="Areas" asp-action="BattleZones" asp-route-championId="@Model.Champion.ChampionId" class="btn btn-primary w-100 mb-2 @(Model.Champion.CurrentHealth==1?"disabled":string.Empty)">Select battle zone</a>
+    </div>
+    <div class="col-4">
+        <a asp-controller="Battles" asp-action="Training" asp-route-championId="@Model.Champion.ChampionId" class="btn btn-primary w-100 mb-2">Train your skills</a>
+    </div>
+</div>

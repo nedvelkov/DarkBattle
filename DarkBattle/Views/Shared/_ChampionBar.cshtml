@@ -1,0 +1,27 @@
+﻿@using DarkBattle.Services.ServiceModels
+
+@model ChampionBarServiceModel
+
+
+@{
+    var healtBarValue = ((double)Model.CurrentHealth / Model.MaxHealth) * 100;
+    var expBarValue = ((double)Model.Experience / Model.ExperienceForLevelUp) * 100;
+}
+
+<div class="row">
+    <div class="col-3">
+        <a asp-controller="Champions" asp-action="Details" asp-route-championId="@Model.ChampionId" class="badge badge-secondary">@Model.Name @Model.Level lvl</a>
+    </div>
+    <div class="col-3">
+        <div class="progress-bar bg-success" role="progressbar" style="width: @healtBarValue%;" aria-valuenow="@Model.MaxHealth" aria-valuemin="1" aria-valuemax="@Model.MaxHealth">@Model.CurrentHealth/@Model.MaxHealth Health</div>
+    </div>
+    <div class="col-3">
+        <div class="progress-bar bg-info" role="progressbar" style="width: @expBarValue%;" aria-valuenow="@Model.Experience" aria-valuemin="1" aria-valuemax="@Model.ExperienceForLevelUp">@Model.Experience/@Model.ExperienceForLevelUp Expirience</div>
+    </div>
+    <div class="col-1">
+        <span>Gold:@Model.Gold</span>
+    </div>
+    <div class="col-2">
+        <a asp-controller="Champions" asp-action="Inventory" asp-route-championId="@Model.ChampionId" class="badge badge-secondary" style="width:100%">View Inventory</a>
+    </div>
+</div>

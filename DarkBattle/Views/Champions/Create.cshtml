@@ -1,0 +1,34 @@
+﻿@using DarkBattle.ViewModels.Champions;
+@model ChampionViewModel
+
+@{
+    ViewData["Title"] = "Create new Champion";
+}
+<form method="post">
+    <div class="row">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control m-2" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-5"></div>
+        @foreach (var championClass in Model.ChampionClasses)
+        {
+            <div class="col">
+                <div class="card" style="width:250px;">
+                    <img class="card-img-top" src="@championClass.ImageUrl" alt="@championClass.Name" style="height:350px">
+                    <div class="card-body">
+                        <h5 class="card-title">@championClass.Name</h5>
+                        <p class="card-text">@championClass.Description</p>
+                        <input type="submit" value="Create champion" asp-route-championClassId="@championClass.Id" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</form>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

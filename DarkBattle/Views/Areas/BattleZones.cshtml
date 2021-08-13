@@ -1,0 +1,36 @@
+﻿@using DarkBattle.Services.ServiceModels
+
+@model BattleZoneViewModel
+
+<partial name="_ChampionBar" model="@Model.Champion" />
+
+@{
+    ViewData["Title"] = "Battle zones";
+}
+
+<h1>Battle zones</h1>
+<hr />
+@foreach (var area in Model.Areas)
+{
+    <div class="row">
+        <div class="row">
+            <h4 class="text-right">Wellcome at @area.Name</h4>
+        </div>
+        <div class="row">
+            <div class="col-8 card" style="width:100%">
+                <img class="card-img" src="@area.ImageUrl" alt="@area.Name" style="width:100%" />
+            </div>
+            <div class="card-header">
+                <h5>@area.Description</h5>
+                <h6>Requred level to enter @area.MinLevelEnterence</h6>
+                <div>
+                    <a asp-controller="Battles" asp-action="FightCreature" asp-route-championId="@Model.Champion.ChampionId" asp-route-areaId="@area.Id" class="btn btn-primary w-100 mb-2">Fight</a>
+                </div>
+                <div>
+                    <a asp-controller="Battles" asp-action="FightInDungeon" asp-route-championId="@Model.Champion.ChampionId" asp-route-areaId="@area.Id" class="btn btn-primary w-100 @(area.MaxLevelCreatures <= Model.Champion.Level ?string.Empty:"disabled")">Fight in Dungeon</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

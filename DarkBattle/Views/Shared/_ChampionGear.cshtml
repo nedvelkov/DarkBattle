@@ -1,0 +1,160 @@
+﻿@using DarkBattle.Services.ServiceModels
+
+@model IEnumerable<ItemViewServiceModel>
+
+@{
+    var helm = Model.FirstOrDefault(x => x.Type == "Helm");
+    var weapon = Model.FirstOrDefault(x => x.Type == "Weapon");
+    var chestplate = Model.FirstOrDefault(x => x.Type == "Chestplate");
+    var shild = Model.FirstOrDefault(x => x.Type == "Shild");
+    var gloves = Model.FirstOrDefault(x => x.Type == "Gloves");
+    var pants = Model.FirstOrDefault(x => x.Type == "Pants");
+    var boots = Model.FirstOrDefault(x => x.Type == "Boots");
+}
+
+<div class="row text-center">
+    <h4 class="text-center">Equipped gear</h4>
+</div>
+<div class="row">
+    <div class="col-4">
+
+    </div>
+    <div class="col-4">
+        @if (helm == null)
+        {
+            <h6 class="font-italic">Helm</h6>
+            <img src="https://ashesofcreation.wiki/images/2/2e/3a274f3a-6471-4c38-8949-6dd5d5a2d376-0.png" alt="helm" class="imageOpacity" style="width: 5rem;height:5rem;" />
+        }
+        else
+        {
+            <h6 class="textImage">@helm.Name</h6>
+            <img src="@helm.ImageUrl" alt="@helm.Name" style="width: 5rem;height:5rem;" />
+            <button onclick="helmFunction()">Stats</button>
+            <div id="helmStats" class="d-none">
+                <p class="font-weight-light">Attack:@helm.Attack</p>
+                <p class="font-weight-light">Defense:@helm.Defense</p>
+                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@helm.Id">Remove</a>
+            </div>
+        }
+
+    </div>
+    <div class="col-4">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        @if (weapon == null)
+        {
+            <h6 class="font-italic">Weapon</h6>
+            <img src="https://ashesofcreation.wiki/images/6/6c/a86487cc-9e86-4b71-a1b0-298eece25e6c-0.png" alt="weapon" class="imageOpacity" style="width: 5rem;height:5rem;" />
+        }
+        else
+        {
+            <h6 class="textImage">@weapon.Name</h6>
+            <img src="@weapon.ImageUrl" alt="@weapon.Name" style="width: 5rem;height:5rem;" />
+            <button onclick="weaponFunction()">Stats</button>
+            <div id="weaponStats" class="d-none">
+                <p class="font-weight-light">Attack:@weapon.Attack</p>
+                <p class="font-weight-light">Defense:@weapon.Defense</p>
+                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@weapon.Id">Remove</a>
+            </div>
+        }
+    </div>
+    <div class="col-4">
+        @if (chestplate == null)
+        {
+            <h6 class="font-italic">Cheast</h6>
+            <img src="https://ashesofcreation.wiki/images/6/64/ef7076bf-9647-4d64-81a9-063f827aacca-0.png" alt="cheast" class="imageOpacity" style="width: 5rem;height:5rem;" />
+
+        }
+        else
+        {
+            <h6 class="textImage">@chestplate.Name</h6>
+            <img src="@chestplate.ImageUrl" alt="@chestplate.Name" style="width: 5rem;height:5rem;" />
+            <button onclick="chestplateFunction()">Stats</button>
+            <div id="chestplateStats" class="d-none">
+                <p class="font-weight-light">Attack:@chestplate.Attack</p>
+                <p class="font-weight-light">Defense:@chestplate.Defense</p>
+                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@chestplate.Id">Remove</a>
+            </div>
+        }
+    </div>
+    <div class="col-4">
+        @if (shild == null)
+        {
+            <h6 class="font-italic">Shild</h6>
+            <img src="https://ashesofcreation.wiki/images/c/c8/ShieldIcon.png" alt="shild" class="imageOpacity" style="width: 5rem;height:5rem;" />
+
+        }
+        else
+        {
+            <h6 class="textImage">@shild.Name</h6>
+            <img src="@shild.ImageUrl" alt="@shild.Name" style="width: 5rem;height:5rem;" />
+            <button onclick="shildFunction()">Stats</button>
+            <div id="shildStats" class="d-none">
+                <p class="font-weight-light">Attack:@shild.Attack</p>
+                <p class="font-weight-light">Defense:@shild.Defense</p>
+                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@shild.Id">Remove</a>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        @if (gloves == null)
+        {
+            <h6 class="font-italic">Gloves</h6>
+            <img src="https://ashesofcreation.wiki/images/c/cf/f6bab455-aaf6-43c2-8de3-298312e484b1-0.png" alt="gloves" class="imageOpacity" style="width: 5rem;height:5rem;" />
+
+        }
+        else
+        {
+            <h6 class="textImage">@gloves.Name</h6>
+            <img src="@gloves.ImageUrl" alt="@gloves.Name" style="width: 5rem;height:5rem;" />
+            <button onclick="glovesFunction()">Stats</button>
+            <div id="glovesStats" class="d-none">
+                <p class="font-weight-light">Attack:@gloves.Attack</p>
+                <p class="font-weight-light">Defense:@gloves.Defense</p>
+                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@gloves.Id">Remove</a>
+            </div>
+        }
+    </div>
+    <div class="col-4">
+        @if (pants == null)
+        {
+            <h6 class="font-italic">Pants</h6>
+            <img src="https://ashesofcreation.wiki/images/0/01/247ffc93-04d3-42c9-8544-fe71653f1520-0.png" alt="pants"class="imageOpacity" style="width: 5rem;height:5rem;" />
+
+        }
+        else
+        {
+            <h6 class="textImage">@pants.Name</h6>
+            <img src="@pants.ImageUrl" alt="@pants.Name" style="width: 5rem;height:5rem;" />
+            <button onclick="pantsFunction()">Stats</button>
+            <div id="pantsStats" class="d-none">
+                <p class="font-weight-light">Attack:@pants.Attack</p>
+                <p class="font-weight-light">Defense:@pants.Defense</p>
+                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@pants.Id">Remove</a>
+            </div>
+        }
+    </div>
+    <div class="col-4">
+        @if (pants == null)
+        {
+            <h6 class="font-italic">Boots</h6>
+            <img src="https://ashesofcreation.wiki/images/a/af/6bdd7e14-e272-496c-a427-3c7238a2ff42-0.png" alt="boots" class="imageOpacity" style="width: 5rem;height:5rem;" />
+        }
+        else
+        {
+            <h6 class="textImage">@boots.Name</h6>
+            <img src="@boots.ImageUrl" alt="@boots.Name" style="width: 5rem;height:5rem;" />
+            <button onclick="bootsFunction()">Stats</button>
+            <div id="bootsStats" class="d-none">
+                <p class="font-weight-light">Attack:@boots.Attack</p>
+                <p class="font-weight-light">Defense:@boots.Defense</p>
+                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@boots.Id">Remove</a>
+            </div>
+        }
+    </div>
+</div>

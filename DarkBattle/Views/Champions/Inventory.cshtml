@@ -1,0 +1,254 @@
+﻿@using DarkBattle.Services.ServiceModels
+
+@model ChampionDetailServiceModel
+
+@{
+    ViewData["Title"] = "Inventory - Items";
+}
+
+<div class="row">
+    <div class="col-4">
+        <span class="font-weight-bold">@Model.Champion.Name</span>
+        <span class="font-italic">@Model.Champion.ChampionClass</span>
+        <span class="font-weight-normal">Level :@Model.Champion.Level</span>
+        <span class="@(Model.CurrentHealth==1? "text-danger":"font-weight-normal")">Current health:@Model.CurrentHealth</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <partial name="_Championgear" model="@Model.Gear.EquipedItems" />
+        <div class="row">
+            <a a asp-controller="Areas" asp-action="BattleZones" asp-route-championId="@Model.Champion.ChampionId" class="btn btn-primary w-100 m-2">Play</a>
+        </div>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-6">
+        <div class="row">
+            <h4 class="text-center">Battle stats</h4>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="@Model.Attack"></label>
+            </div>
+            <span> @String.Format("{0:0.00}", Model.Attack)</span>
+
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="@Model.CritChanse"></label>
+            </div>
+            <span> @String.Format("{0:0.00}", Model.CritChanse)</span>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="@Model.Defense"></label>
+            </div>
+            <span> @String.Format("{0:0.00}", Model.Defense)</span>
+
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="@Model.Block"></label>
+            </div>
+            <span> @String.Format("{0:0.00}", Model.Block)</span>
+        </div>
+        <div class="row">
+            <div class="col-4 text-center">
+                <h4 class="text-center">Inventory</h4>
+            </div>
+            <div class="col-4 text-center">
+                <button class="btn btn-primary" onclick="showItems()">Items</button>
+            </div>
+            <div class="col-4 text-center">
+                <button class="btn btn-primary" onclick="showConsumables()">Consumables</button>
+            </div>
+        </div>
+        @if (Model.Items.Count > 0)
+        {
+            <table class="table d-none" id="items">
+                <thead>
+                    <tr>
+                        <th>
+                            Item
+                        </th>
+                        <th class="m-1">
+                            Attack
+                        </th>
+                        <th class="m-1">
+                            Defense
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+
+                            <td>
+                                <span>@item.Name</span>
+                            </td>
+                            <td>
+                                <span>@item.Attack</span>
+                            </td>
+                            <td>
+                                <span>@item.Defense</span>
+                            </td>
+                            <td>
+                                <a class="btn btn-success @(item.ObtainBy==Model.Champion.ChampionClass?string.Empty:"disabled")" asp-controller="Champions" asp-action="EquipItem" asp-route-championId="@Model.Champion.ChampionId" asp-route-itemId="@item.Id">Equip</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-success" asp-controller="Champions" asp-action="SellItem" asp-route-championId="@Model.Champion.ChampionId" asp-route-itemId="@item.Id">Sell</a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+        @if (Model.Consumables.Count > 0)
+        {
+            <table class="table d-none" id="consumables">
+                <thead>
+                    <tr>
+                        <th>
+                            Consumable
+                        </th>
+                        <th class="m-1">
+                            Healt restore
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Consumables)
+                    {
+                        <tr>
+
+                            <td>
+                                <span>@item.Name</span>
+                            </td>
+                            <td>
+                                <span>@item.RestoreHealth</span>
+                            </td>
+                            <td>
+                                <a class="btn btn-success" asp-controller="Champions" asp-action="Consume" asp-route-championId="@Model.Champion.ChampionId" asp-route-consumableId="@item.Id">Use</a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+
+    <div class="row">
+        <div class="col-6">
+            <a class="btn btn-success" asp-area="" asp-controller="Merchants" asp-action="Market" asp-route-championId="@Model.Champion.ChampionId">Shop from market</a>
+        </div>
+    </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function helmFunction() {
+            var x = document.getElementById("helmStats");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+        function weaponFunction() {
+            var x = document.getElementById("weaponStats");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+        function chestplateFunction() {
+            var x = document.getElementById("chestplateStats");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+        function shildFunction() {
+            var x = document.getElementById("shilStats");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+        function glovesFunction() {
+            var x = document.getElementById("glovesStats");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+        function pantsFunction() {
+            var x = document.getElementById("pantsStats");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+        function bootsFunction() {
+            var x = document.getElementById("bootsStats");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+
+        function showItems() {
+            var x = document.getElementById("items");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+        function showConsumables() {
+            var x = document.getElementById("consumables");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+
+            } else {
+                x.classList.add("d-none");
+
+            }
+        }
+
+    </script>
+}

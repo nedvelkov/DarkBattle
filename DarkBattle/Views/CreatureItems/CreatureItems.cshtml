@@ -1,0 +1,63 @@
+﻿@using DarkBattle.ViewModels.CreatureItems
+@model CreateureItemViewModel
+
+@{
+    ViewData["Title"] = Model.CreatureName;
+}
+
+<h1>@Model.CreatureName</h1>
+
+@if (Model.ItemCollection.Count != 0) 
+{ 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Name</label>
+            </th>
+            <th>
+                <label>Type</label>
+
+            </th>
+            <th>
+                <label>Obtain by</label>
+            </th>
+            <th>
+                <label>Required level</label>
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ItemCollection)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ObtainBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequiredLevel)
+                </td>
+                <td>
+                    <img src="@item.ImageUrl" class="imageItemMerchant" alt="@item.Name">
+                </td>
+                <td>
+                    <a asp-action="Remove" asp-route-itemId="@item.Id" asp-route-creatureId="@Model.CreatureId" class="btn btn-primary">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+<a asp-controller="CreatureItems" asp-action="ListItemsToAdd" asp-route-creatureId="@Model.CreatureId" class="btn btn-primary">Add items</a>
+
+<a asp-controller="Creatures" asp-action="Index" class="btn btn-primary">Back to creatures</a>

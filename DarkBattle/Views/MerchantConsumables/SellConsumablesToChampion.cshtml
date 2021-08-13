@@ -1,0 +1,65 @@
+﻿@using DarkBattle.Services.ServiceModels
+
+@model SellConsumablesViewModel
+
+<partial name="_ChampionBar" model="@Model.Champion" />
+
+@{
+    ViewData["Title"] = Model.Consumables.MerchantName;
+}
+
+<h1>@Model.Consumables.MerchantName</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Name</label>
+            </th>
+            <th>
+                <label>Restore healt</label>
+            </th>
+            <th>
+                <label>Cost</label>
+            </th>
+            <th>
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Consumables.Consumables)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestoreHealth)
+                </td>
+
+                <td>
+                    <span>@item.Value gold</span>
+                </td>
+                <td>
+                    <img src="@item.ImageUrl" class="imageItemMerchant" alt="@item.Name">
+                </td>
+                <td>
+                    <a class="btn btn-primary  @(item.Value>Model.Champion.Gold ? "disabled" : string.Empty)" asp-controller="MerchantConsumables" asp-action="SellConsumable" asp-route-championId="@Model.Champion.ChampionId" asp-route-consumableId="@item.Id" asp-route-merchantId="@Model.Consumables.MerchantId">Buy</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-4">
+        <a class="btn btn-primary" asp-controller="Merchants" asp-action="Market" asp-route-championId="@Model.Champion.ChampionId" style="width:100%">Back to market</a>
+    </div>
+    <div class=" col-4">
+    </div>
+    <div class="col-4">
+        <a class="btn btn-primary" asp-controller="Champions" asp-action="Inventory" asp-route-championId="@Model.Champion.ChampionId" style="width:100%">View inventory</a>
+    </div>
+</div>

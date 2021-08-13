@@ -1,0 +1,22 @@
+﻿@using DarkBattle.Services.ServiceModels
+
+@model MerchantMarketViewModel
+
+<partial name="_ChampionBar" model="@Model.Champion" />
+
+<div class="row">
+    @foreach (var merchant in Model.Merchants)
+    {
+        <div class="col">
+            <div class="card" style="width:300px;">
+                <img class="card-img-top" src="@merchant.ImageUrl" alt="@merchant.Name" style="height:350px">
+                <div class="card-body">
+                    <h5 class="card-title">@merchant.Name</h5>
+                    <h6 class="card-title font-italic">@merchant.Description</h6>
+                    <a asp-controller="MerchantItems" asp-action="SellItemsToChampion" asp-route-championId="@Model.Champion.ChampionId" asp-route-merchantId="@merchant.Id">Items : @merchant.Items.Count</a>
+                    <a asp-controller="MerchantConsumables" asp-action="SellConsumablesToChampion" asp-route-championId="@Model.Champion.ChampionId" asp-route-merchantId="@merchant.Id">Consumables : @merchant.Consumables.Count</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,52 @@
+﻿@using DarkBattle.Services.ServiceModels
+@model IEnumerable<ChampionServiceModel>
+@{
+    ViewData["Title"] = "Champions";
+}
+
+<h1>Champions </h1>
+<hr />
+<p>
+    @if (Model.Count() < ViewBag.MaxChampions)
+    {
+        <a asp-action="Create">Create New</a>
+    }
+</p>
+
+
+<form method="post">
+    <div class="row">
+        @foreach (var champions in Model)
+        {
+            <div class="col-4">
+                <div class="card" style="width:300px;">
+                    <img class="card-img-top" src="@champions.ImageUrl" alt="@champions.Name" style="height:350px">
+                    <div class="card-body">
+                        <h5 class="card-title">@champions.Name</h5>
+                        <h6 class="card-title font-italic">@champions.ChampionClass</h6>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="@champions.Level"></label>
+                            </div>
+                            <div class="col">
+                                <span class="font-weight-bold">@champions.Level</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="@champions.Experience"></label>
+                            </div>
+                            <div class="col">
+                                <span class="font-weight-bold">@champions.Experience</span>
+
+                            </div>
+                        </div>
+                        <a asp-controller="Areas" asp-action="BattleZones" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Play</a>
+                        <a asp-action="Details" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Details</a>
+                        <a asp-action="Delete" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</form>
