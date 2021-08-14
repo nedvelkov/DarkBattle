@@ -39,11 +39,6 @@
                 return false;
             }
 
-            if (this.data.Champions.Any(x => x.Name == name) == true)
-            {
-                return false;
-            }
-
             var player = GetPlayer(playerId);
             if (player == null)
             {

@@ -6,7 +6,7 @@
     var helm = Model.FirstOrDefault(x => x.Type == "Helm");
     var weapon = Model.FirstOrDefault(x => x.Type == "Weapon");
     var chestplate = Model.FirstOrDefault(x => x.Type == "Chestplate");
-    var shild = Model.FirstOrDefault(x => x.Type == "Shild");
+    var shield = Model.FirstOrDefault(x => x.Type == "Shield");
     var gloves = Model.FirstOrDefault(x => x.Type == "Gloves");
     var pants = Model.FirstOrDefault(x => x.Type == "Pants");
     var boots = Model.FirstOrDefault(x => x.Type == "Boots");
@@ -81,7 +81,7 @@
         }
     </div>
     <div class="col-4">
-        @if (shild == null)
+        @if (shield == null)
         {
             <h6 class="font-italic">Shild</h6>
             <img src="https://ashesofcreation.wiki/images/c/c8/ShieldIcon.png" alt="shild" class="imageOpacity" style="width: 5rem;height:5rem;" />
@@ -89,13 +89,13 @@
         }
         else
         {
-            <h6 class="textImage">@shild.Name</h6>
-            <img src="@shild.ImageUrl" alt="@shild.Name" style="width: 5rem;height:5rem;" />
+            <h6 class="textImage">@shield.Name</h6>
+            <img src="@shield.ImageUrl" alt="@shield.Name" style="width: 5rem;height:5rem;" />
             <button onclick="shildFunction()">Stats</button>
             <div id="shildStats" class="d-none">
-                <p class="font-weight-light">Attack:@shild.Attack</p>
-                <p class="font-weight-light">Defense:@shild.Defense</p>
-                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@shild.Id">Remove</a>
+                <p class="font-weight-light">Attack:@shield.Attack</p>
+                <p class="font-weight-light">Defense:@shield.Defense</p>
+                <a class="btn btn-primary" asp-controller="Champions" asp-action="RemoveItem" asp-route-championId="@Context.Request.Query["championId"]" asp-route-itemId="@shield.Id">Remove</a>
             </div>
         }
     </div>
@@ -140,7 +140,7 @@
         }
     </div>
     <div class="col-4">
-        @if (pants == null)
+        @if (boots == null)
         {
             <h6 class="font-italic">Boots</h6>
             <img src="https://ashesofcreation.wiki/images/a/af/6bdd7e14-e272-496c-a427-3c7238a2ff42-0.png" alt="boots" class="imageOpacity" style="width: 5rem;height:5rem;" />

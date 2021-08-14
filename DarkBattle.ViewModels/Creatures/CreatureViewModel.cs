@@ -19,13 +19,13 @@
         [RegularExpression(ImageRegex, ErrorMessage = "Provided url addres is not correct.")]
         public string ImageUrl { get; set; }
 
-        [Range(MinValue,MaxLevelCreature)]
+        [Range(MinValue,MaxAttackCreature)]
         public int Attack { get; set; }
 
-        [Range(MinValue, MaxLevelCreature)]
+        [Range(MinValue, MaxDefensekCreature)]
         public int Defense { get; set; }
 
-        [Range(MinValue, MaxLevelCreature)]
+        [Range(MinValue, MaxHealthCreature)]
         public int Health { get; set; }
 
         [Range(MinValue, MaxLevelCreature)]
@@ -34,7 +34,7 @@
         [Range(MinValue, MaxLevelCreature)]
         public int Level { get; set; }
 
-        [Range(MinValue, MaxLevelCreature)]
+        [Range(MinValue, MaxGoldDrop)]
         public int Gold { get; set; }
 
         [Range(MinValue,MaxLevelCreature)]

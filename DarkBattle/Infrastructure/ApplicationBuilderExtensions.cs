@@ -13,6 +13,7 @@
     using DarkBattle.Data.Models;
 
     using static DarkBattle.DarkBattleRoles;
+    using DarkBattle.Seeder;
 
     public static class ApplicationBuilderExtensions
     {
@@ -33,6 +34,8 @@
             SeedAdministrator(services);
             SeedModerator(services);
             SeedPlayerRole(services);
+            var seeder = new SeedData(data);
+            seeder.Seed();
 
             return app;
         }

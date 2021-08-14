@@ -48,6 +48,6 @@ namespace DarkBattle.ViewModels.Items
 
         public ICollection<string> ChampionClasses { get; set; }
 
-        public ICollection<string> ItemType => new List<string> { "Helm", "Weapon", "Chestplate", "Shild", "Gloves", "Pants", "Boots" };
+        public ICollection<string> ItemType => new List<string> { "Helm", "Weapon", "Chestplate", "Shield", "Gloves", "Pants", "Boots" };
     }
 }
