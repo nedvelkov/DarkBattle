@@ -49,7 +49,7 @@
 </div>
 <div class="row">
     <div class="col-4">
-        <a asp-controller="Battles" asp-action="FightCreature" asp-route-championId="@Model.Champion.ChampionId" asp-route-areaId="@Model.AreaId" class="btn btn-primary w-100 mb-2 @(Model.Champion.CurrentHealth==1?"disabled":string.Empty)">Fight again</a>
+        <a asp-controller="Battles" asp-action="FightInDungeon" asp-route-championId="@Model.Champion.ChampionId" asp-route-areaId="@Model.AreaId" class="btn btn-primary w-100 mb-2 @(Model.Champion.CurrentHealth==1?"disabled":string.Empty)">Fight again</a>
     </div>
     <div class="col-4">
         <a asp-controller="Areas" asp-action="BattleZones" asp-route-championId="@Model.Champion.ChampionId" class="btn btn-primary w-100 mb-2 @(Model.Champion.CurrentHealth==1?"disabled":string.Empty)">Select battle zone</a>

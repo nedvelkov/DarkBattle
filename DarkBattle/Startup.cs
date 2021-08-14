@@ -15,6 +15,7 @@ namespace DarkBattle
     using DarkBattle.Infrastructure;
     using Microsoft.AspNetCore.Mvc;
     using DarkBattle.Data.Models;
+    using DarkBattle.Infrastructure.Extentions;
 
     public class Startup
     {
@@ -30,7 +31,8 @@ namespace DarkBattle
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<Player>(options => {
+            services.AddDefaultIdentity<Player>(options =>
+            {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
@@ -42,7 +44,7 @@ namespace DarkBattle
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddControllersWithViews(config=>
+            services.AddControllersWithViews(config =>
             {
                 config.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
@@ -92,7 +94,8 @@ namespace DarkBattle
                 .UseEndpoints
                     (endpoints =>
                         {
-                            endpoints.MapDefaultControllerRoute();
+                            endpoints.MapDefaultAreaRoute();
+                            endpoints.MapDefaultRoute();
                             endpoints.MapRazorPages();
                         }
                     );

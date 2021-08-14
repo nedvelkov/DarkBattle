@@ -292,6 +292,11 @@
             var champion = Champion(championId);
             while (true)
             {
+                var maxLevel = int.Parse(this.cofing.GetSection("GameSettings:MaxLevel").Value);
+                if (champion.Level == maxLevel)
+                {
+                    break;
+                }
                 var levelIncrement = this.cofing.GetSection("GameSettings:LevelIncrement")
                                  .GetChildren()
                                  .Select(x => int.Parse(x.Value))

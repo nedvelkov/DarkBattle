@@ -1,0 +1,63 @@
+﻿@using DarkBattle.ViewModels.MerchantConsumables
+@model MerchantConsumablePageModel
+
+
+@{
+    ViewData["Title"] = $"Sell Items {Model.MerchantName}";
+}
+
+<h1>Sell Items by @Model.MerchantName</h1>
+
+<form method="get">
+    <div class="row mb-1">
+        <input asp-for="MerchantId" type="hidden">
+        <div class="form-group col-md-4">
+            <div class="form-group">
+                <label asp-for="SearchByName"></label>
+                <input asp-for="SearchByName" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label asp-for="Sorting"></label>
+            <select asp-for="Sorting" class="form-control">
+                <option value="2" selected>Healt</option>
+                <option value="1">Value</option>
+            </select>
+        </div>
+    </div>
+    <div class="row text-center mb-2">
+        <input type="submit" class="btn btn-primary" value="Search" style="width:100%;" />
+    </div>
+</form>
+
+
+@if (Model.Consumables.Count == 0)
+{
+<div>
+    <a class="btn btn-primary mb-2" asp-area="Admin" asp-controller="MerchantConsumables" asp-action="ListConsumables" asp-route-merchantId="@Model.MerchantId">Add consumables</a>
+</div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model.Consumables)
+        {
+            <div class="form-group col-md-4">
+                <div class="card" style="width: 10rem;">
+                    <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" style="width: 10rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">Restore healt: @item.RestoreHealth</p>
+                        <p class="card-text">Value: @item.Value </p>
+                        <a asp-area="Admin" asp-action="Remove" asp-route-consumableId="@item.Id" asp-route-merchantId="@Model.MerchantId" class="btn btn-primary">Remove</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<div>
+    <a asp-area="Admin" class="btn btn-primary" asp-controller="Merchants" asp-action="Index">Back to List</a>
+</div>

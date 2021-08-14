@@ -1,11 +1,15 @@
 ﻿namespace DarkBattle.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.Merchants;
     using DarkBattle.Infrastructure;
 
+    using static DarkBattle.DarkBattleRoles;
+
+    [Authorize(Roles = PlayerRoleName)]
     public class MerchantsController:Controller
     {
         private readonly IMerchantService merchantService;

@@ -6,9 +6,11 @@
     using DarkBattle.Infrastructure;
     using DarkBattle.Services.Interface;
 
-    [Authorize(Roles = "Player")]
 
-    public class BattlesController:Controller
+    using static DarkBattle.DarkBattleRoles;
+
+    [Authorize(Roles = PlayerRoleName)]
+    public class BattlesController : Controller
     {
         private readonly IBattleService battleService;
 
@@ -17,21 +19,21 @@
             this.battleService = battleService;
         }
 
-        public IActionResult FightCreature(string championId,string areaId)
+        public IActionResult FightCreature(string championId, string areaId)
         {
             var playerId = this.User.GetId();
             var result = this.battleService.FightWithCreature(championId, areaId, playerId);
             return View(result);
         }
 
-        public IActionResult FightInDungeon(string championId,string areaId)
+        public IActionResult FightInDungeon(string championId, string areaId)
         {
             var playerId = this.User.GetId();
-            var result = this.battleService.FightWithCreature(championId, areaId, playerId,true);
+            var result = this.battleService.FightWithCreature(championId, areaId, playerId, true);
             return View(result);
         }
 
-        public IActionResult Training(string championId,string gold)
+        public IActionResult Training(string championId, string gold)
         {
             if (championId == null)
             {

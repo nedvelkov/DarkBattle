@@ -9,8 +9,11 @@
     using DarkBattle.ViewModels.Champions;
     using DarkBattle.Infrastructure;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.AspNetCore.Authorization;
 
+    using static DarkBattle.DarkBattleRoles;
 
+    [Authorize(Roles = PlayerRoleName)]
     public class ChampionsController : Controller
     {
         private readonly IChampionService championService;

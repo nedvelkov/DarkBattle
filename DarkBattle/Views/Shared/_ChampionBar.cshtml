@@ -5,7 +5,7 @@
 
 @{
     var healtBarValue = ((double)Model.CurrentHealth / Model.MaxHealth) * 100;
-    var expBarValue = ((double)Model.Experience / Model.ExperienceForLevelUp) * 100;
+    var expBarValue =  Model.Experience>=Model.ExperienceForLevelUp? 100:((double)Model.Experience / Model.ExperienceForLevelUp) * 100;
 }
 
 <div class="row">
@@ -13,7 +13,7 @@
         <a asp-controller="Champions" asp-action="Details" asp-route-championId="@Model.ChampionId" class="badge badge-secondary">@Model.Name @Model.Level lvl</a>
     </div>
     <div class="col-3">
-        <div class="progress-bar bg-success" role="progressbar" style="width: @healtBarValue%;" aria-valuenow="@Model.MaxHealth" aria-valuemin="1" aria-valuemax="@Model.MaxHealth">@Model.CurrentHealth/@Model.MaxHealth Health</div>
+        <div class="progress-bar bg-success font-weight-normal" role="progressbar" style="width: @healtBarValue%;" aria-valuenow="@Model.MaxHealth" aria-valuemin="1" aria-valuemax="@Model.MaxHealth">@Model.CurrentHealth/@Model.MaxHealth Health</div>
     </div>
     <div class="col-3">
         <div class="progress-bar bg-info" role="progressbar" style="width: @expBarValue%;" aria-valuenow="@Model.Experience" aria-valuemin="1" aria-valuemax="@Model.ExperienceForLevelUp">@Model.Experience/@Model.ExperienceForLevelUp Expirience</div>

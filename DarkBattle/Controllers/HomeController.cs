@@ -14,6 +14,7 @@
     using DarkBattle.ViewModels.Home;
 
     using static DarkBattleRoles;
+    using DarkBattle.Infrastructure;
 
     public class HomeController : Controller
     {
@@ -25,7 +26,7 @@
         }
         public IActionResult Index()
         {
-            if (this.User.Identity.IsAuthenticated == false)
+            if (this.User.Identity.IsAuthenticated==false)
             {
                 return RedirectToAction(nameof(this.Presentation));
             }
@@ -57,7 +58,7 @@
                 Description = WebStatistics.Presentation,
                 Statistic="Online players",
                 StatisticValue=online.ToString(),
-                ImageUrl = "https://images2.alphacoders.com/123/123862.jpg"
+                ImageUrl = "https://wallpapercave.com/wp/wp2445551.jpg"
             });
 
             presentation.Add(new PresentationViewModel
@@ -66,7 +67,7 @@
                 Description = WebStatistics.Areas,
                 Statistic = "Conquare all",
                 StatisticValue = $"{areas} battle zones",
-                ImageUrl = "http://wallpoper.com/images/00/22/25/59/dark-battle_00222559.jpg"
+                ImageUrl = "https://wallpapercave.com/wp/wp2445559.jpg"
             });
 
             presentation.Add(new PresentationViewModel
@@ -75,7 +76,7 @@
                 Description = WebStatistics.ChooseClass,
                 Statistic = "Chosse from",
                 StatisticValue = $"{championClasses} unique champions",
-                ImageUrl = "https://mmoculture.com/wp-content/uploads/2014/08/MU-Classic-characters.jpg"
+                ImageUrl = "https://wallpapercave.com/wp/wp2445587.png"
             });
 
             return View(presentation);

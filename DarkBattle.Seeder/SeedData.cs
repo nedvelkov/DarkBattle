@@ -204,10 +204,10 @@
             {
                 Name = "Bear",
                 ImageUrl = "https://vignette2.wikia.nocookie.net/leagueoflegends/images/d/d7/Volibear_OriginalLoading.jpg",
-                Attack = 10,
+                Attack = 5,
                 Defense = 10,
                 Block = 5,
-                Health = 35,
+                Health = 20,
                 Gold = 10,
                 Expirience = 15,
                 Level = 1,
@@ -217,10 +217,10 @@
             {
                 Name = "Wolf",
                 ImageUrl = "https://pm1.narvii.com/7289/5aa40cd3abf3b6e889c4d8265a003609055c6b63r1-474-474v2_hq.jpg",
-                Attack = 15,
+                Attack = 7,
                 Defense = 13,
                 Block = 6,
-                Health = 30,
+                Health = 20,
                 Gold = 13,
                 Expirience = 16,
                 Level = 2,
@@ -230,10 +230,10 @@
             {
                 Name = "Warewolf",
                 ImageUrl = "http://2.bp.blogspot.com/_rAJe_CypsZs/TGzLZf4Xw9I/AAAAAAAAAj8/hWP6UywMPPE/w1200-h630-p-k-no-nu/werewolf6.jpg",
-                Attack = 20,
+                Attack = 12,
                 Defense = 10,
                 Block = 5,
-                Health = 40,
+                Health = 22,
                 Gold = 15,
                 Expirience = 17,
                 Level = 3,
@@ -243,10 +243,10 @@
             {
                 Name = "Scarabaeus",
                 ImageUrl = "https://gamepedia.cursecdn.com/wowpedia/a/a5/Silithid_Scarab.png",
-                Attack = 18,
+                Attack = 9,
                 Defense = 20,
                 Block = 8,
-                Health = 35,
+                Health = 30,
                 Gold = 17,
                 Expirience = 18,
                 Level = 5,
@@ -256,10 +256,10 @@
             {
                 Name = "DarkSliser",
                 ImageUrl = "https://i.pinimg.com/736x/37/e3/e6/37e3e67f1e0c114cb7031c23504edce8.jpg",
-                Attack = 100,
-                Defense = 120,
+                Attack = 50,
+                Defense = 60,
                 Block = 25,
-                Health = 190,
+                Health = 80,
                 Gold = 80,
                 Expirience = 30,
                 Level = 10,
@@ -271,8 +271,8 @@
             {
                 Name = "Snow bear",
                 ImageUrl = "http://pngimg.com/uploads/polar_bear/polar_bear_PNG30.png",
-                Attack = 70,
-                Defense = 60,
+                Attack = 35,
+                Defense = 40,
                 Block = 15,
                 Health = 80,
                 Gold = 20,
@@ -284,8 +284,8 @@
             {
                 Name = "Ice wolf",
                 ImageUrl = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Ffe%2F19%2F3e%2Ffe193e77a3f190aa7da2a73772aca0a2.png",
-                Attack = 75,
-                Defense = 55,
+                Attack = 50,
+                Defense = 45,
                 Block = 10,
                 Health = 90,
                 Gold = 22,
@@ -296,10 +296,10 @@
             {
                 Name = "White warewolf",
                 ImageUrl = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F04%2F42%2Fa4%2F0442a43de50c95ac5e34f645b964e871.jpg",
-                Attack = 85,
-                Defense = 90,
+                Attack = 70,
+                Defense = 60,
                 Block = 25,
-                Health = 110,
+                Health = 90,
                 Gold = 25,
                 Expirience = 20,
                 Level = 13,
@@ -671,13 +671,61 @@
                 Value = 5,
             };
 
+            //CheatWeapon
+            var cheatWeaponWarrior = new Item
+            {
+                Name = "Cheat",
+                ImageUrl = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngpix.com%2Fwp-content%2Fuploads%2F2016%2F10%2FPNGPIX-COM-Bitcoin-PNG-Image.png&f=1&nofb=1",
+                Attack = 999,
+                Defense = 99,
+                Equipped = false,
+                ObtainBy = "Warrior",
+                Type = "Weapon",
+                Value = 99,
+            };
+            var cheatWeaponMage = new Item
+            {
+                Name = "Cheat",
+                ImageUrl = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngpix.com%2Fwp-content%2Fuploads%2F2016%2F10%2FPNGPIX-COM-Bitcoin-PNG-Image.png&f=1&nofb=1",
+                Attack = 999,
+                Defense = 99,
+                Equipped = false,
+                ObtainBy = "Mage",
+                Type = "Weapon",
+                Value = 99,
+            };
+            var cheatWeaponRouge = new Item
+            {
+                Name = "Cheat",
+                ImageUrl = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngpix.com%2Fwp-content%2Fuploads%2F2016%2F10%2FPNGPIX-COM-Bitcoin-PNG-Image.png&f=1&nofb=1",
+                Attack = 999,
+                Defense = 99,
+                Equipped = false,
+                ObtainBy = "Rouge",
+                Type = "Weapon",
+                Value = 99,
+            };
+            var cheatWeaponArcher = new Item
+            {
+                Name = "Cheat",
+                ImageUrl = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngpix.com%2Fwp-content%2Fuploads%2F2016%2F10%2FPNGPIX-COM-Bitcoin-PNG-Image.png&f=1&nofb=1",
+                Attack = 999,
+                Defense = 99,
+                Equipped = false,
+                ObtainBy = "Archer",
+                Type = "Weapon",
+                Value = 99,
+            };
+
+
             var basicItemToMerchant = new List<Item>
             {
                 basicArmorWarrior,basicArmorArcher,basicArmorMage,basicArmorRouge,
                 basicBootsArcher,basicBootsMage,basicBootsRouge,basicBootsWarrior,
                 basicGlovesArcher,basicGlovesMage,basicGlovesRouge,basicGlovesWarrior,
                 basicHelmArcher,basicHelmMage,basicHelmRouge,basicHelmWarrior,basicPantsArcher,
-                basicPantsMage,basicPantsRouge,basicPantsWarrior
+                basicPantsMage,basicPantsRouge,basicPantsWarrior,
+                cheatWeaponArcher,cheatWeaponMage,cheatWeaponRouge,cheatWeaponWarrior
             };
             foreach (var item in basicItemToMerchant)
             {
@@ -909,9 +957,16 @@
                 Value = 10,
                 ImageUrl = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fstatic.abeka.com%2FShared%2FABeka%2FProductImages%2FClipArt%2F250589%2F150x150y160fx160fh-w%2F250589-Pink-Bithday-Cake-with-six-candles-line-pdf.png&f=1&nofb=1"
             };
+            var cake3 = new Consumable
+            {
+                Name = "CheatCake",
+                RestoreHealth = 999,
+                Value = 99,
+                ImageUrl = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fstatic.abeka.com%2FShared%2FABeka%2FProductImages%2FClipArt%2F250589%2F150x150y160fx160fh-w%2F250589-Pink-Bithday-Cake-with-six-candles-line-pdf.png&f=1&nofb=1"
+            };
             var baked = new List<Consumable>
             {
-                bread,bread2,bread3,cake,cake2
+                bread,bread2,bread3,cake,cake2,cake3
             };
             var baker = this.data.Merchants.First(X => X.Description == "Bread vendor");
 
@@ -955,9 +1010,16 @@
                 Value = 15,
                 ImageUrl = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.identicards.com%2Fproductcart%2Fpc%2Fcatalog%2Fimages%2FEYP%2Fdecals%2F512-1019b-150.jpg&f=1&nofb=1"
             };
+            var tuna3 = new Consumable
+            {
+                Name = "CheatTuna",
+                RestoreHealth = 999,
+                Value = 99,
+                ImageUrl = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.identicards.com%2Fproductcart%2Fpc%2Fcatalog%2Fimages%2FEYP%2Fdecals%2F512-1019b-150.jpg&f=1&nofb=1"
+            };
             var seaFood = new List<Consumable>
             {
-                fish,fish2,fish3,tuna,tuna2
+                fish,fish2,fish3,tuna,tuna2,tuna3
             };
             var fisheman= this.data.Merchants.First(X => X.Description == "Fish vendor");
 
@@ -1002,10 +1064,17 @@
                 Value = 10,
                 ImageUrl = "https://www.aldi.us/fileadmin/_processed_/7/7/csm_090711_S_40526_KW_FreshWholeChicken_Hero_D_bde3dad430.jpg"
             };
+            var chicken3 = new Consumable
+            {
+                Name = "CheatChicken",
+                RestoreHealth = 999,
+                Value = 99,
+                ImageUrl = "https://www.aldi.us/fileadmin/_processed_/7/7/csm_090711_S_40526_KW_FreshWholeChicken_Hero_D_bde3dad430.jpg"
+            };
 
             var mealFood = new List<Consumable>
             {
-                meal,meal2,meal3,chicken,chicken2
+                meal,meal2,meal3,chicken,chicken2,chicken3
             };
 
             var butcher = this.data.Merchants.First(X => X.Description == "Meal vendor");

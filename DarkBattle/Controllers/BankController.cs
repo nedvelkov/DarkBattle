@@ -1,7 +1,13 @@
 ﻿namespace DarkBattle.Controllers
 {
     using DarkBattle.Services.Interface;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
+    using static DarkBattle.DarkBattleRoles;
+
+    [Authorize(Roles = PlayerRoleName)]
+
     public class BankController : Controller
     {
         private readonly IBankService bankService;

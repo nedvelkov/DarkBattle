@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using DarkBattle.Services.Interface;
 using System.Security.Claims;
+using DarkBattle.Infrastructure;
 
 namespace DarkBattle.Areas.Identity.Pages.Account
 {
@@ -34,7 +35,7 @@ namespace DarkBattle.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await signInManager.SignOutAsync();
-            var playerId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+           var playerId = this.User.GetId();
             this.playerService.LogOut(playerId);
             if (returnUrl != null)
             {

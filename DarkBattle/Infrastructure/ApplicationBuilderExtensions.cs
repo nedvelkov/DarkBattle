@@ -32,7 +32,6 @@
             var roles= data.UserRoles.Any();
 
             SeedAdministrator(services);
-            SeedModerator(services);
             SeedPlayerRole(services);
             var seeder = new SeedData(data);
             seeder.Seed();
@@ -67,40 +66,6 @@
                     };
 
                     await userManager.CreateAsync(user, adminPassword);
-
-                    await userManager.AddToRoleAsync(user, role.Name);
-                })
-                .GetAwaiter()
-                .GetResult();
-        }
-
-        private static void SeedModerator(IServiceProvider services)
-        {
-            var userManager = services.GetRequiredService<UserManager<Player>>();
-            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-            Task
-                .Run(async () =>
-                {
-                    if (await roleManager.RoleExistsAsync(ModeratorRoleName))
-                    {
-                        return;
-                    }
-
-                    var role = new IdentityRole { Name = ModeratorRoleName };
-
-                    await roleManager.CreateAsync(role);
-
-                    const string email = "moderator@darkbattle.com";
-                    const string password = "moderator123";
-
-                    var user = new Player
-                    {
-                        Email = email,
-                        UserName = email,
-                    };
-
-                    await userManager.CreateAsync(user, password);
 
                     await userManager.AddToRoleAsync(user, role.Name);
                 })

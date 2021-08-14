@@ -1,12 +1,15 @@
 ﻿namespace DarkBattle.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.MerchantItems;
     using DarkBattle.Infrastructure;
     using DarkBattle.Services.ServiceModels;
 
+    using static DarkBattle.DarkBattleRoles;
+
+    [Authorize(Roles = PlayerRoleName)]
     public class MerchantItemsController : Controller
     {
         private readonly IMerchantItemsService service;
@@ -16,24 +19,6 @@
         {
             this.service = service;
             this.championService = championService;
-        }
-        public IActionResult ListItems(string merchantId)
-            => View(this.service.Items(merchantId));
-
-        public IActionResult Add(string itemId, string merchantId)
-        {
-            this.service.Add(itemId, merchantId);
-            return Redirect($"/MerchantItems/ListItems?merchantId={merchantId}");
-        }
-        public IActionResult Remove(string itemId, string merchantId)
-        {
-            this.service.Remove(itemId, merchantId);
-            return Redirect($"/MerchantItems/ListItems?merchantId={merchantId}");
-        }
-        public IActionResult SellItems(MerchantItemPageModel model)
-        {
-            var merchant = this.service.SortedItemsSellByMerchant(model);
-            return View(merchant);
         }
 
         public IActionResult SellItemsToChampion(string championId, string merchantId)
@@ -52,7 +37,8 @@
         public IActionResult SellItem(string championId, string itemId, string merchantId)
         {
             this.service.SellItem(championId, itemId);
-            return Redirect($"SellItemsToChampion?championId={championId}&merchantId={merchantId}");
+            return RedirectToAction("SellItemsToChampion", "MerchantItems", new { championId = $"{ championId}", merchantId = $"{merchantId}" });
+
         }
     }
 }

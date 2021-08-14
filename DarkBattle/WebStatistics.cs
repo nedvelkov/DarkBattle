@@ -9,8 +9,7 @@
 
     public class DarkBattleRoles
     {
-        public static string AdministratorRoleName = "Admin";
-        public static string ModeratorRoleName = "Moderator";
-        public static string PlayerRoleName = "Player";
+        public const string AdministratorRoleName = "Admin";
+        public const string PlayerRoleName = "Player";
     }
 }
