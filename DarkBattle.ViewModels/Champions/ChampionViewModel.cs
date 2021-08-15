@@ -1,9 +1,7 @@
 ﻿namespace DarkBattle.ViewModels.Champions
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    using DarkBattle.ViewModels.ChampionClasses;
+    using System.ComponentModel.DataAnnotations;  
 
     using static DataConstants.Constants;
 
@@ -14,7 +12,7 @@
         [MaxLength(NameMaxLenght)]
         public string Name { get; set; }
 
-        public ICollection<ChampionClassPresentationModel> ChampionClasses { get; init; }
+     //   public ICollection<ChampionClassServiceListToChampionModel> ChampionClasses { get; init; }
 
         public string ChampionClassId { get; set; }
     }

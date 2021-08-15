@@ -1,4 +1,4 @@
-﻿@using DarkBattle.Services.ServiceModels
+﻿@using DarkBattle.ViewModels.Merchants
 
 @model SellItemsViewModel
 
@@ -37,7 +37,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Items.ItemCollection)
+        @*@foreach (var item in Model.Items.ItemCollection)
         {
             <tr>
                 <td>
@@ -62,7 +62,7 @@
                     <a class="btn btn-primary  @(item.Value>Model.Champion.Gold ? "disabled" : string.Empty)" asp-controller="MerchantItems" asp-action="SellItem" asp-route-championId="@Model.Champion.ChampionId" asp-route-itemId="@item.Id" asp-route-merchantId="@Model.Items.MerchantId">Buy</a>
                 </td>
             </tr>
-        }
+        }*@
     </tbody>
 </table>
 <div class="row">

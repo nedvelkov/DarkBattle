@@ -3,13 +3,13 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using DarkBattle.ViewModels.Items;
+    using DarkBattle.Services.ServiceModels.Items;
 
     public class MerchantItemPageModel
     {
-        public string MerchantId { get; init; }
-        public string MerchantName { get; init; }
-        public ICollection<ItemViewModel> ItemCollection { get; set; }
+        public string MerchantId { get; set; }
+        public string MerchantName { get; set; }
+        public ICollection<ItemServiceModel> ItemCollection { get; set; }
 
         public ICollection<string> ItemsType
         {
@@ -37,8 +37,8 @@
                 if (IsInitilize())
                 {
                     return this.ItemCollection.Select(x => x.RequiredLevel)
-                                                 .Distinct()
-                                                 .ToList();
+                            .Distinct()
+                            .ToList();
                 }
                 else
                 {
@@ -72,6 +72,6 @@
         public string SelectObteinBy { get; set; }
 
         private bool IsInitilize()
-        => this.ItemCollection != null;
+        =>  this.ItemCollection != null;
     }
 }

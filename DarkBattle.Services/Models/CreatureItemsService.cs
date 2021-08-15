@@ -7,8 +7,7 @@
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.CreatureItems;
-    using DarkBattle.ViewModels.Items;
+    using DarkBattle.Services.ServiceModels.Items;
     using Microsoft.EntityFrameworkCore;
 
 
@@ -22,11 +21,6 @@
             this.data = data;
             this.mapper = mapper;
         }
-
-        public CreateureItemViewModel AddItems(string creatureId)
-            => GetListView(x => x.CreatureId == null, creatureId);
-        public CreateureItemViewModel Items(string creatureId)
-            => GetListView(x => x.CreatureId == creatureId, creatureId);
 
         public bool Add(string itemId, string creatureId)
         {
@@ -68,18 +62,6 @@
                    .Include(x => x.Items)
                    .FirstOrDefault(x => x.Id == creatureId);
 
-        private CreateureItemViewModel GetListView(Func<Item, bool> func, string creatureId)
-        {
-            var creaure = Creature(creatureId);
-
-            var items = GetItems<ItemsListView>(func);
-            return new CreateureItemViewModel()
-            {
-                CreatureId = creaure.Id,
-                CreatureName = creaure.Name,
-                ItemCollection = items
-            };
-        }
         private ICollection<T> GetItems<T>(Func<Item, bool> func)
         => this.data.Items
                     .Where(func)

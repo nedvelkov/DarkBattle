@@ -5,15 +5,18 @@
 
     using DarkBattle.Services.Interface;
     using DarkBattle.Infrastructure;
-    using DarkBattle.Services.ServiceModels;
 
     using static DarkBattle.DarkBattleRoles;
+    using DarkBattle.ViewModels.Merchants;
+    using DarkBattle.ViewModels.MerchantItems;
 
     [Authorize(Roles = PlayerRoleName)]
     public class MerchantItemsController : Controller
     {
         private readonly IMerchantItemsService service;
         private readonly IChampionService championService;
+        private readonly IMerchantService merchantService;
+        private readonly IItemService itemService;
 
         public MerchantItemsController(IMerchantItemsService service, IChampionService championService)
         {
@@ -25,11 +28,16 @@
         {
             var playerId = this.User.GetId();
             var champion = this.championService.ChampionBar(championId, playerId);
-            var items = this.service.ItemsSellByMerchant(merchantId);
+            var items = this.itemService.ItemsSellByMerchant(merchantId);
             var model = new SellItemsViewModel
             {
                 Champion = champion,
-                Items = items
+                Items = new MerchantItemPageModel
+                {
+                    MerchantId = merchantId,
+                    MerchantName=this.merchantService.MerchantName(merchantId),
+                    ItemCollection=items
+                }
             };
             return View(model);
         }

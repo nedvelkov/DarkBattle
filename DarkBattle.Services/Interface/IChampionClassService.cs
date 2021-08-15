@@ -1,17 +1,18 @@
 ﻿namespace DarkBattle.Services.Interface
 {
     using System.Collections.Generic;
-
-    using DarkBattle.ViewModels.ChampionClasses;
+    using DarkBattle.Services.ServiceModels.ChampionClass;
     public interface IChampionClassService
     {
-        public void Add(ChampionClassViewModel model);
+        public void Add(ChampionClassServiceModel model);
 
-        public void Edit(ChampionClassViewModel model);
+        public void Edit(ChampionClassServiceModel model);
 
-        public ChampionClassViewModel GetClass(string id);
+        public ChampionClassServiceModel GetClass(string id);
 
-        public ICollection<ChampionClassListViewModel> ClassCollection();
+        public ICollection<ChampionClassServiceListModel> ClassCollection();
+
+        public ICollection<string> ChampionClassCollection();
 
         public bool Delete(string id);
     }

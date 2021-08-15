@@ -1,18 +1,19 @@
 ﻿namespace DarkBattle.Services.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Collections.Generic;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
 
     using AutoMapper;
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.Services.ServiceModels;
-    using DarkBattle.ViewModels.ChampionClasses;
-    using Microsoft.Extensions.Configuration;
+    using DarkBattle.Services.ServiceModels.Champions;
+    using DarkBattle.Services.ServiceModels.ChampionClass;
+    using DarkBattle.Services.ServiceModels.Consumables;
+    using DarkBattle.Services.ServiceModels.Items;
 
     public class ChampionService : IChampionService
     {
@@ -28,8 +29,8 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<ChampionClassPresentationModel> GetChampionClasses()
-            => this.data.ChampionClasses.Select(this.mapper.Map<ChampionClassPresentationModel>);
+        public IEnumerable<ChampionClassServiceListToChampionModel> GetChampionClasses()
+            => this.data.ChampionClasses.Select(this.mapper.Map<ChampionClassServiceListToChampionModel>);
 
 
         public bool CreateChampion(string name, string championClassId, string playerId)
@@ -359,7 +360,11 @@
                 AddGear(championId);
                 gear = GetGear(championId);
             }
-            var items = this.data.Gears.Include(x => x.Items).FirstOrDefault(x => x.Id == gear.GearId).Items.Select(this.mapper.Map<ItemViewServiceModel>).ToList();
+            var items = this.data.Gears
+                                    .Include(x => x.Items)
+                                    .FirstOrDefault(x => x.Id == gear.GearId)
+                                    .Items
+                                    .Select(this.mapper.Map<ItemViewServiceModel>).ToList();
             gear.EquipedItems = items;
             return gear;
 

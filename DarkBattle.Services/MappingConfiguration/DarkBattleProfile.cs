@@ -2,62 +2,54 @@
 {
     using AutoMapper;
     using DarkBattle.Data.Models;
-    using DarkBattle.ViewModels.Creatures;
-    using DarkBattle.ViewModels.Areas;
-    using DarkBattle.ViewModels.Items;
-    using DarkBattle.ViewModels.Consumables;
-    using DarkBattle.ViewModels.Merchants;
-    using DarkBattle.ViewModels.ChampionClasses;
     using DarkBattle.Services.ServiceModels;
+    using DarkBattle.Services.ServiceModels.Areas;
+    using DarkBattle.Services.ServiceModels.ChampionClass;
+    using DarkBattle.Services.ServiceModels.Champions;
+    using DarkBattle.Services.ServiceModels.Consumables;
+    using DarkBattle.Services.ServiceModels.Creatures;
+    using DarkBattle.Services.ServiceModels.Items;
+    using DarkBattle.Services.ServiceModels.Merchants;
 
     public class DarkBattleProfile:Profile
     {
         public DarkBattleProfile()
         {
             //Creature
-            this.CreateMap<CreatureViewModel, Creature>()
-                .ForMember(x => x.Id, opt => opt.Ignore())
-                .ForMember(x => x.ImageUrl, y => y.MapFrom(i => i.ImageUrl));
+            this.CreateMap<CreatureServiceModel, Creature>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
 
-
-            this.CreateMap<Creature, CreatureViewModel>()
-                .ForMember(x => x.ImageUrl, y => y.MapFrom(i => i.ImageUrl));
             this.CreateMap<Creature, CreatureServiceModel>();
 
 
-            this.CreateMap<Creature, CreatureListViewModel>()
+            this.CreateMap<Creature, CreatureServiceListModel>()
                 .ForMember(x => x.Area, y => y.MapFrom(a => a.Area.Name));
 
             //Area
-            this.CreateMap<Area, AreaViewModel>();
+            this.CreateMap<Area, AreaServiceViewModel>();
 
-            this.CreateMap<AreaViewModel, Area>()
+            this.CreateMap<AreaServiceViewModel, Area>()
                 .ForMember(x => x.Id, opt => opt.Ignore());
 
             this.CreateMap<Area, AreaServiceViewModel>();
             this.CreateMap<AreaServiceViewModel, Area>();
 
-            this.CreateMap<Area, AreasListViewModel>()
+            this.CreateMap<Area, AreaServiceListModelExtention>()
                 .ForMember(x=>x.MaxLevel,y=>y.MapFrom(i=>i.MaxLevelCreatures))
                 .ForMember(x=>x.MinLevel,y=>y.MapFrom(i=>i.MinLevelEnterence))
                 .ForMember(x => x.CreaturesCount, y => y.MapFrom(i => i.Creatures.Count));
 
-            this.CreateMap<AreasListViewModel, Area>()
+            this.CreateMap<AreaServiceListModelExtention, Area>()
                 .ForMember(x => x.MinLevelEnterence, y => y.MapFrom(l => l.MinLevel))
                 .ForMember(x => x.MaxLevelCreatures, y => y.MapFrom(l => l.MaxLevel))
                 .ForMember(x => x.Creatures, opt => opt.Ignore());
 
 
             //Items
-            this.CreateMap<ItemViewModel, Item>()
+            this.CreateMap<ItemServiceModel, Item>()
                 .ForMember(x => x.Id, opt => opt.Ignore());
 
-            this.CreateMap<Item, ItemViewModel>();
-
-
-            this.CreateMap<Item, ItemListViewModel>();
-
-            this.CreateMap<ItemListViewModel, Item>();
+            this.CreateMap<Item, ItemServiceModel>();
 
             this.CreateMap<Item, ItemViewServiceModel>();
 
@@ -71,53 +63,50 @@
 
 
             //Consumable
-            this.CreateMap<ConsumableViewModel, Consumable>()
+            this.CreateMap<ConsumableViewServiceModel, Consumable>()
                 .ForMember(x => x.Id, opt => opt.Ignore());
-
-
-            this.CreateMap<Consumable,ConsumableViewModel>();
 
             this.CreateMap<Consumable, ConsumableViewServiceModel>();
 
 
-            this.CreateMap<Consumable, ConsumableListViewModel>();
-
-            this.CreateMap<ConsumableListViewModel, Consumable>();
-
             //Merchant
-            this.CreateMap<MerchantViewModel, Merchant>()
+            this.CreateMap<MerchantServiceModel, Merchant>()
                 .ForMember(x => x.Id, opt => opt.Ignore());
 
 
-            this.CreateMap<Merchant, MerchantViewModel>();
-
             this.CreateMap<Merchant, MerchantServiceModel>();
 
+            this.CreateMap<Merchant, MerchantChampionViewModel>();
 
-            this.CreateMap<Merchant, MerchantListViewModel>()
+
+            this.CreateMap<Merchant, MerchantServiceListModel>()
                 .ForMember(x => x.ConsumableCount, y=>y.MapFrom(i=>i.Consumables.Count))
                 .ForMember(x => x.ItemCount, y => y.MapFrom(i => i.Items.Count));
 
             //ChampionClass
-            this.CreateMap<ChampionClassViewModel, ChampionClass>();
-            this.CreateMap<ChampionClass, ChampionClassViewModel>();
+            this.CreateMap<ChampionClassServiceModel, ChampionClass>()
+                            .ForMember(x => x.Id, opt => opt.Ignore());
+
+            this.CreateMap<ChampionClass, ChampionClassServiceModel>();
 
 
-            this.CreateMap<ChampionClass, ChampionClassListViewModel>();
-            this.CreateMap<ChampionClassListViewModel, ChampionClass>();
+            this.CreateMap<ChampionClass, ChampionClassServiceListModel>();
+            this.CreateMap<ChampionClassServiceListModel, ChampionClass>();
 
-            this.CreateMap<ChampionClassPresentationModel, ChampionClass>();
-            this.CreateMap<ChampionClass, ChampionClassPresentationModel>();
 
             //AreaCreatures
 
-            this.CreateMap<Creature, CreatureAreaViewModel>();
-            this.CreateMap<Area, AreaCreatureViewModel>();
+            this.CreateMap<Creature, CreateureInAreaServiceModel>();
+
+            this.CreateMap<Area, AreaServiceListModel>()
+                .ForMember(x => x.MinLevel, y => y.MapFrom(i => i.MinLevelEnterence))
+                .ForMember(x => x.MaxLevel, y => y.MapFrom(i => i.MaxLevelCreatures));
+
 
             //MerchantItems
 
-            this.CreateMap<Item, ItemsListView>();
-            this.CreateMap<ItemsListView, Item>();
+            this.CreateMap<Item, ItemServiceListModel>();
+            this.CreateMap<ItemServiceListModel, Item>();
 
 
             //Champions

@@ -1,22 +1,47 @@
 ﻿namespace DarkBattle.Areas.Admin.Controllers
 {
     using DarkBattle.Services.Interface;
+    using DarkBattle.ViewModels.CreatureConsumables;
     using Microsoft.AspNetCore.Mvc;
 
     public class CreatureConsumablesController:AdminController
     {
         private readonly ICreatureConsumablesService creatureConsumablesService;
+        private readonly ICreatureService creatureService;
+        private readonly IConsumableService consumableService;
 
-        public CreatureConsumablesController(ICreatureConsumablesService creatureConsumablesService)
+        public CreatureConsumablesController(ICreatureConsumablesService creatureConsumablesService,
+                                             IConsumableService consumableService,
+                                             ICreatureService creatureService)
         {
             this.creatureConsumablesService = creatureConsumablesService;
+            this.consumableService = consumableService;
+            this.creatureService = creatureService;
         }
 
         public IActionResult CreatureConsumables(string creatureId)
-            => View(this.creatureConsumablesService.Items(creatureId));
+        {
+            var model = new CreatureConsumableViewModel
+            {
+                CreatureId = creatureId,
+                CreatureName = this.creatureService.CreatureName(creatureId),
+                Consumables = this.consumableService.ConsumablesOwnByCreature(creatureId)
+            };
+
+            return View(model);
+        }
 
         public IActionResult ListConsumablesToAdd(string creatureId)
-            => View(this.creatureConsumablesService.AddItems(creatureId));
+        {
+            var model = new CreatureConsumableViewModel
+            {
+                CreatureId = creatureId,
+                CreatureName = this.creatureService.CreatureName(creatureId),
+                Consumables = this.consumableService.ConsumablesWithNoCreature()
+            };
+
+            return View(model);
+        }
 
         public IActionResult Add(string consumableId, string creatureId)
         {

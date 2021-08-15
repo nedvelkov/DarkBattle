@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DarkBattle.DataConstants\DarkBattle.DataConstants.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Players\" />
+    <ProjectReference Include="..\DarkBattle.Services\DarkBattle.Services.csproj" />
   </ItemGroup>
 
 </Project>

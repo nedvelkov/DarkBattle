@@ -2,20 +2,26 @@
 {
 
     using System.Collections.Generic;
-
-    using DarkBattle.ViewModels.Items;
+    using DarkBattle.Services.ServiceModels.Items;
 
     public interface IItemService
     {
-        public void Add(ItemViewModel model);
+        public void Add(ItemServiceModel model);
 
-        public void Edit(ItemViewModel model);
+        public void Edit(ItemServiceModel model);
 
-        public ItemViewModel GetItem(string id);
+        public ItemServiceModel GetItem(string id);
 
-        public ItemViewModel GetChamponClasses();
+        public ICollection<ItemServiceListModel> ItemsCollection();
 
-        public ICollection<ItemListViewModel> ItemsCollection();
+        public ICollection<ItemServiceListModel> CreatureItems(string creatureId);
+        public ICollection<ItemServiceListModel> ItemsWithNoCreature();
+
+        public ICollection<ItemServiceListModel> ItemsWithNoMerchant();
+        public ICollection<ItemServiceModel> ItemsSellByMerchant(string merchantId);
+
+
+
 
         public bool Delete(string id);
     }

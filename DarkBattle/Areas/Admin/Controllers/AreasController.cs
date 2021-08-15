@@ -4,7 +4,7 @@
 
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.Areas;
-
+    using DarkBattle.Services.ServiceModels.Areas;
 
     public class AreasController : AdminController
     {
@@ -24,7 +24,7 @@
         }
 
         [HttpPost]
-        public IActionResult Create(AreaViewModel model)
+        public IActionResult Create(AreaServiceViewModel model)
         {
             if (this.ModelState.IsValid == false)
             {
@@ -48,7 +48,7 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(AreaViewModel model)
+        public IActionResult Edit(AreaServiceViewModel model)
         {
             if (this.ModelState.IsValid == false)
             {

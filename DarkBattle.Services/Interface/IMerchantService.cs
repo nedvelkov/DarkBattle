@@ -1,18 +1,18 @@
 ﻿namespace DarkBattle.Services.Interface
 {
     using System.Collections.Generic;
-    using DarkBattle.Services.ServiceModels;
-    using DarkBattle.ViewModels.Merchants;
+    using DarkBattle.Services.ServiceModels.Merchants;
 
     public  interface IMerchantService
     {
-        public void Add(MerchantViewModel model);
+        public void Add(MerchantServiceModel model);
 
-        public void Edit(MerchantViewModel model);
+        public void Edit(MerchantServiceModel model);
 
-        public MerchantViewModel GetMerchant(string id);
+        public MerchantServiceModel GetMerchant(string merchantId);
 
-        public ICollection<MerchantListViewModel> MerchantsCollection();
+        public ICollection<MerchantServiceListModel> MerchantsCollection();
+        public string MerchantName(string merchantId);
 
         public bool Delete(string id);
 

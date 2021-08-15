@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DarkBattle.ViewModels.Areas.AreasListViewModel>
+﻿@using DarkBattle.Services.ServiceModels.Areas
+@model IEnumerable<AreaServiceListModelExtention>
 
 @{
     ViewData["Title"] = "Areas";
@@ -7,7 +8,7 @@
 <h1>Areas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-area="Admin" asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>

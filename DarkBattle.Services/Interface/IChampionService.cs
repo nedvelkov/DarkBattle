@@ -2,12 +2,12 @@
 {
     using System.Collections.Generic;
 
-    using DarkBattle.Services.ServiceModels;
-    using DarkBattle.ViewModels.ChampionClasses;
+    using DarkBattle.Services.ServiceModels.Champions;
+    using DarkBattle.Services.ServiceModels.ChampionClass;
 
     public interface IChampionService
     {
-        public IEnumerable<ChampionClassPresentationModel> GetChampionClasses();
+        public IEnumerable<ChampionClassServiceListToChampionModel> GetChampionClasses();
         public bool CreateChampion(string name, string championClassId, string playerId);
 
         public IEnumerable<ChampionServiceModel> ChampionCollection(string playerId);

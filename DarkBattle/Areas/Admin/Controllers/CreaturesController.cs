@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.Creatures;
+    using DarkBattle.Services.ServiceModels.Creatures;
 
     public class CreaturesController:AdminController
     {
@@ -30,7 +30,7 @@
         }
 
         [HttpPost]
-        public IActionResult Create(CreatureViewModel model)
+        public IActionResult Create(CreatureServiceModel model)
         {
             if (this.ModelState.IsValid == false)
             {
@@ -56,7 +56,7 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(CreatureViewModel model)
+        public IActionResult Edit(CreatureServiceModel model)
         {
             if (this.ModelState.IsValid == false)
             {

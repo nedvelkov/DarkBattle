@@ -1,6 +1,5 @@
 ﻿namespace DarkBattle.Services.Models
 {
-    using System;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -10,9 +9,8 @@
 
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
-    using DarkBattle.ViewModels.Areas;
     using DarkBattle.Services.Interface;
-    using DarkBattle.Services.ServiceModels;
+    using DarkBattle.Services.ServiceModels.Areas;
 
     public class AreaService : IAreaService
     {
@@ -25,7 +23,7 @@
             this.mapper = mapper;
         }
 
-        public void Add(AreaViewModel model)
+        public void Add(AreaServiceViewModel model)
         {
             var area = this.mapper.Map<Area>(model);
 
@@ -33,7 +31,7 @@
             this.data.SaveChanges();
         }
 
-        public void Edit(AreaViewModel model)
+        public void Edit(AreaServiceViewModel model)
         {
             var area = this.data.Areas.Single(x => x.Id == model.Id);
 
@@ -53,16 +51,19 @@
         }
 
 
-        public AreaViewModel GetArea(string id)
-        {
-            var area = this.mapper
-                .Map<AreaViewModel>
-                (this.GetAreaById(id));
-            return area;
-        }
+        public AreaServiceViewModel GetArea(string id)
+             => this.mapper
+                    .Map<AreaServiceViewModel>
+                    (this.GetAreaById(id));
+ 
 
-        public ICollection<AreasListViewModel> AreasCollection()
-            => GetAreaCollection<AreasListViewModel>();
+        public AreaServiceListModel AreaForCreatures(string areaId)
+            => this.mapper
+                .Map<AreaServiceListModel>
+                (this.GetAreaById(areaId));
+
+        public ICollection<AreaServiceListModelExtention> AreasCollection()
+            => GetAreaCollection<AreaServiceListModelExtention>();
 
 
         public ICollection<AreaServiceViewModel> AreaServiceCollection()

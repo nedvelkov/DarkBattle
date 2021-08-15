@@ -5,11 +5,12 @@
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-   
+
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.Creatures;
+    using DarkBattle.Services.ServiceModels.Creatures;
+    using System;
 
     public class CreatureService : ICreatureService
     {
@@ -22,14 +23,14 @@
             this.mapper = mapper;
         }
 
-        public void Add(CreatureViewModel model)
+        public void Add(CreatureServiceModel model)
         {
             var creature = this.mapper.Map<Creature>(model);
             this.data.Creatures.Add(creature);
             this.data.SaveChanges();
         }
 
-        public void Edit(CreatureViewModel model)
+        public void Edit(CreatureServiceModel model)
         {
             var creature = this.data.Creatures.Single(x => x.Id == model.Id);
 
@@ -48,25 +49,26 @@
             this.data.SaveChanges();
         }
 
-        public CreatureViewModel GetCreature(string id)
+        public CreatureServiceModel GetCreature(string id)
         {
             var creature = this.mapper
-                                    .Map<CreatureViewModel>
+                                    .Map<CreatureServiceModel>
                                     (this.GetCreatureById(id));
 
             return creature;
         }
 
 
-        public ICollection<CreatureListViewModel> CreaturesCollection()
-        {
-            var creatures = this.data
-                .Creatures
-                .ProjectTo<CreatureListViewModel>(mapper.ConfigurationProvider)
-                .ToList();
+        public ICollection<CreatureServiceListModel> CreaturesCollection()
+            => GetCreatureCollection<CreatureServiceListModel>(x => true);
 
-            return creatures;
-        }
+        public ICollection<CreateureInAreaServiceModel> CreatureWithNoArea(int minLevel, int maxLevel)
+            => GetCreatureCollection<CreateureInAreaServiceModel>(x => x.AreaId == null && x.Level >= minLevel && x.Level <= maxLevel);
+
+        public ICollection<CreateureInAreaServiceModel> CreatureInArea(string areaId)
+            => GetCreatureCollection<CreateureInAreaServiceModel>(x => x.AreaId == areaId);
+
+
         public bool Delete(string id)
         {
             var creature = GetCreatureById(id);
@@ -82,10 +84,18 @@
             return true;
         }
 
+        public string CreatureName(string creatureId)
+            => this.data.Creatures.FirstOrDefault(x => x.Id == creatureId).Name;
 
         private Creature GetCreatureById(string id)
         => this.data
             .Creatures
             .FirstOrDefault(x => x.Id == id);
+        private ICollection<T> GetCreatureCollection<T>(Func<Creature, bool> func)
+                => this.data
+                        .Creatures
+                        .Where(func)
+                        .Select(x => this.mapper.Map<T>(x))
+                        .ToList();
     }
 }

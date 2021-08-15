@@ -1,18 +1,19 @@
 ﻿namespace DarkBattle.Services.Interface
 {
     using System.Collections.Generic;
-    using DarkBattle.Services.ServiceModels;
-    using DarkBattle.ViewModels.Areas;
+    using DarkBattle.Services.ServiceModels.Areas;
 
     public interface IAreaService
     {
-        public void Add(AreaViewModel model);
+        public void Add(AreaServiceViewModel model);
 
-        public void Edit(AreaViewModel model);
+        public void Edit(AreaServiceViewModel model);
         
-        public AreaViewModel GetArea(string id);
+        public AreaServiceViewModel GetArea(string id);
 
-        public ICollection<AreasListViewModel> AreasCollection();
+        public AreaServiceListModel AreaForCreatures (string areaId);
+
+        public ICollection<AreaServiceListModelExtention> AreasCollection();
 
         public bool Delete(string id);
 

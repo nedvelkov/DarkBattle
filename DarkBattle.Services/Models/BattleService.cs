@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     using AutoMapper;
     using Microsoft.EntityFrameworkCore;
@@ -13,6 +12,7 @@
     using DarkBattle.Services.Interface;
     using DarkBattle.Services.ServiceModels;
     using Microsoft.Extensions.Configuration;
+    using DarkBattle.Services.ServiceModels.Creatures;
 
     public class BattleService : IBattleService
     {
@@ -21,31 +21,40 @@
         private readonly IAreaCreatureService areaCreatureService;
         private readonly IMapper mapper;
         private readonly IConfiguration cofing;
+        private readonly ICreatureService creatureService;
+        private readonly IAreaService areaService;
 
 
         public BattleService(ApplicationDbContext data,
                             IChampionService championService,
                             IMapper mapper,
                             IAreaCreatureService areaCreatureService,
-                            IConfiguration cofing)
+                            IConfiguration cofing,
+                            ICreatureService creatureService,
+                            IAreaService areaService)
         {
             this.data = data;
             this.championService = championService;
             this.mapper = mapper;
             this.areaCreatureService = areaCreatureService;
             this.cofing = cofing;
+            this.creatureService = creatureService;
+            this.areaService = areaService;
         }
 
         public BattleViewModel FightWithCreature(string championId, string areaId, string playerId, bool dungeon = false)
         {
             var champion = this.championService.Details(championId, playerId);
-            var area = this.areaCreatureService.ListAllCreaturesInArea(areaId);
+            var creatureList = this.creatureService.CreatureInArea(areaId);
+            var area = this.areaService.AreaForCreatures(areaId);
 
             var areaImg = dungeon ? @"https://ashesofcreation.wiki/images/b/b9/dungeons-leak-2.jpg" : this.data.Areas.First(x => x.Id == areaId).ImageUrl;
+
             var critAtRound = LuckyRounds(champion.CritChanse);
             var blockAtRound = LuckyRounds(champion.Block);
-            var maxLevel = dungeon ? area.Area.MaxLevel : area.Area.MaxLevel - 1;
-            var creatures = dungeon ? SortList(x => x.Level == maxLevel, area.Creatures) : SortList(x => x.Level < maxLevel, area.Creatures);
+
+            var maxLevel = dungeon ? area.MaxLevel : area.MaxLevel - 1;
+            var creatures = dungeon ? SortList(x => x.Level == maxLevel, creatureList) : SortList(x => x.Level < maxLevel, creatureList);
             var rand = new Random();
             var creatureIndex = rand.Next(0, creatures.Count);
             var creatureId = creatures[creatureIndex].Id;
@@ -61,8 +70,8 @@
                 ChampionImg = champion.Champion.ImageUrl,
                 CreatureName = creature.Name,
                 CreatureImg = creature.ImageUrl,
-                AreaName = area.Area.Name,
-                AreaId = area.Area.Id,
+                AreaName = area.Name,
+                AreaId = area.Id,
                 AreaImg = areaImg
             };
 
@@ -136,7 +145,7 @@
                 var items = ObtainItems(creatureId, championId);
                 var consumables = ObtainConsumables(creatureId, championId);
                 var totalGold = creature.Gold + items.Item2 + consumables.Item2;
-                var expirience = champion.Champion.Level < area.Area.MaxLevel ? creature.Expirience : creature.Expirience / 2;
+                var expirience = champion.Champion.Level < area.MaxLevel ? creature.Expirience : creature.Expirience / 2;
 
                 battleReport.Add($"{champion.Champion.Name} wins :");
                 battleReport.Add($"   {expirience} expirience");

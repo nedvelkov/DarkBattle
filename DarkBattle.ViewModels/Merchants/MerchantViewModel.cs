@@ -1,5 +1,4 @@
-﻿
-namespace DarkBattle.ViewModels.Merchants
+﻿namespace DarkBattle.ViewModels.Merchants
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;

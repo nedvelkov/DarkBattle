@@ -3,20 +3,23 @@
     using Microsoft.AspNetCore.Mvc;
 
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.ChampionClasses;
+    using DarkBattle.Services.ServiceModels.ChampionClass;
 
     public class ChampionClassesController:AdminController
     {
         private readonly IChampionClassService classService;
 
-        public ChampionClassesController (IChampionClassService classService) => this.classService = classService;
+        public ChampionClassesController (IChampionClassService classService) 
+            => this.classService = classService;
 
-        public IActionResult Index() => View(this.classService.ClassCollection());
+        public IActionResult Index()
+            => View(this.classService.ClassCollection());
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+            => View();
 
         [HttpPost]
-        public IActionResult Create(ChampionClassViewModel model)
+        public IActionResult Create(ChampionClassServiceModel model)
         {
             if (this.ModelState.IsValid == false)
             {
@@ -40,7 +43,7 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(ChampionClassViewModel model)
+        public IActionResult Edit(ChampionClassServiceModel model)
         {
             if (this.ModelState.IsValid == false)
             {

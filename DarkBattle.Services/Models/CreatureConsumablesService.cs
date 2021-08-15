@@ -10,8 +10,7 @@
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.Consumables;
-    using DarkBattle.ViewModels.CreatureConsumables;
+    using DarkBattle.Services.ServiceModels.Consumables;
 
     public class CreatureConsumablesService : ICreatureConsumablesService
     {
@@ -23,11 +22,6 @@
             this.data = data;
             this.mapper = mapper;
         }
-
-        public CreatureConsumableViewModel AddItems(string creatureId)
-            => GetListView(x => x.CreatureId == null, creatureId);
-        public CreatureConsumableViewModel Items(string creatureId)
-            => GetListView(x => x.CreatureId == creatureId, creatureId);
 
         public bool Add(string consumableId, string creatureId)
         {
@@ -69,24 +63,5 @@
                    .Creatures
                    .Include(x => x.Consumables)
                    .FirstOrDefault(x => x.Id == creatureId);
-
-        private CreatureConsumableViewModel GetListView(Func<Consumable, bool> func, string creatureId)
-        {
-            var creaure = Creature(creatureId);
-
-            var consumables = GetItems<ConsumableViewModel>(func);
-            return new CreatureConsumableViewModel()
-            {
-                CreatureId = creaure.Id,
-                CreatureName = creaure.Name,
-                Consumables = consumables
-            };
-        }
-        private ICollection<T> GetItems<T>(Func<Consumable, bool> func)
-        => this.data.Consumables
-                    .Where(func)
-                    .OrderBy(x => x.RestoreHealth)
-                    .Select(this.mapper.Map<T>)
-                    .ToList();
     }
 }

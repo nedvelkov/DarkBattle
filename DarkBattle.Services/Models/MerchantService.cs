@@ -13,8 +13,8 @@
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.Merchants;
     using DarkBattle.Services.ServiceModels;
+    using DarkBattle.Services.ServiceModels.Merchants;
 
     public class MerchantService : IMerchantService
     {
@@ -28,7 +28,7 @@
             this.championService = championService;
         }
 
-        public void Add(MerchantViewModel model)
+        public void Add(MerchantServiceModel model)
         {
             var merchant = this.mapper.Map<Merchant>(model);
             this.data.Merchants.Add(merchant);
@@ -36,7 +36,7 @@
         }
 
 
-        public void Edit(MerchantViewModel model)
+        public void Edit(MerchantServiceModel model)
         {
             var merchant = this.data.Merchants.Single(x => x.Id == model.Id);
 
@@ -55,26 +55,24 @@
             this.data.SaveChanges();
         }
 
-        public MerchantViewModel GetMerchant(string id)
-        {
-            var creature = this.mapper
-                        .Map<MerchantViewModel>
+        public MerchantServiceModel GetMerchant(string id)
+                => this.mapper
+                        .Map<MerchantServiceModel>
                         (this.GetMerchantById(id));
 
-            return creature;
-        }
 
-        public ICollection<MerchantListViewModel> MerchantsCollection()
-        {
-            var merchants = this.data
+        public ICollection<MerchantServiceListModel> MerchantsCollection()
+                    =>this.data
                             .Merchants
                             .Include(x=>x.Items)
                             .Include(x=>x.Consumables)
-                            .ProjectTo<MerchantListViewModel>(mapper.ConfigurationProvider)
+                            .ProjectTo<MerchantServiceListModel>(mapper.ConfigurationProvider)
                             .ToList();
 
-            return merchants;
-        }
+
+        public string MerchantName(string merchantId)
+            => this.data.Merchants.FirstOrDefault(x => x.Id == merchantId).Name;
+
 
         public bool Delete(string id)
         {
@@ -102,7 +100,7 @@
                                 .Merchants
                                 .Include(x => x.Items)
                                 .Include(x => x.Consumables)
-                                .Select(this.mapper.Map<MerchantServiceModel>)
+                                .Select(this.mapper.Map<MerchantChampionViewModel>)
                                 .ToList();
             ;
             return new MerchantMarketViewModel

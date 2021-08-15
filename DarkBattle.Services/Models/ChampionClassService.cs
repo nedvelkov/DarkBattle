@@ -9,7 +9,7 @@
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.ChampionClasses;
+    using DarkBattle.Services.ServiceModels.ChampionClass;
 
     public class ChampionClassService : IChampionClassService
     {
@@ -22,7 +22,7 @@
             this.mapper = mapper;
         }
 
-        public void Add(ChampionClassViewModel model)
+        public void Add(ChampionClassServiceModel model)
         {
             var championClass = this.mapper.Map<ChampionClass>(model);
 
@@ -30,7 +30,7 @@
             this.data.SaveChanges();
         }
 
-        public void Edit(ChampionClassViewModel model)
+        public void Edit(ChampionClassServiceModel model)
         {
             var championClass = this.data.ChampionClasses.Single(x => x.Id == model.Id);
 
@@ -49,24 +49,24 @@
             this.data.SaveChanges();
         }
 
-        public ChampionClassViewModel GetClass(string id)
+        public ChampionClassServiceModel GetClass(string id)
         {
             var area = this.mapper
-                             .Map<ChampionClassViewModel>
+                             .Map<ChampionClassServiceModel>
                              (this.GetChampionClassById(id));
 
             return area;
         }
 
-        public ICollection<ChampionClassListViewModel> ClassCollection()
-        {
-            var championClasses = this.data
+        public ICollection<ChampionClassServiceListModel> ClassCollection()
+                        => this.data
                             .ChampionClasses
-                            .ProjectTo<ChampionClassListViewModel>(mapper.ConfigurationProvider)
+                            .ProjectTo<ChampionClassServiceListModel>(mapper.ConfigurationProvider)
                             .ToList();
 
-            return championClasses;
-        }
+
+        public ICollection<string> ChampionClassCollection()
+            => this.data.ChampionClasses.Select(x => x.Name).ToList();
 
 
         public bool Delete(string id)

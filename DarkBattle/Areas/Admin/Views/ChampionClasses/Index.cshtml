@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DarkBattle.ViewModels.ChampionClasses.ChampionClassListViewModel>
+﻿@using DarkBattle.Services.ServiceModels.ChampionClass
+
+@model IEnumerable<ChampionClassServiceListModel>
 
 @{
     ViewData["Title"] = "Champion classes";
@@ -7,7 +9,7 @@
 <h1>Champion classes</h1>
 <hr />
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-area="Admin" asp-action="Create">Create New</a>
 </p>
 
 <div class="row mt-2 mb-2">

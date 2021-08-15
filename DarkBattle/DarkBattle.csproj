@@ -23,6 +23,7 @@
     <ProjectReference Include="..\DarkBattle.Data\DarkBattle.Data.csproj" />
     <ProjectReference Include="..\DarkBattle.Seeder\DarkBattle.Seeder.csproj" />
     <ProjectReference Include="..\DarkBattle.Services\DarkBattle.Services.csproj" />
+    <ProjectReference Include="..\DarkBattle.ViewModels\DarkBattle.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

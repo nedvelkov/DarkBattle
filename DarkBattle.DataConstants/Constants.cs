@@ -9,11 +9,12 @@
         public const int MinValue = 1;
         public const int MaxGoldDrop = 2500;
         public const int DescriptionMaxLenght = 250;
+        public const int MaxValue = 9999;
 
         //Creature
         public const int MaxLevelCreature = 50;
         public const int MaxAttackCreature = 2500;
-        public const int MaxDefensekCreature = 3500;
+        public const int MaxDefenseCreature = 3500;
         public const int MaxHealthCreature = 2500;
 
         //Consumable
@@ -25,6 +26,7 @@
 
         //Champion
         public const int MaxChampionLevel = 50;
+
 
     }
 }

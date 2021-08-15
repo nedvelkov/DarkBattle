@@ -5,7 +5,7 @@
     using DarkBattle.Infrastructure;
     using DarkBattle.Services.Interface;
 
-    using DarkBattle.Services.ServiceModels;
+    using DarkBattle.Services.ServiceModels.Areas;
     using Microsoft.AspNetCore.Authorization;
 
     using static DarkBattle.DarkBattleRoles;

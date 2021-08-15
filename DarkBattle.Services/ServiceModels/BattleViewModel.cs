@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using DarkBattle.Services.ServiceModels.Champions;
+
     public class BattleViewModel
     {
         public ChampionBarServiceModel Champion { get; set; }

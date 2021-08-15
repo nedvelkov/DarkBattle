@@ -1,7 +1,4 @@
-﻿@using DarkBattle.ViewModels.AreaCreatures
-@using DarkBattle.ViewModels.Creatures
-
-@model DarkBattle.ViewModels.AreaCreatures.AreaCreatureAddViewModel
+﻿@model DarkBattle.ViewModels.AreaCreatures.AreaCreatureAddViewModel
 
 @{
     ViewData["Title"] = Model.Area.Name;
@@ -13,17 +10,17 @@
 
 <form method="post">
     <div class="row">
-        @foreach (var creature in Model.Creatures)
+        @foreach (var monster in Model.Creatures)
         {
             <div class="form-group col-md-4">
                 <div class="card" style="width: 18rem;">
-                    <img src="@creature.ImageUrl" class="card-img-top" alt="@creature.Name">
+                    <img src="@monster.ImageUrl" class="card-img-top" alt="@monster.Name">
                     <div class="card-body">
-                        <h5 class="card-title">@creature.Name</h5>
-                        <p class="card-text">Level: @creature.Level</p>
-                        <p class="card-text">Attack: @creature.Attack </p>
-                        <p class="card-text">Expirience: @creature.Expirience </p>
-                        <a asp-action="Add" asp-route-creatureId="@creature.Id" asp-route-areaId="@Model.Area.Id" class="btn btn-primary">Add</a>
+                        <h5 class="card-title">@monster.Name</h5>
+                        <p class="card-text">Level: @monster.Level</p>
+                        <p class="card-text">Attack: @monster.Attack </p>
+                        <p class="card-text">Expirience: @monster.Expirience </p>
+                        <a asp-area="Admin" asp-action="Add" asp-route-creatureId="@monster.Id" asp-route-areaId="@Model.Area.Id" class="btn btn-primary">Add</a>
                     </div>
                 </div>
             </div>
@@ -32,10 +29,9 @@
 </form>
 @if (Model.Creatures.Count == 0)
 {
-    <a asp-controller="Creatures" asp-action="Create" class="btn btn-primary">Add new creatures in game</a>
-
+    <a asp-area="Admin" asp-controller="Creatures" asp-action="Create" class="btn btn-primary">Add new creatures in game</a>
 }
 
 <div>
-    <a class="btn btn-primary" asp-controller="Areas" asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-area="Admin" asp-controller="Areas" asp-action="Index">Back to List</a>
 </div>

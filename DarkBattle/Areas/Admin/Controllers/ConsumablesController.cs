@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.Consumables;
+    using DarkBattle.Services.ServiceModels.Consumables;
 
     public class ConsumablesController : AdminController
     {
@@ -30,7 +30,7 @@
         }
 
         [HttpPost]
-        public IActionResult Create(ConsumableViewModel model)
+        public IActionResult Create(ConsumableViewServiceModel model)
         {
             if (this.ModelState.IsValid == false)
             {
@@ -56,7 +56,7 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(ConsumableViewModel model)
+        public IActionResult Edit(ConsumableViewServiceModel model)
         {
             if (this.ModelState.IsValid == false)
             {

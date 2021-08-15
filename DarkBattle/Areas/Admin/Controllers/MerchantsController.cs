@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.Merchants;
+    using DarkBattle.Services.ServiceModels.Merchants;
 
     public class MerchantsController:AdminController
     {
@@ -31,7 +31,7 @@
         }
 
         [HttpPost]
-        public IActionResult Create(MerchantViewModel model)
+        public IActionResult Create(MerchantServiceModel model)
         {
             if (this.ModelState.IsValid == false)
             {
@@ -57,7 +57,7 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(MerchantViewModel model)
+        public IActionResult Edit(MerchantServiceModel model)
         {
             if (this.ModelState.IsValid == false)
             {

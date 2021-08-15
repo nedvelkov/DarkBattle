@@ -9,7 +9,9 @@
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.Consumables;
+    using DarkBattle.Services.ServiceModels.Consumables;
+    using Microsoft.EntityFrameworkCore;
+    using System;
 
     public class ConsumableService : IConsumableService
     {
@@ -22,13 +24,13 @@
             this.mapper = mapper;
         }
 
-        public void Add(ConsumableViewModel model)
+        public void Add(ConsumableViewServiceModel model)
         {
             var consumable = this.mapper.Map<Consumable>(model);
             this.data.Consumables.Add(consumable);
             this.data.SaveChanges();
         }
-        public void Edit(ConsumableViewModel model)
+        public void Edit(ConsumableViewServiceModel model)
         {
             var consumable = this.data.Consumables.Single(x => x.Id == model.Id);
 
@@ -47,24 +49,30 @@
             this.data.SaveChanges();
         }
 
-        public ConsumableViewModel GetConsumable(string id)
+        public ConsumableViewServiceModel GetConsumable(string id)
         {
             var consumable = this.mapper
-                        .Map<ConsumableViewModel>
+                        .Map<ConsumableViewServiceModel>
                         (this.GetConsumableById(id));
 
             return consumable;
         }
 
-        public ICollection<ConsumableListViewModel> ConsumablesCollection()
-        {
-            var consumables = this.data
-                            .Consumables
-                            .ProjectTo<ConsumableListViewModel>(mapper.ConfigurationProvider)
-                            .ToList();
+        public ICollection<ConsumableViewServiceModel> ConsumablesCollection()
+            => GetConsumableCollection<ConsumableViewServiceModel>(x => true);
 
-            return consumables;
-        }
+        public ICollection<ConsumableViewServiceModel> ConsumablesWithNoMerchant()
+            => GetConsumableCollection<ConsumableViewServiceModel>(x => x.MerchantId == null);
+
+        public ICollection<ConsumableViewServiceModel> ConsumablesSellByMerchant(string merchantId)
+            => GetConsumableCollection<ConsumableViewServiceModel>(x => x.MerchantId == merchantId);
+
+        public ICollection<ConsumableViewServiceModel> ConsumablesWithNoCreature()
+        => GetConsumableCollection<ConsumableViewServiceModel>(x => x.CreatureId == null);
+
+        public ICollection<ConsumableViewServiceModel> ConsumablesOwnByCreature(string creatureId)
+        => GetConsumableCollection<ConsumableViewServiceModel>(x => x.CreatureId == creatureId);
+
 
         public bool Delete(string id)
         {
@@ -85,5 +93,10 @@
                         => this.data
                             .Consumables
                             .FirstOrDefault(x => x.Id == id);
+        private ICollection<T> GetConsumableCollection<T>(Func<Consumable,bool> func)
+                => this.data.Consumables
+                            .Where(func)
+                            .Select(this.mapper.Map<T>)
+                            .ToList();
     }
 }

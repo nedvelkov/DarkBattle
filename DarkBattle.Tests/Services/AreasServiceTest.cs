@@ -15,6 +15,7 @@
     using DarkBattle.Services.MappingConfiguration;
     using System.Collections.Generic;
     using System;
+    using DarkBattle.Services.ServiceModels.Areas;
 
     public class AreasServiceTest
     {
@@ -42,7 +43,7 @@
 
             //Assert
             Assert.True(result.Id == areaId);
-            Assert.IsType<AreaViewModel>(result);
+            Assert.IsType<AreaServiceViewModel>(result);
         }
 
         [Fact]
@@ -59,7 +60,7 @@
             var result = areaService.AreasCollection();
 
             //Assert
-            Assert.IsType<List<AreasListViewModel>>(result);
+            Assert.IsType<List<AreaServiceListModelExtention>>(result);
 
         }
 
@@ -70,7 +71,7 @@
             const string name = "Test";
             using var data = DatabaseMock.Instance;
 
-            var model = new AreaViewModel() { Name = name };
+            var model = new AreaServiceViewModel() { Name = name };
 
             var areaService = new AreaService(data, this.mapper);
             //Act
@@ -89,7 +90,7 @@
             const string name = "Test";
             using var data = DatabaseMock.Instance;
 
-            var model = new AreaViewModel() { Name = name };
+            var model = new AreaServiceViewModel() { Name = name };
 
             var areaService = new AreaService(data, this.mapper);
             //Act

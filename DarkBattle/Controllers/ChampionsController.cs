@@ -1,8 +1,5 @@
 ﻿namespace DarkBattle.Controllers
 {
-
-    using System.Linq;
-
     using Microsoft.AspNetCore.Mvc;
 
     using DarkBattle.Services.Interface;
@@ -37,7 +34,7 @@
         public IActionResult Create()
             => View(new ChampionViewModel
             {
-                ChampionClasses = this.championService.GetChampionClasses().ToList()
+               // ChampionClasses = this.championService.GetChampionClasses().ToList()
             });
 
         [HttpPost]

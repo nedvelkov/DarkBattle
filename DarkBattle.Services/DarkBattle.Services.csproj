@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DarkBattle.DataConstants\DarkBattle.DataConstants.csproj" />
     <ProjectReference Include="..\DarkBattle.Data\DarkBattle.Data.csproj" />
-    <ProjectReference Include="..\DarkBattle.ViewModels\DarkBattle.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
