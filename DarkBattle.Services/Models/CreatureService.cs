@@ -1,6 +1,5 @@
 ﻿namespace DarkBattle.Services.Models
 {
-    using System;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -25,7 +24,6 @@
 
         public void Add(CreatureViewModel model)
         {
-            model.Id = Guid.NewGuid().ToString();
             var creature = this.mapper.Map<Creature>(model);
             this.data.Creatures.Add(creature);
             this.data.SaveChanges();

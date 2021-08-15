@@ -39,7 +39,7 @@
                     @Html.DisplayFor(modelItem => item.Value)
                 </td>
                 <td>
-                    <img src="@item.ImageUrl" width="50px"height="50px" alt="@item.Name">
+                    <img src="@item.ImageUrl" class="imageItemMerchant" alt="@item.Name">
                 </td>
                 <td>
                     <a asp-area="Admin" asp-action="Add" asp-route-consumableId="@item.Id" asp-route-merchantId="@Model.MerchantId" class="btn btn-primary">Add</a>

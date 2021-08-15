@@ -30,10 +30,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Merchants" asp-action="Market" asp-route-championId="@Context.Request.Query["championId"]">Market place</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Battles" asp-action="Training" asp-route-championId="@Context.Request.Query["championId"]" class="btn btn-primary w-100 mb-2">Training</a>
+                            <a class="nav-link text-dark" asp-controller="Battles" asp-action="Training" asp-route-championId="@Context.Request.Query["championId"]">Training</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Bank" asp-action="GetLoan" asp-route-championId="@Context.Request.Query["championId"]" class="btn btn-primary w-100 mb-2">Bank</a>
+                            <a class="nav-link text-dark" asp-controller="Bank" asp-action="GetLoan" asp-route-championId="@Context.Request.Query["championId"]">Bank</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

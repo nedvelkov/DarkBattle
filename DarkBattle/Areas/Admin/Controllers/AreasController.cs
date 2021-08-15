@@ -2,7 +2,6 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.Areas;
 
@@ -10,19 +9,13 @@
     public class AreasController : AdminController
     {
         private readonly IAreaService areaService;
-        private readonly IChampionService championService;
 
-        public AreasController(IAreaService areaService, IChampionService championService)
-        {
-            this.areaService = areaService;
-            this.championService = championService;
-        }
+
+        public AreasController(IAreaService areaService)
+            => this.areaService = areaService;
 
         public IActionResult Index()
-        {
-
-            return View(this.areaService.AreasCollection());
-        }
+            => View(this.areaService.AreasCollection());
 
         public IActionResult Create()
         {
@@ -40,10 +33,10 @@
 
             this.areaService.Add(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
         }
 
-        public IActionResult Edit([FromQuery] string areaId)
+        public IActionResult Edit(string areaId)
         {
             var area = this.areaService.GetArea(areaId);
             if (area == null)
@@ -59,23 +52,22 @@
         {
             if (this.ModelState.IsValid == false)
             {
-                return Redirect("/Home/Error");
+                return View(model);
             }
 
             this.areaService.Edit(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
         }
 
-        public IActionResult Delete([FromQuery] string areaId)
+        public IActionResult Delete(string areaId)
         {
             if (this.areaService.Delete(areaId) == false)
             {
                 return Redirect("/Home/Error");
-
             }
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
         }
     }
 }

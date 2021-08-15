@@ -9,7 +9,7 @@ namespace DarkBattle
     using Microsoft.Extensions.Hosting;
 
     using DarkBattle.Data;
-    using DarkBattle.MappingConfiguration;
+    using DarkBattle.Services.MappingConfiguration;
     using DarkBattle.Services.Interface;
     using DarkBattle.Services.Models;
     using DarkBattle.Infrastructure;

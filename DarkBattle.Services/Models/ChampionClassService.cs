@@ -1,6 +1,5 @@
 ﻿namespace DarkBattle.Services.Models
 {
-    using System;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -25,7 +24,6 @@
 
         public void Add(ChampionClassViewModel model)
         {
-            model.Id = Guid.NewGuid().ToString();
             var championClass = this.mapper.Map<ChampionClass>(model);
 
             this.data.ChampionClasses.Add(championClass);

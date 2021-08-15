@@ -1,6 +1,5 @@
 ﻿namespace DarkBattle.Services.Models
 {
-    using System;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -25,7 +24,6 @@
 
         public void Add(ConsumableViewModel model)
         {
-            model.Id = Guid.NewGuid().ToString();
             var consumable = this.mapper.Map<Consumable>(model);
             this.data.Consumables.Add(consumable);
             this.data.SaveChanges();

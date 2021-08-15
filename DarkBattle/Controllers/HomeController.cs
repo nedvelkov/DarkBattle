@@ -1,20 +1,19 @@
 ﻿namespace DarkBattle.Controllers
 {
-    using DarkBattle.Data.Models;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-    using System;
+
+
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using DarkBattle.ViewModels;
+
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+
+    using DarkBattle.ViewModels;
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.Home;
 
     using static DarkBattleRoles;
-    using DarkBattle.Infrastructure;
+
 
     public class HomeController : Controller
     {
@@ -37,7 +36,7 @@
             return View();
         }
 
-        public IActionResult Privacy() => View();
+        public IActionResult About() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

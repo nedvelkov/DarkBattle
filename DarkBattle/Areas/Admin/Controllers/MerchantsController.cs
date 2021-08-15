@@ -9,7 +9,8 @@
     {
         private readonly IMerchantService merchantService;
 
-        public MerchantsController(IMerchantService merchantService) => this.merchantService = merchantService;
+        public MerchantsController(IMerchantService merchantService) 
+            => this.merchantService = merchantService;
 
         public IActionResult Index()
         {
@@ -17,7 +18,7 @@
             return View(this.merchantService.MerchantsCollection());
         }
 
-        public IActionResult Create([FromQuery] string merchantId)
+        public IActionResult Create(string merchantId)
         {
             if (merchantId != null)
             {
@@ -39,10 +40,11 @@
 
             this.merchantService.Add(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
 
-        public IActionResult Edit([FromQuery] string merchantId)
+        public IActionResult Edit(string merchantId)
         {
             var creature = this.merchantService.GetMerchant(merchantId);
 
@@ -64,16 +66,18 @@
 
             this.merchantService.Edit(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
 
-        public IActionResult Delete([FromQuery] string merchantId)
+        public IActionResult Delete( string merchantId)
         {
             if (this.merchantService.Delete(merchantId) == false)
             {
                 return Redirect("/Home/Error");
             }
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
     }
 }

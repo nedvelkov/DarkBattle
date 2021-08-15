@@ -17,7 +17,7 @@
             return View(this.creatureService.CreaturesCollection());
         }
 
-        public IActionResult Create([FromQuery] string creatureId)
+        public IActionResult Create(string creatureId)
         {
             if (creatureId != null)
             {
@@ -39,7 +39,8 @@
 
             this.creatureService.Add(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Edit(string creatureId)
@@ -64,7 +65,8 @@
 
             this.creatureService.Edit(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Delete(string creatureId)
@@ -73,7 +75,8 @@
             {
                 return Redirect("/Home/Error");
             }
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
 
     }

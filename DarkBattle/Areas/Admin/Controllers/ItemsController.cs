@@ -37,10 +37,11 @@
 
             this.itemService.Add(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
 
-        public IActionResult Edit([FromQuery] string itemId)
+        public IActionResult Edit( string itemId)
         {
             var creature = this.itemService.GetItem(itemId);
 
@@ -62,16 +63,18 @@
 
             this.itemService.Edit(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
 
-        public IActionResult Delete([FromQuery] string itemId)
+        public IActionResult Delete(string itemId)
         {
             if (this.itemService.Delete(itemId) == false)
             {
                 return Redirect("/Home/Error");
             }
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
+
         }
     }
 }

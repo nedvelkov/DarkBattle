@@ -6,7 +6,7 @@
 
     using Microsoft.EntityFrameworkCore;
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
+
 
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
@@ -27,7 +27,6 @@
 
         public void Add(AreaViewModel model)
         {
-            model.Id = Guid.NewGuid().ToString();
             var area = this.mapper.Map<Area>(model);
 
             this.data.Areas.Add(area);

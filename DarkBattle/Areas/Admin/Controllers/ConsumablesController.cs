@@ -39,7 +39,8 @@
 
             this.consumableService.Add(model);
 
-            return Redirect("/Consumables");
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Edit(string consumableId)
@@ -64,7 +65,8 @@
 
             this.consumableService.Edit(model);
 
-            return Redirect("/Consumables");
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Delete(string consumableId)
@@ -73,7 +75,8 @@
             {
                 return Redirect("/Home/Error");
             }
-            return Redirect("/Consumables");
+
+            return RedirectToAction("Index");
 
         }
     }

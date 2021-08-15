@@ -25,18 +25,18 @@
 
             this.classService.Add(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Edit(string classId)
         {
-            var area = this.classService.GetClass(classId);
-            if (area == null)
+            var championClass = this.classService.GetClass(classId);
+            if (championClass == null)
             {
                 return Redirect("/Home/Error");
             }
-
-            return View(area);
+            
+            return View(championClass);
         }
 
         [HttpPost]
@@ -44,12 +44,12 @@
         {
             if (this.ModelState.IsValid == false)
             {
-                return Redirect("/Home/Error");
+                return View(model);
             }
 
             this.classService.Edit(model);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete(string classId)
@@ -57,10 +57,9 @@
             if (this.classService.Delete(classId) == false)
             {
                 return Redirect("/Home/Error");
-
             }
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index");
         }
     }
 }

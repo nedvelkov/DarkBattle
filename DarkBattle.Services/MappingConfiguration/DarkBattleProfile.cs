@@ -1,4 +1,4 @@
-﻿namespace DarkBattle.MappingConfiguration
+﻿namespace DarkBattle.Services.MappingConfiguration
 {
     using AutoMapper;
     using DarkBattle.Data.Models;
@@ -16,6 +16,7 @@
         {
             //Creature
             this.CreateMap<CreatureViewModel, Creature>()
+                .ForMember(x => x.Id, opt => opt.Ignore())
                 .ForMember(x => x.ImageUrl, y => y.MapFrom(i => i.ImageUrl));
 
 
@@ -29,7 +30,9 @@
 
             //Area
             this.CreateMap<Area, AreaViewModel>();
-            this.CreateMap<AreaViewModel, Area>();
+
+            this.CreateMap<AreaViewModel, Area>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
 
             this.CreateMap<Area, AreaServiceViewModel>();
             this.CreateMap<AreaServiceViewModel, Area>();
@@ -46,7 +49,8 @@
 
 
             //Items
-            this.CreateMap<ItemViewModel, Item>();
+            this.CreateMap<ItemViewModel, Item>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
 
             this.CreateMap<Item, ItemViewModel>();
 
@@ -67,7 +71,9 @@
 
 
             //Consumable
-            this.CreateMap<ConsumableViewModel, Consumable>();
+            this.CreateMap<ConsumableViewModel, Consumable>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
+
 
             this.CreateMap<Consumable,ConsumableViewModel>();
 
@@ -79,7 +85,9 @@
             this.CreateMap<ConsumableListViewModel, Consumable>();
 
             //Merchant
-            this.CreateMap<MerchantViewModel, Merchant>();
+            this.CreateMap<MerchantViewModel, Merchant>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
+
 
             this.CreateMap<Merchant, MerchantViewModel>();
 

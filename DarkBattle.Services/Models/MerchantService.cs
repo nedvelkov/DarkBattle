@@ -1,6 +1,6 @@
 ﻿namespace DarkBattle.Services.Models
 {
-    using System;
+
     using System.Linq;
     using System.Collections.Generic;
 
@@ -30,7 +30,6 @@
 
         public void Add(MerchantViewModel model)
         {
-            model.Id = Guid.NewGuid().ToString();
             var merchant = this.mapper.Map<Merchant>(model);
             this.data.Merchants.Add(merchant);
             this.data.SaveChanges();
