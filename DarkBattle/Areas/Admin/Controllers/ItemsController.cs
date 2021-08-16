@@ -11,6 +11,7 @@
         private readonly IItemService itemService;
         private readonly IChampionClassService championClassService;
 
+
         public ItemsController(IItemService itemService, IChampionClassService championClassService)
         {
             this.itemService = itemService;
@@ -52,14 +53,26 @@
         }
 
         [HttpPost]
-        public IActionResult Create(ItemServiceModel model)
+        public IActionResult Create(ItemViewModel model)
         {
             if (this.ModelState.IsValid == false)
             {
                 return View(model);
             }
 
-            this.itemService.Add(model);
+            var returnModel = new ItemServiceModel
+            {
+                Name = model.Name,
+                Attack = model.Attack,
+                Defense = model.Defense,
+                ObtainBy = model.ObtainBy,
+                Type = model.Type,
+                RequiredLevel = model.RequiredLevel,
+                ImageUrl = model.ImageUrl,
+                Value = model.Value
+            };
+
+            this.itemService.Add(returnModel);
 
             return RedirectToAction("Index");
 
@@ -73,19 +86,47 @@
             {
                 return Redirect("/Home/Error");
             }
+            var championClasses = this.championClassService.ChampionClassCollection();
 
-            return View(creature);
+            var returnModel = new ItemViewModel
+            {
+                Id=creature.Id,
+                Name = creature.Name,
+                Attack = creature.Attack,
+                Defense = creature.Defense,
+                ObtainBy = creature.ObtainBy,
+                Type = creature.Type,
+                RequiredLevel = creature.RequiredLevel,
+                ImageUrl = creature.ImageUrl,
+                Value = creature.Value,
+                ChampionClasses=championClasses
+            };
+
+            return View(returnModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(ItemServiceModel model)
+        public IActionResult Edit(ItemViewModel model)
         {
             if (this.ModelState.IsValid == false)
             {
-                return View();
+                return View(model);
             }
 
-            this.itemService.Edit(model);
+            var returnModel = new ItemServiceModel
+            {
+                Id=model.Id,
+                Name = model.Name,
+                Attack = model.Attack,
+                Defense = model.Defense,
+                ObtainBy = model.ObtainBy,
+                Type = model.Type,
+                RequiredLevel = model.RequiredLevel,
+                ImageUrl = model.ImageUrl,
+                Value = model.Value
+            };
+
+            this.itemService.Edit(returnModel);
 
             return RedirectToAction("Index");
 
