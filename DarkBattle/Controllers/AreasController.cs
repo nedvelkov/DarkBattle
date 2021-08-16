@@ -5,7 +5,7 @@
     using DarkBattle.Infrastructure;
     using DarkBattle.Services.Interface;
 
-    using DarkBattle.Services.ServiceModels.Areas;
+    using DarkBattle.ViewModels.Areas;
     using Microsoft.AspNetCore.Authorization;
 
     using static DarkBattle.DarkBattleRoles;
@@ -33,11 +33,12 @@
 
             var playerId = this.User.GetId();
 
-            var model = new BattleZoneViewModel
+            var model = new BattleZoneViewModel 
             {
                 Champion = this.championService.ChampionBar(championId, playerId),
                 Areas = this.areaService.AreaServiceCollection()
             };
+
             return View(model);
 
         }

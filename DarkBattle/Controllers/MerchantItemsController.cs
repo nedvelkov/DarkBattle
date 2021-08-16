@@ -18,10 +18,15 @@
         private readonly IMerchantService merchantService;
         private readonly IItemService itemService;
 
-        public MerchantItemsController(IMerchantItemsService service, IChampionService championService)
+        public MerchantItemsController(IMerchantItemsService service,
+                                       IChampionService championService,
+                                       IItemService itemService,
+                                       IMerchantService merchantService)
         {
             this.service = service;
             this.championService = championService;
+            this.itemService = itemService;
+            this.merchantService = merchantService;
         }
 
         public IActionResult SellItemsToChampion(string championId, string merchantId)

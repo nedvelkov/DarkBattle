@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
 
     using static DarkBattle.DarkBattleRoles;
+    using System.Linq;
 
     [Authorize(Roles = PlayerRoleName)]
     public class ChampionsController : Controller
@@ -32,10 +33,13 @@
         }
 
         public IActionResult Create()
-            => View(new ChampionViewModel
+        {
+
+            return View(new ChampionViewModel
             {
-               // ChampionClasses = this.championService.GetChampionClasses().ToList()
+                ChampionClasses = this.championService.GetChampionClasses().ToList()
             });
+        }
 
         [HttpPost]
         public IActionResult Create(string name, string championClassId)

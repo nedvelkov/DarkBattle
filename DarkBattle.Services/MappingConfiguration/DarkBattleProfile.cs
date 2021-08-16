@@ -93,6 +93,7 @@
             this.CreateMap<ChampionClass, ChampionClassServiceListModel>();
             this.CreateMap<ChampionClassServiceListModel, ChampionClass>();
 
+            this.CreateMap<ChampionClass, ChampionClassServiceListToChampionModel>();
 
             //AreaCreatures
 

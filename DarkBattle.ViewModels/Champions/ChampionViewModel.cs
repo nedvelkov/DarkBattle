@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;  
 
+    using DarkBattle.Services.ServiceModels.ChampionClass;
+
     using static DataConstants.Constants;
 
     public class ChampionViewModel
@@ -12,7 +14,7 @@
         [MaxLength(NameMaxLenght)]
         public string Name { get; set; }
 
-     //   public ICollection<ChampionClassServiceListToChampionModel> ChampionClasses { get; init; }
+       public ICollection<ChampionClassServiceListToChampionModel> ChampionClasses { get; init; }
 
         public string ChampionClassId { get; set; }
     }
