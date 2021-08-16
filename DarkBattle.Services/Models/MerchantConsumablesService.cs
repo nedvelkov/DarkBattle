@@ -2,7 +2,6 @@
 {
     using System.Linq;
 
-    using AutoMapper;
     using Microsoft.EntityFrameworkCore;
 
     using DarkBattle.Data;
@@ -44,7 +43,7 @@
                                 .Single(x => x.Id == championId);
             var consumabe = this.data.Consumables.Single(x => x.Id == itemId);
             var cost = consumabe.Value;
-            if (cost > champion.Gold)
+            if (champion.Gold<cost)
             {
                 return false;
             }

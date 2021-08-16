@@ -1,27 +1,20 @@
 ﻿namespace DarkBattle.Services.Models
 {
-    using System;
     using System.Linq;
-    using System.Collections.Generic;
 
-    using AutoMapper;
     using Microsoft.EntityFrameworkCore;
     
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.Services.ServiceModels.Consumables;
 
     public class CreatureConsumablesService : ICreatureConsumablesService
     {
         private readonly ApplicationDbContext data;
-        private readonly IMapper mapper;
 
-        public CreatureConsumablesService(ApplicationDbContext data, IMapper mapper)
-        {
-            this.data = data;
-            this.mapper = mapper;
-        }
+
+        public CreatureConsumablesService(ApplicationDbContext data)
+            => this.data = data;
 
         public bool Add(string consumableId, string creatureId)
         {

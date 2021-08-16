@@ -29,8 +29,8 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<ChampionClassServiceListToChampionModel> GetChampionClasses()
-            => this.data.ChampionClasses.Select(this.mapper.Map<ChampionClassServiceListToChampionModel>);
+        public ICollection<ChampionClassServiceListToChampionModel> GetChampionClasses()
+            => this.data.ChampionClasses.Select(this.mapper.Map<ChampionClassServiceListToChampionModel>).ToList();
 
 
         public bool CreateChampion(string name, string championClassId, string playerId)
@@ -72,14 +72,15 @@
             return true;
         }
 
-        public IEnumerable<ChampionServiceModel> ChampionCollection(string playerId)
+        public ICollection<ChampionServiceModel> ChampionCollection(string playerId)
                      => this.data
                             .Users
                             .Include(x => x.Champions)
                             .ThenInclude(y => y.ChampionClass)
                             .FirstOrDefault(x => x.Id == playerId)
                             .Champions
-                            .Select(this.mapper.Map<ChampionServiceModel>);
+                            .Select(this.mapper.Map<ChampionServiceModel>)
+                            .ToList();
 
         public bool EquipItem(string championId, string itemId)
         {

@@ -1,26 +1,19 @@
 ﻿namespace DarkBattle.Services.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using AutoMapper;
+
+    using Microsoft.EntityFrameworkCore;
+
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.Services.ServiceModels.Items;
-    using Microsoft.EntityFrameworkCore;
-
 
     public class CreatureItemsService : ICreatureItemsService
     {
         private readonly ApplicationDbContext data;
-        private readonly IMapper mapper;
 
-        public CreatureItemsService(ApplicationDbContext data, IMapper mapper)
-        {
-            this.data = data;
-            this.mapper = mapper;
-        }
+        public CreatureItemsService(ApplicationDbContext data) 
+            => this.data = data;
 
         public bool Add(string itemId, string creatureId)
         {
@@ -61,13 +54,6 @@
                    .Creatures
                    .Include(x => x.Items)
                    .FirstOrDefault(x => x.Id == creatureId);
-
-        private ICollection<T> GetItems<T>(Func<Item, bool> func)
-        => this.data.Items
-                    .Where(func)
-                    .OrderBy(x => x.RequiredLevel)
-                    .Select(this.mapper.Map<T>)
-                    .ToList();
 
     }
 }

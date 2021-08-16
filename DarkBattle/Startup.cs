@@ -7,13 +7,13 @@ namespace DarkBattle
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.AspNetCore.Mvc;
 
     using DarkBattle.Data;
     using DarkBattle.Services.MappingConfiguration;
     using DarkBattle.Services.Interface;
     using DarkBattle.Services.Models;
     using DarkBattle.Infrastructure;
-    using Microsoft.AspNetCore.Mvc;
     using DarkBattle.Data.Models;
     using DarkBattle.Infrastructure.Extentions;
 
@@ -52,7 +52,6 @@ namespace DarkBattle
             services.AddAutoMapper(typeof(DarkBattleProfile))
                     .AddTransient<ICreatureService, CreatureService>()
                     .AddTransient<IAreaService, AreaService>()
-                    .AddTransient<IValidator, Validator>()
                     .AddTransient<IItemService, ItemService>()
                     .AddTransient<IConsumableService, ConsumableService>()
                     .AddTransient<IMerchantService, MerchantService>()
@@ -70,7 +69,6 @@ namespace DarkBattle
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.PrepareDatabase();

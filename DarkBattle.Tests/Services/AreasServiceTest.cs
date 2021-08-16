@@ -1,20 +1,16 @@
 ﻿namespace DarkBattle.Tests.Services
 {
-
+    using System;
     using System.Linq;
+    using System.Collections.Generic;
 
     using Xunit;
     using AutoMapper;
 
-    using MyTested.AspNetCore.Mvc;
-
     using DarkBattle.Tests.Mocks;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Models;
-    using DarkBattle.ViewModels.Areas;
     using DarkBattle.Services.MappingConfiguration;
-    using System.Collections.Generic;
-    using System;
     using DarkBattle.Services.ServiceModels.Areas;
 
     public class AreasServiceTest

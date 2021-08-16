@@ -24,7 +24,7 @@
                 <h5>@area.Description</h5>
                 <h6>Requred level to enter @area.MinLevelEnterence</h6>
                 <div>
-                    <a asp-controller="Battles" asp-action="FightCreature" asp-route-championId="@Model.Champion.ChampionId" asp-route-areaId="@area.Id" class="btn btn-primary w-100 mb-2">Fight</a>
+                    <a asp-controller="Battles" asp-action="FightCreature" asp-route-championId="@Model.Champion.ChampionId" asp-route-areaId="@area.Id" class="btn btn-primary w-100 @(area.MinLevelEnterence < Model.Champion.Level ?string.Empty:"disabled") mb-3">Fight</a>
                 </div>
                 <div>
                     <a asp-controller="Battles" asp-action="FightInDungeon" asp-route-championId="@Model.Champion.ChampionId" asp-route-areaId="@area.Id" class="btn btn-primary w-100 @(area.MaxLevelCreatures <= Model.Champion.Level ?string.Empty:"disabled")">Fight in Dungeon</a>

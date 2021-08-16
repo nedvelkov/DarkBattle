@@ -1,17 +1,17 @@
 ﻿namespace DarkBattle.Services.Models
 {
+    using System;
     using System.Linq;
     using System.Collections.Generic;
 
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
+
 
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
     using DarkBattle.Services.ServiceModels.Consumables;
-    using Microsoft.EntityFrameworkCore;
-    using System;
+
 
     public class ConsumableService : IConsumableService
     {
@@ -50,13 +50,10 @@
         }
 
         public ConsumableViewServiceModel GetConsumable(string id)
-        {
-            var consumable = this.mapper
+                  =>this.mapper
                         .Map<ConsumableViewServiceModel>
                         (this.GetConsumableById(id));
 
-            return consumable;
-        }
 
         public ICollection<ConsumableViewServiceModel> ConsumablesCollection()
             => GetConsumableCollection<ConsumableViewServiceModel>(x => true);

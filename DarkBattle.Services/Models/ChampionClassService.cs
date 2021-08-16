@@ -50,13 +50,10 @@
         }
 
         public ChampionClassServiceModel GetClass(string id)
-        {
-            var area = this.mapper
+                      => this.mapper
                              .Map<ChampionClassServiceModel>
                              (this.GetChampionClassById(id));
 
-            return area;
-        }
 
         public ICollection<ChampionClassServiceListModel> ClassCollection()
                         => this.data

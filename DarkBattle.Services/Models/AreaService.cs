@@ -11,6 +11,7 @@
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
     using DarkBattle.Services.ServiceModels.Areas;
+    using System;
 
     public class AreaService : IAreaService
     {
@@ -26,7 +27,7 @@
         public void Add(AreaServiceViewModel model)
         {
             var area = this.mapper.Map<Area>(model);
-
+            area.Id = Guid.NewGuid().ToString();
             this.data.Areas.Add(area);
             this.data.SaveChanges();
         }

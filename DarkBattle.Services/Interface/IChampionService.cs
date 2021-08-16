@@ -7,10 +7,10 @@
 
     public interface IChampionService
     {
-        public IEnumerable<ChampionClassServiceListToChampionModel> GetChampionClasses();
+        public ICollection<ChampionClassServiceListToChampionModel> GetChampionClasses();
         public bool CreateChampion(string name, string championClassId, string playerId);
 
-        public IEnumerable<ChampionServiceModel> ChampionCollection(string playerId);
+        public ICollection<ChampionServiceModel> ChampionCollection(string playerId);
         public bool DeleteChampion(string championId, string playerId);
         public ChampionDetailServiceModel Details(string championId, string playerId);
         public ChampionBarServiceModel ChampionBar(string championId, string playerId);
