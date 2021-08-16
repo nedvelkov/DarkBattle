@@ -34,3 +34,15 @@
         </div>
     </div>
 }
+<div class="row mb-5">
+
+    <div class="col-md-6">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)" 
+           asp-controller="Areas" asp-action="BattleZones" asp-route-championId="@Model.Champion.ChampionId" asp-route-page="@Model.PreviusPageNumber" ><<</a>
+    </div>
+
+    <div class="col-md-6">
+        <a class="btn btn-primary float-sm-right @(Model.CurrentPage>=Model.MaxPages ? "disabled" : string.Empty)" style="margin-top: 10px" 
+           asp-controller="Areas" asp-action="BattleZones" asp-route-championId="@Model.Champion.ChampionId" asp-route-page="@Model.NextPageNumber">>></a>
+    </div>
+</div>

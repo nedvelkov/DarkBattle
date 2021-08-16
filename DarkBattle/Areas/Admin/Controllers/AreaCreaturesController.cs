@@ -53,7 +53,7 @@
 
             if (model.SearchTerm != null)
             {
-                listCreatures = SortList(x => x.Name.ToLower().Contains(model.SearchTerm.ToLower()), listCreatures);
+                listCreatures = FilterList(x => x.Name.ToLower().Contains(model.SearchTerm.ToLower()), listCreatures);
             }
 
             listCreatures = model.Sorting switch
@@ -66,7 +66,7 @@
 
             if (model.CurrentLevel != null)
             {
-                listCreatures = SortList(x => x.Level == model.CurrentLevel, listCreatures);
+                listCreatures = FilterList(x => x.Level == model.CurrentLevel, listCreatures);
             }
 
             model.Area = area;
@@ -81,8 +81,7 @@
             return RedirectToAction("CreatureToArea", "AreaCreatures", new { areaId = $"{areaId}" });
         }
 
-
-        private ICollection<T> SortList<T>(Func<T, bool> func, ICollection<T> collection)
+        private ICollection<T> FilterList<T>(Func<T, bool> func, ICollection<T> collection)
                  => collection.Where(func).ToList();
     }
 }

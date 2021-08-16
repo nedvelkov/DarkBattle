@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
 
     using static DarkBattle.DarkBattleRoles;
+    using System.Linq;
 
     [Authorize(Roles = PlayerRoleName)]
 
@@ -23,7 +24,7 @@
             this.championService = championService;
         }
 
-        public IActionResult BattleZones(string championId)
+        public IActionResult BattleZones(string championId,string page)
         {
 
             if (championId == null)
@@ -33,11 +34,17 @@
 
             var playerId = this.User.GetId();
 
-            var model = new BattleZoneViewModel 
+            var model = new BattleZoneViewModel
             {
                 Champion = this.championService.ChampionBar(championId, playerId),
-                Areas = this.areaService.AreaServiceCollection()
+                Areas = this.areaService.AreaServiceCollection().OrderBy(x => x.MinLevelEnterence).ToList(),
+                MaxPages=this.areaService.AreaServiceCollection().Count
             };
+            if (page != null)
+            {
+                model.CurrentPage = int.Parse(page);
+            }
+            model.Areas = model.Areas.Skip(model.CurrentPage - 1).Take(model.MaxAreasPerPage).ToList();
 
             return View(model);
 

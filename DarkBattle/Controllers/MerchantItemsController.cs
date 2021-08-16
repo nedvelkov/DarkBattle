@@ -9,6 +9,10 @@
     using static DarkBattle.DarkBattleRoles;
     using DarkBattle.ViewModels.Merchants;
     using DarkBattle.ViewModels.MerchantItems;
+    using System.Collections.Generic;
+    using DarkBattle.Services.ServiceModels.Items;
+    using DarkBattle.ViewModels.Enums;
+    using System.Linq;
 
     [Authorize(Roles = PlayerRoleName)]
     public class MerchantItemsController : Controller
@@ -29,7 +33,7 @@
             this.merchantService = merchantService;
         }
 
-        public IActionResult SellItemsToChampion(string championId, string merchantId)
+        public IActionResult SellItemsToChampion(string championId, string merchantId, string page, string sort)
         {
             var playerId = this.User.GetId();
             var champion = this.championService.ChampionBar(championId, playerId);
@@ -40,10 +44,20 @@
                 Items = new MerchantItemPageModel
                 {
                     MerchantId = merchantId,
-                    MerchantName=this.merchantService.MerchantName(merchantId),
-                    ItemCollection=items
-                }
+                    MerchantName = this.merchantService.MerchantName(merchantId),
+                    ItemCollection = items,
+                },
+                MaxPages = items.Count,
             };
+            if (page != null)
+            {
+                model.CurrentPage = int.Parse(page);
+            }
+            model.Items.ItemCollection = model.Items.ItemCollection.Skip(model.CurrentPage - 1).Take(model.MaxItemsPerPage).ToList();
+            if (sort != null)
+            {
+            model.Items.ItemCollection = SortCollection(sort, model.Items.ItemCollection);
+            }
             return View(model);
         }
 
@@ -52,6 +66,19 @@
             this.service.SellItem(championId, itemId);
             return RedirectToAction("SellItemsToChampion", "MerchantItems", new { championId = $"{ championId}", merchantId = $"{merchantId}" });
 
+        }
+
+        private ICollection<ItemServiceModel> SortCollection(string sort, ICollection<ItemServiceModel> collection)
+        {
+            collection = sort.ToLower() switch
+            {
+                "obtainby" => collection.OrderByDescending(x => x.ObtainBy).ToList(),
+                "type" => collection.OrderByDescending(x => x.Type).ToList(),
+                "requiredlevel" => collection.OrderByDescending(x => x.RequiredLevel).ToList(),
+                "value" => collection.OrderByDescending(x => x.Value).ToList(),
+                "name" or _ => collection.OrderByDescending(x => x.Name).ToList(),
+            };
+            return collection;
         }
     }
 }
