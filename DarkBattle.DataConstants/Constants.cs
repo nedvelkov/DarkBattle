@@ -28,5 +28,6 @@
         public const int MaxChampionLevel = 50;
 
         public const int Loan = 200;
+        public const int MinGold = 0;
     }
 }

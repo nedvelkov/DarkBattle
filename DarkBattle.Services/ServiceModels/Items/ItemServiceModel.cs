@@ -6,7 +6,6 @@
 
     using static DataConstants.Constants;
 
-
     public class ItemServiceModel
     {
         public string Id { get; set; }
@@ -42,7 +41,7 @@
         public int RequiredLevel { get; set; }
 
         [Required]
-        [Range(MinValue, int.MaxValue)]
+        [Range(MinValue, MaxValue)]
         public int Value { get; set; }
     }
 }

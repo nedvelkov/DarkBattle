@@ -4,8 +4,9 @@ namespace DarkBattle.Data.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Threading.Tasks;
+
+    using static DataConstants.Constants;
+
 
     public class Item
     {
@@ -14,6 +15,7 @@ namespace DarkBattle.Data.Models
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
+        [MaxLength(NameMaxLenght)]
         public string Name { get; set; }
 
         [Required]
@@ -23,18 +25,22 @@ namespace DarkBattle.Data.Models
         public string ImageUrl { get; set; }
 
         [Required]
+        [Range(MinValue, MaxItemAttack)]
         public int Attack { get; set; }
 
         [Required]
+        [Range(MinValue, MaxItemDefense)]
         public int Defense { get; set; }
 
         [Required]
         public string ObtainBy { get; set; }
 
         [Required]
+        [Range(MinValue, MaxChampionLevel)]
         public int RequiredLevel { get; set; }
 
         [Required]
+        [Range(MinValue, MaxValue)]
         public int Value { get; set; }
 
         public bool Equipped { get; set; }

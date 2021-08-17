@@ -4,7 +4,6 @@
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
-
     using static DataConstants.Constants;
 
     public class ChampionClassServiceModel
