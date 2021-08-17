@@ -95,28 +95,28 @@
         public void TestChampionClassCollection()
         {
             //Arrange
-            const string classId = "TestChampionClass";
+            const int numOfClass= 4;
             const string name = "Test";
-            const int health = 5;
 
             using var data = DatabaseMock.Instance;
-            data.ChampionClasses.Add(new ChampionClass { Id = classId, Name = name });
+            for (int i = 0; i < numOfClass; i++)
+            {
+                var @class = new ChampionClass { Name = $"{name}{i}" };
+                data.ChampionClasses.Add(@class);
+            }
             data.SaveChanges();
 
             var championClassService = new ChampionClassService(data, this.mapper);
 
             //Act
-            var model = new ChampionClassServiceModel
-            {
-                Id = classId,
-                Health = health,
-            };
-            championClassService.Edit(model);
-            var result = data.ChampionClasses.First();
+
+            var result = championClassService.ChampionClassCollection();
 
             //Assert
-            Assert.True(result.Name == null);
-            Assert.True(result.Health == health);
+            var listNames = result.ToList();
+
+            Assert.True(listNames.Count == numOfClass);
+            Assert.True(listNames[0] == $"{name}0");
         }
 
         private IMapper Mapper()

@@ -87,12 +87,12 @@
             var champion = GetChampion(championId);
             var item = GetItem(itemId);
 
-            if (ItemBelongToChampion(champion, item) == false)
+            if (ItemBelongToChampion(championId, item) == false)
             {
                 return false;
             }
 
-            if (CanEquipItem(champion, item) == false)
+            if (CanEquipItem(champion.ChampionClass.Name, item.ObtainBy) == false)
             {
                 return false;
             }
@@ -119,7 +119,7 @@
             var champion = GetChampion(championId);
             var item = GetItem(itemId);
 
-            if (ItemBelongToChampion(champion, item) == false)
+            if (ItemBelongToChampion(championId, item) == false)
             {
                 return false;
             }
@@ -141,7 +141,7 @@
             var champion = GetChampion(championId);
             var item = GetItem(itemId);
 
-            if (ItemBelongToChampion(champion, item) == false)
+            if (ItemBelongToChampion(championId, item) == false)
             {
                 return false;
             }
@@ -282,9 +282,9 @@
             }
         }
 
-        private bool ItemBelongToChampion(Champion champion, Item item)
+        private bool ItemBelongToChampion(string championId, Item item)
         {
-            if (item.Champions.Any(x => x.Id == champion.Id) == false)
+            if (item.Champions.Any(x => x.Id == championId) == false)
             {
                 return false;
             }
@@ -292,9 +292,9 @@
             return true;
         }
 
-        private bool CanEquipItem(Champion champion, Item item)
+        private bool CanEquipItem(string className, string obtainBy)
         {
-            if (item.ObtainBy != champion.ChampionClass.Name)
+            if (obtainBy != className)
             {
                 return false;
             }
