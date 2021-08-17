@@ -58,6 +58,7 @@
             var creature = new Creature { Id = creatureId, Name = creatureName };
             var area = new Area { Id = areaId, Name = areaName };
             area.Creatures.Add(creature);
+            data.Areas.Add(area);
             data.SaveChanges();
             var areaCreatureService = new AreaCreatureService(data);
 

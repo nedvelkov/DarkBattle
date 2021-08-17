@@ -96,8 +96,47 @@
             //Assert
             Assert.NotNull(result);
         }
+        [Fact]
+        public void TestDeleteArea()
+        {
+            //Arrange
+            const string areaId = "TestArea";
 
+            using var data = DatabaseMock.Instance;
 
+            data.Areas.Add(new Area { Id = areaId });
+            data.SaveChanges();
+
+            var areaService = new AreaService(data, this.mapper);
+
+            //Act
+            var result = areaService.Delete(areaId);
+
+            //Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void TestGetAreaForCreatures()
+        {
+            //Arrange
+            const string areaId = "TestArea";
+
+            using var data = DatabaseMock.Instance;
+
+            data.Areas.Add(new Area { Id = areaId });
+            data.SaveChanges();
+
+            var areaService = new AreaService(data, this.mapper);
+
+            //Act
+            var result = areaService.AreaForCreatures(areaId);
+
+            //Assert
+            Assert.True(result.Id==areaId);
+            Assert.IsType<AreaServiceListModel>(result);
+
+        }
 
         private IMapper Mapper()
         {

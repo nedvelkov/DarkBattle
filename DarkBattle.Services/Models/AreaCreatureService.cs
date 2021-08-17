@@ -27,6 +27,7 @@
 
         public void Remove(string creatureId, string areaId)
         {
+            var all = this.data.Creatures.ToList();
             var creatureAsQuareable = this.data.Creatures.Single(x => x.Id == creatureId);
             if (creatureAsQuareable.AreaId==areaId)
             {

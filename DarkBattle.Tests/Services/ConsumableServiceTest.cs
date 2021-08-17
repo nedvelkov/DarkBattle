@@ -42,26 +42,28 @@
         {
             //Arrange
             const string name = "Test";
+            const string id = "TestId";
             const int healthRestore = 5;
             using var data = DatabaseMock.Instance;
 
-            var model = new ConsumableViewServiceModel() { Name = name };
-
+            var consumable = new Consumable { Id = id, Name = name };
+            data.Consumables.Add(consumable);
+            data.SaveChanges();
             var consumableService = new ConsumableService(data, this.mapper);
-            consumableService.Add(model);
-            var consumableFromDb = data.Consumables.FirstOrDefault(x => x.Name == name);
+
             //Act
-            var newModel= new ConsumableViewServiceModel() 
+            var newModel = new ConsumableViewServiceModel() 
             { 
-                Id = consumableFromDb.Id,
+                Id = id,
                 RestoreHealth=healthRestore
             };
             consumableService.Edit(newModel);
 
-            var result = data.Consumables.FirstOrDefault(x => x.Id == consumableFromDb.Id);
+            var result = data.Consumables.FirstOrDefault();
 
             //Assert
             Assert.Equal(healthRestore, result.RestoreHealth);
+            Assert.Equal(null, result.Name);
         }
 
         [Fact]
