@@ -1,10 +1,9 @@
 ﻿namespace DarkBattle.Services.ServiceModels.Home
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+
     using DarkBattle.Services.ServiceModels.Champions;
 
-    using static DataConstants.Constants;
 
     public class PlayerServiceModel
     {
@@ -14,8 +13,5 @@
 
         public bool IsBanned { get; set; }
 
-        [Required]
-        [MinLength(MinBanMassage)]
-        public string BanMessage { get; set; }
     }
 }
