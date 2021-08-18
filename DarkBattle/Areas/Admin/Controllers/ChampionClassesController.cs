@@ -5,6 +5,10 @@
     using DarkBattle.Services.Interface;
     using DarkBattle.Services.ServiceModels.ChampionClass;
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+    using Microsoft.AspNetCore.Authorization;
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class ChampionClassesController:AdminController
     {
         private readonly IChampionClassService classService;

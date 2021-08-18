@@ -1,5 +1,5 @@
-﻿@using DarkBattle.Services.ServiceModels.Champions
-@model IEnumerable<ChampionServiceModel>
+﻿@using DarkBattle.ViewModels.Champions
+@model IndexViewModel
 @{
     ViewData["Title"] = "Champions";
 }
@@ -7,7 +7,7 @@
 <h1>Champions </h1>
 <hr />
 <p>
-    @if (Model.Count() < ViewBag.MaxChampions)
+    @if (Model.Champions.Count() < ViewBag.MaxChampions && Model.IsBanned==false)
     {
         <a asp-action="Create">Create New</a>
     }
@@ -16,7 +16,7 @@
 
 <form method="post">
     <div class="row">
-        @foreach (var champions in Model)
+        @foreach (var champions in Model.Champions)
         {
             <div class="col-4">
                 <div class="card" style="width:300px;">
@@ -41,9 +41,14 @@
 
                             </div>
                         </div>
+                        <div class="@(Model.IsBanned?"d-none":string.Empty )">
                         <a asp-controller="Areas" asp-action="BattleZones" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Play</a>
                         <a asp-action="Details" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Details</a>
                         <a asp-action="Delete" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Delete</a>
+                        </div>
+                        <div class="@(Model.IsBanned?string.Empty:"d-none" ) text-danger">
+                            <h3>You are banned</h3>
+                        </div>
                     </div>
                 </div>
             </div>

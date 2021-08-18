@@ -29,5 +29,8 @@
 
         public const int Loan = 200;
         public const int MinGold = 0;
+
+        public const int MinBanMassage = 15;
     }
+
 }

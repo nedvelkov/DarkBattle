@@ -6,5 +6,6 @@
         public int TotalOnlinePlayers();
         public int TotalAreas();
         public int TotalChampionClass();
+        public int TotalBanPlayers();
     }
 }

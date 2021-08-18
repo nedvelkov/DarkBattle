@@ -16,12 +16,16 @@
     {
         private readonly IChampionService championService;
         private IConfiguration cofing;
+        private readonly IPlayerService playerService;
 
 
-        public ChampionsController(IChampionService championService, IConfiguration cofing)
+        public ChampionsController(IChampionService championService,
+                                   IConfiguration cofing,
+                                   IPlayerService playerService)
         {
             this.championService = championService;
             this.cofing = cofing;
+            this.playerService = playerService;
         }
 
         public IActionResult Index()
@@ -29,7 +33,13 @@
             ViewBag.MaxChampions = int.Parse(this.cofing.GetSection("GameSettings").GetSection("MaxChampions").Value);
             var playerId = this.User.GetId();
             var champions = this.championService.ChampionCollection(playerId);
-            return View(champions);
+            var playerStats = this.playerService.IsBanned(playerId);
+            var returnModel = new IndexViewModel
+            {
+                IsBanned = playerStats,
+                Champions = champions
+            };
+            return View(returnModel);
         }
 
         public IActionResult Create()

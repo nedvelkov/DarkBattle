@@ -1,0 +1,78 @@
+﻿@using DarkBattle.Services.ServiceModels.Home
+@model AdminServiceControl
+
+@{
+    ViewData["Title"] = "Admin panel";
+}
+
+<h1>Admin panel</h1>
+
+<div class="row">
+    @foreach (var stats in Model.Statistics)
+    {
+        <div class="col">
+            <h6> @stats.Key : @stats.Value</h6>
+        </div>
+    }
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Name</label>
+            </th>
+            <th>
+                <label>Champions</label>
+
+            </th>
+            <th>
+                <label>Is banned</label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Players)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Champions.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsBanned)
+                </td>
+                <td>
+                    <button id="banButton" onclick="banPlayer()" class="@(item.IsBanned==true?"d-none":string.Empty)">Ban player</button>
+                    <div id="banPlayer" class="d-none">
+                        <label asp-for="@item.BanMessage" class="control-label"></label>
+                        <textarea asp-for="@item.BanMessage" class="form-control mb-2"></textarea>
+                        <span asp-validation-for="@item.BanMessage" class="text-danger mb-2"></span>
+                        <a asp-area="Admin" asp-controller="Home" asp-action="BanPlayer" asp-route-userId="@item.Id" class="btn btn-primary">Ban</a>
+                    </div>
+                    <a asp-area="Admin" asp-controller="Home" asp-action="RemoveBan" asp-route-userId="@item.Id" asp-route-banMessage="@item.BanMessage" class="btn btn-primary @( item.IsBanned==true?string.Empty:"d-none" )">Remove ban</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function banPlayer() {
+            
+            var x = document.getElementById("banPlayer");
+            var y = document.getElementById("banButton");
+            if (x.classList.contains('d-none')) {
+                x.classList.remove("d-none");
+                y.classList.add("d-none");
+            }
+        }
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

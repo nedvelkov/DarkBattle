@@ -23,8 +23,10 @@
         public int TotalOnlinePlayers()
             => this.data.Users.Where(x => x.IsOnline).Count();
 
-
         public int TotalPlayers()
             => this.data.Users.Count();
+
+        public int TotalBanPlayers()
+                 => this.data.Users.Where(x => x.IsBanned == true).Count();
     }
 }

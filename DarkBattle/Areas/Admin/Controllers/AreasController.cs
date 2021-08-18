@@ -6,6 +6,10 @@
     using DarkBattle.Services.ServiceModels.Areas;
     using Microsoft.AspNetCore.Authorization;
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class AreasController : AdminController
     {
         private readonly IAreaService areaService;
@@ -16,7 +20,7 @@
 
         public IActionResult Index()
             => View(this.areaService.AreasCollection());
-        [Authorize]
+
         public IActionResult Create() 
             => View();
 

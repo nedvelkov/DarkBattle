@@ -5,6 +5,10 @@
     using DarkBattle.Services.Interface;
     using DarkBattle.Services.ServiceModels.Consumables;
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+    using Microsoft.AspNetCore.Authorization;
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class ConsumablesController : AdminController
     {
         private readonly IConsumableService consumableService;

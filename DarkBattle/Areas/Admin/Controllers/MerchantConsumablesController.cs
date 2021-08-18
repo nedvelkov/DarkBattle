@@ -10,6 +10,10 @@
     using DarkBattle.ViewModels.MerchantConsumables;
     using DarkBattle.ViewModels.Enums;
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+    using Microsoft.AspNetCore.Authorization;
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class MerchantConsumablesController:AdminController
     {
         private readonly IMerchantConsumablesService service;

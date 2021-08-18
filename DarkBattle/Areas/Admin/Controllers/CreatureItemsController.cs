@@ -5,6 +5,10 @@
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.CreatureItems;
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+    using Microsoft.AspNetCore.Authorization;
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class CreatureItemsController : AdminController
     {
         private readonly ICreatureItemsService creatureItemsService;

@@ -5,6 +5,10 @@
     using DarkBattle.Services.Interface;
     using DarkBattle.Services.ServiceModels.Merchants;
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+    using Microsoft.AspNetCore.Authorization;
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class MerchantsController:AdminController
     {
         private readonly IMerchantService merchantService;

@@ -11,6 +11,10 @@
     using DarkBattle.ViewModels.Enums;
 
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+    using Microsoft.AspNetCore.Authorization;
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class AreaCreaturesController : AdminController
     {
         private readonly IAreaCreatureService service;

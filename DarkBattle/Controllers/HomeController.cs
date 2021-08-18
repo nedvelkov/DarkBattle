@@ -33,6 +33,10 @@
             {
                 return RedirectToAction("Index", "Champions");
             }
+            if (this.User.IsInRole(AdministratorRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
             return View();
         }
 

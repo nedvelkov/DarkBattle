@@ -2,11 +2,13 @@
 {
     using AutoMapper;
     using DarkBattle.Data.Models;
+    using DarkBattle.Services.Models;
     using DarkBattle.Services.ServiceModels.Areas;
     using DarkBattle.Services.ServiceModels.ChampionClass;
     using DarkBattle.Services.ServiceModels.Champions;
     using DarkBattle.Services.ServiceModels.Consumables;
     using DarkBattle.Services.ServiceModels.Creatures;
+    using DarkBattle.Services.ServiceModels.Home;
     using DarkBattle.Services.ServiceModels.Items;
     using DarkBattle.Services.ServiceModels.Merchants;
 
@@ -120,6 +122,10 @@
             this.CreateMap<Champion, ChampionBarServiceModel>()
                 .ForMember(x => x.ChampionId, y => y.MapFrom(i => i.Id))
                 .ForMember(x => x.BaseHealth, y => y.MapFrom(i => i.ChampionClass.Health));
+
+            //Player
+            this.CreateMap<Player, PlayerServiceModel>()
+                .ForMember(x => x.Name, y => y.MapFrom(i => i.UserName));
         }
     }
 }

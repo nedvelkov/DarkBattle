@@ -6,6 +6,10 @@
     using DarkBattle.Services.ServiceModels.Items;
     using DarkBattle.ViewModels.Items;
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+    using Microsoft.AspNetCore.Authorization;
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class ItemsController:AdminController
     {
         private readonly IItemService itemService;

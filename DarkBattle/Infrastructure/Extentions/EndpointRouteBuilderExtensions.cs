@@ -7,7 +7,7 @@
     {
         public static void MapDefaultAreaRoute(this IEndpointRouteBuilder endpoints)
             => endpoints.MapControllerRoute(
-                                name: "MyArea",
+                                name: "Admin",
                                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
         public static void MapDefaultRoute(this IEndpointRouteBuilder endpoints)
                 => endpoints.MapControllerRoute(

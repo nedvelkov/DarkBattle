@@ -2,8 +2,13 @@
 {
     using DarkBattle.Services.Interface;
     using DarkBattle.ViewModels.CreatureConsumables;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using static DarkBattle.Areas.Admin.AdminConstants;
+
+
+    [Authorize(Roles = AdministratorRoleName)]
     public class CreatureConsumablesController:AdminController
     {
         private readonly ICreatureConsumablesService creatureConsumablesService;
