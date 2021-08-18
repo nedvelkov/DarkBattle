@@ -264,8 +264,22 @@
 
         private void AddExp(string championId, int exp)
         {
+            var maxLevel = int.Parse(this.cofing.GetSection("GameSettings:MaxLevel").Value);
+            var levelIncrement = this.cofing.GetSection("GameSettings:LevelIncrement")
+                 .GetChildren()
+                 .Select(x => int.Parse(x.Value))
+                 .ToList();
             var champion = Champion(championId);
+            if (champion.Level == maxLevel)
+            {
+                exp = levelIncrement.Last();
+                champion.Experience = exp;
+            }
+            else
+            {
             champion.Experience += exp;
+            }
+
             this.data.SaveChanges();
         }
 
@@ -302,16 +316,16 @@
             while (true)
             {
                 var maxLevel = int.Parse(this.cofing.GetSection("GameSettings:MaxLevel").Value);
-                if (champion.Level == maxLevel)
-                {
-                    break;
-                }
                 var levelIncrement = this.cofing.GetSection("GameSettings:LevelIncrement")
                                  .GetChildren()
                                  .Select(x => int.Parse(x.Value))
                                  .ToList();
-
-
+                if (champion.Level == maxLevel)
+                {
+                    var exp = levelIncrement.Last();
+                    champion.Experience = exp;
+                    break;
+                }
                 var index = champion.Level == levelIncrement.Count ? levelIncrement.Count - 1 : champion.Level - 1;
                 var expForLevelUp = levelIncrement[index];
                 if (champion.Experience >= expForLevelUp)

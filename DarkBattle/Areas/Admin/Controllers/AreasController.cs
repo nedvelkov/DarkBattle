@@ -3,8 +3,8 @@
     using Microsoft.AspNetCore.Mvc;
 
     using DarkBattle.Services.Interface;
-    using DarkBattle.ViewModels.Areas;
     using DarkBattle.Services.ServiceModels.Areas;
+    using Microsoft.AspNetCore.Authorization;
 
     public class AreasController : AdminController
     {
@@ -16,12 +16,9 @@
 
         public IActionResult Index()
             => View(this.areaService.AreasCollection());
-
-        public IActionResult Create()
-        {
-
-            return View();
-        }
+        [Authorize]
+        public IActionResult Create() 
+            => View();
 
         [HttpPost]
         public IActionResult Create(AreaServiceViewModel model)

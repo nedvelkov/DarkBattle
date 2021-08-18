@@ -5,22 +5,14 @@
     using System.Collections.Generic;
 
     using Xunit;
-    using AutoMapper;
 
     using DarkBattle.Tests.Mocks;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Models;
-    using DarkBattle.Services.MappingConfiguration;
     using DarkBattle.Services.ServiceModels.Areas;
 
     public class AreasServiceTest
     {
-        private readonly IMapper mapper;
-        public AreasServiceTest()
-        {
-            this.mapper = this.Mapper();
-        }
-
         [Fact]
         public void TestGetAreaById()
         {
@@ -28,11 +20,12 @@
             const string areaId = "TestArea";
 
             using var data = DatabaseMock.Instance;
+            var mapper = MapperMock.Instance;
 
             data.Areas.Add(new Area { Id = areaId });
             data.SaveChanges();
 
-            var areaService = new AreaService(data, this.mapper);
+            var areaService = new AreaService(data, mapper);
 
             //Act
             var result = areaService.GetArea(areaId);
@@ -46,12 +39,13 @@
         public void TestGetAreasCollection()
         {
             //Arrange
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
 
             data.Areas.AddRange(Enumerable.Range(0, 10).Select(x => new Area { Id = Guid.NewGuid().ToString() }));
             data.SaveChanges();
 
-            var areaService = new AreaService(data, this.mapper);
+            var areaService = new AreaService(data, mapper);
             //Act
             var result = areaService.AreasCollection();
 
@@ -65,11 +59,12 @@
         {
             //Arrange
             const string name = "Test";
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
 
             var model = new AreaServiceViewModel() { Name = name };
 
-            var areaService = new AreaService(data, this.mapper);
+            var areaService = new AreaService(data, mapper);
             //Act
             areaService.Add(model);
             var result = data.Areas.FirstOrDefault(x => x.Name == name);
@@ -84,11 +79,12 @@
         {   
             //Arrange
             const string name = "Test";
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
 
             var model = new AreaServiceViewModel() { Name = name };
 
-            var areaService = new AreaService(data, this.mapper);
+            var areaService = new AreaService(data, mapper);
             //Act
             areaService.Add(model);
             var result = data.Areas.FirstOrDefault(x => x.Name == name);
@@ -102,12 +98,13 @@
             //Arrange
             const string areaId = "TestArea";
 
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
 
             data.Areas.Add(new Area { Id = areaId });
             data.SaveChanges();
 
-            var areaService = new AreaService(data, this.mapper);
+            var areaService = new AreaService(data, mapper);
 
             //Act
             var result = areaService.Delete(areaId);
@@ -122,12 +119,13 @@
             //Arrange
             const string areaId = "TestArea";
 
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
 
             data.Areas.Add(new Area { Id = areaId });
             data.SaveChanges();
 
-            var areaService = new AreaService(data, this.mapper);
+            var areaService = new AreaService(data, mapper);
 
             //Act
             var result = areaService.AreaForCreatures(areaId);
@@ -138,10 +136,5 @@
 
         }
 
-        private IMapper Mapper()
-        {
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DarkBattleProfile)));
-            return new Mapper(configuration);
-        }
     }
 }

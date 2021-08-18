@@ -1,28 +1,17 @@
 ﻿namespace DarkBattle.Tests.Services
 {
-    using System;
     using System.Linq;
 
     using Xunit;
-    using AutoMapper;
+    using Microsoft.EntityFrameworkCore;
 
     using DarkBattle.Tests.Mocks;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Models;
-    using DarkBattle.Services.MappingConfiguration;
-    using DarkBattle.Services.ServiceModels.Consumables;
-    using Microsoft.Extensions.Configuration;
-    using System.Collections.Generic;
     using DarkBattle.Services.ServiceModels.Champions;
-    using Microsoft.EntityFrameworkCore;
 
     public class ChampionServiceTest
     {
-        private readonly IMapper mapper;
-        public ChampionServiceTest()
-        {
-            this.mapper = this.Mapper();
-        }
 
         [Fact]
         public void TestCreateChampion()
@@ -32,6 +21,7 @@
             const string championClassId = "shaman";
             const string playerId = "zzTop";
 
+            var mapper = MapperMock.Instance;
             var config = ConfigurationMock.Configuration;
 
             using var data = DatabaseMock.Instance;
@@ -42,7 +32,7 @@
             data.Users.Add(player);
             data.SaveChanges();
 
-            var championService = new ChampionService(config, data, this.mapper);
+            var championService = new ChampionService(config, data, mapper);
             //Act
             var result= championService.CreateChampion(championName, championClassId, playerId);
             var test1 = data.Champions.First();
@@ -64,6 +54,7 @@
             const int championNum = 3;
             const string playerId = "zzTop";
 
+            var mapper = MapperMock.Instance;
             var config = ConfigurationMock.Configuration;
 
             using var data = DatabaseMock.Instance;
@@ -76,7 +67,7 @@
             data.Users.Add(player);
             data.SaveChanges();
 
-            var championService = new ChampionService(config, data, this.mapper);
+            var championService = new ChampionService(config, data,mapper);
             //Act
             var result = championService.ChampionCollection(playerId);
             var test1 = data.Champions.ToList();
@@ -101,6 +92,7 @@
             const string gearId = "g2";
 
             var config = ConfigurationMock.Configuration;
+            var mapper = MapperMock.Instance;
 
             using var data = DatabaseMock.Instance;
 
@@ -113,7 +105,7 @@
             data.Gears.Add(gear);
             data.SaveChanges();
 
-            var championService = new ChampionService(config, data, this.mapper);
+            var championService = new ChampionService(config, data, mapper);
 
             //Act
             var result = championService.EquipItem(championId, itemId);
@@ -141,6 +133,7 @@
             const string gearId = "g2";
 
             var config = ConfigurationMock.Configuration;
+            var mapper = MapperMock.Instance;
 
             using var data = DatabaseMock.Instance;
 
@@ -153,7 +146,7 @@
             data.Gears.Add(gear);
             data.SaveChanges();
 
-            var championService = new ChampionService(config, data, this.mapper);
+            var championService = new ChampionService(config, data, mapper);
 
             //Act
             var result = championService.SellItem(championId, itemId);
@@ -181,6 +174,7 @@
             const string playerId = "g2";
 
             var config = ConfigurationMock.Configuration;
+            var mapper = MapperMock.Instance;
 
             using var data = DatabaseMock.Instance;
 
@@ -193,7 +187,7 @@
 
             data.SaveChanges();
 
-            var championService = new ChampionService(config, data, this.mapper);
+            var championService = new ChampionService(config, data, mapper);
 
             //Act
             var result = championService.Details(championId,playerId);
@@ -203,15 +197,6 @@
             Assert.IsType<ChampionDetailServiceModel>(result);
             Assert.True(test1.ChampionClass.Name== championClassName);
 
-        }
-
-        //        public ChampionDetailServiceModel Details(string championId, string playerId)
-
-
-        private IMapper Mapper()
-        {
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DarkBattleProfile)));
-            return new Mapper(configuration);
         }
     }
 }

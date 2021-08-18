@@ -12,7 +12,6 @@
     {
         private readonly ApplicationDbContext data;
 
-
         public CreatureConsumablesService(ApplicationDbContext data)
             => this.data = data;
 

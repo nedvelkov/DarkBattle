@@ -1,37 +1,32 @@
 ﻿namespace DarkBattle.Tests.Services
 {
-    using System;
+
     using System.Linq;
-    using System.Collections.Generic;
 
     using Xunit;
-    using AutoMapper;
 
     using DarkBattle.Tests.Mocks;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Models;
-    using DarkBattle.Services.MappingConfiguration;
+
     using DarkBattle.Services.ServiceModels.ChampionClass;
 
     public class ChampionClassServiceTest
     {
-        private readonly IMapper mapper;
-        public ChampionClassServiceTest()
-        {
-            this.mapper = this.Mapper();
-        }
+
         [Fact]
         public void TestGetChampionClass()
         {
             //Arrange
             const string classId = "TestChampionClass";
 
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
 
             data.ChampionClasses.Add(new ChampionClass { Id = classId });
             data.SaveChanges();
 
-            var championClassService = new ChampionClassService(data, this.mapper);
+            var championClassService = new ChampionClassService(data, mapper);
 
             //Act
             var result = championClassService.GetClass(classId);
@@ -47,13 +42,14 @@
             //Arrange
             const string name = "Test";
 
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
             var model = new ChampionClassServiceModel
             {
                 Name = name
             };
 
-            var championClassService = new ChampionClassService(data, this.mapper);
+            var championClassService = new ChampionClassService(data, mapper);
 
             //Act
             championClassService.Add(model);
@@ -71,11 +67,12 @@
             const string name = "Test";
             const int health = 5;
 
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
             data.ChampionClasses.Add(new ChampionClass { Id = classId, Name = name }) ;
             data.SaveChanges();
 
-            var championClassService = new ChampionClassService(data, this.mapper);
+            var championClassService = new ChampionClassService(data, mapper);
 
             //Act
             var model = new ChampionClassServiceModel
@@ -98,6 +95,7 @@
             const int numOfClass= 4;
             const string name = "Test";
 
+            var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
             for (int i = 0; i < numOfClass; i++)
             {
@@ -106,7 +104,7 @@
             }
             data.SaveChanges();
 
-            var championClassService = new ChampionClassService(data, this.mapper);
+            var championClassService = new ChampionClassService(data, mapper);
 
             //Act
 
@@ -117,12 +115,6 @@
 
             Assert.True(listNames.Count == numOfClass);
             Assert.True(listNames[0] == $"{name}0");
-        }
-
-        private IMapper Mapper()
-        {
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DarkBattleProfile)));
-            return new Mapper(configuration);
         }
     }
 }

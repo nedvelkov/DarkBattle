@@ -4,20 +4,13 @@
     using System.Linq;
 
     using Xunit;
-    using AutoMapper;
 
     using DarkBattle.Tests.Mocks;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Models;
-    using DarkBattle.Services.MappingConfiguration;
     using DarkBattle.Services.ServiceModels.Consumables;
     public class ConsumableServiceTest
     {
-        private readonly IMapper mapper;
-        public ConsumableServiceTest()
-        {
-            this.mapper = this.Mapper();
-        }
 
         [Fact]
         public void TestConsumableAdd()
@@ -25,10 +18,11 @@
             //Arrange
             const string name = "Test";
             using var data = DatabaseMock.Instance;
+            var mapper = MapperMock.Instance;
 
             var model = new ConsumableViewServiceModel() { Name = name };
 
-            var consumableService = new ConsumableService(data, this.mapper);
+            var consumableService = new ConsumableService(data, mapper);
             //Act
             consumableService.Add(model);
             var result = data.Consumables.FirstOrDefault(x => x.Name == name);
@@ -45,11 +39,12 @@
             const string id = "TestId";
             const int healthRestore = 5;
             using var data = DatabaseMock.Instance;
+            var mapper = MapperMock.Instance;
 
             var consumable = new Consumable { Id = id, Name = name };
             data.Consumables.Add(consumable);
             data.SaveChanges();
-            var consumableService = new ConsumableService(data, this.mapper);
+            var consumableService = new ConsumableService(data, mapper);
 
             //Act
             var newModel = new ConsumableViewServiceModel() 
@@ -72,11 +67,12 @@
             //Arrange
             const int allConsumables = 10;
             using var data = DatabaseMock.Instance;
+            var mapper = MapperMock.Instance;
 
             data.Consumables.AddRange(Enumerable.Range(0, allConsumables).Select(x => new Consumable { Id = Guid.NewGuid().ToString() }));
             data.SaveChanges();
 
-            var consumableService = new ConsumableService(data, this.mapper);
+            var consumableService = new ConsumableService(data, mapper);
             //Act
             var test1 = consumableService.ConsumablesCollection();
             var test2 = consumableService.ConsumablesWithNoCreature();
@@ -88,11 +84,5 @@
 
         }
 
-
-        private IMapper Mapper()
-        {
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(typeof(DarkBattleProfile)));
-            return new Mapper(configuration);
-        }
     }
 }
