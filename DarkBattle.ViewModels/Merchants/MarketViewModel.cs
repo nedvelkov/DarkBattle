@@ -1,18 +1,14 @@
 ﻿namespace DarkBattle.ViewModels.Merchants
 {
-    using DarkBattle.ViewModels.MerchantConsumables;
-    using DarkBattle.Services.ServiceModels.Champions;
 
-    public class SellConsumablesViewModel
+    using DarkBattle.Services.ServiceModels.Merchants;
+    public class MarketViewModel : MerchantMarketViewModel
     {
         private int currentPage = 1;
         private int maxPages;
-        private int maxConsumablesPerPage = 5;
-        public ChampionBarServiceModel Champion { get; init; }
-        public MerchantConsumablePageModel Consumables { get; init; }
+        private int maxMerchantsPerPage = 3;
 
-
-        public int MaxConsumablesPerPage => this.maxConsumablesPerPage;
+        public int MaxMerchantsPerPage => this.maxMerchantsPerPage;
 
         public int MaxPages
         {
@@ -26,7 +22,7 @@
                 {
                     maxPages = 1;
                 }
-                maxPages = value / MaxConsumablesPerPage + value % MaxConsumablesPerPage;
+                maxPages = value / MaxMerchantsPerPage + value % MaxMerchantsPerPage;
             }
         }
 

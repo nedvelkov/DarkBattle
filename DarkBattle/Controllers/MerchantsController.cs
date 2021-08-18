@@ -7,7 +7,8 @@
     using DarkBattle.Infrastructure;
 
     using static DarkBattle.DarkBattleRoles;
-  
+    using DarkBattle.ViewModels.Merchants;
+    using System.Linq;
 
     [Authorize(Roles = PlayerRoleName)]
     public class MerchantsController:Controller
@@ -22,7 +23,7 @@
             return View(this.merchantService.MerchantsCollection());
         }
 
-        public IActionResult Market(string championId)
+        public IActionResult Market(string championId,string page)
         {
             if (championId == null)
             {
@@ -31,7 +32,21 @@
 
             var playerId = this.User.GetId();
             var model = this.merchantService.AllMerchants(championId, playerId);
-            return View(model);
+            var returnModel = new MarketViewModel
+            {
+                Champion = model.Champion,
+                Merchants = model.Merchants.OrderBy(x=>x.Name).ToList(),
+                MaxPages = model.Merchants.Count
+            };
+            
+            if (page != null)
+            {
+                returnModel.CurrentPage = int.Parse(page);
+            }
+
+            returnModel.Merchants = returnModel.Merchants.Skip((returnModel.CurrentPage - 1)*returnModel.MaxMerchantsPerPage).Take(returnModel.MaxMerchantsPerPage).ToList();
+
+            return View(returnModel);
         }
     }
 }

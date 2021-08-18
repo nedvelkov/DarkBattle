@@ -1,19 +1,20 @@
 ﻿namespace DarkBattle.Controllers
 {
+    using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
     using DarkBattle.Services.Interface;
     using DarkBattle.Infrastructure;
 
-    using static DarkBattle.DarkBattleRoles;
     using DarkBattle.ViewModels.Merchants;
     using DarkBattle.ViewModels.MerchantItems;
     using System.Collections.Generic;
     using DarkBattle.Services.ServiceModels.Items;
-    using DarkBattle.ViewModels.Enums;
-    using System.Linq;
 
+    using static DarkBattle.DarkBattleRoles;
+    
     [Authorize(Roles = PlayerRoleName)]
     public class MerchantItemsController : Controller
     {
@@ -53,7 +54,7 @@
             {
                 model.CurrentPage = int.Parse(page);
             }
-            model.Items.ItemCollection = model.Items.ItemCollection.Skip(model.CurrentPage - 1).Take(model.MaxItemsPerPage).ToList();
+            model.Items.ItemCollection = model.Items.ItemCollection.Skip((model.CurrentPage - 1)*model.MaxItemsPerPage).Take(model.MaxItemsPerPage).ToList();
             if (sort != null)
             {
             model.Items.ItemCollection = SortCollection(sort, model.Items.ItemCollection);

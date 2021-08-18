@@ -14,13 +14,16 @@
     <thead>
         <tr>
             <th>
-                <label>Name</label>
+                <a asp-controller="MerchantConsumables" asp-action="SellConsumablesToChampion" asp-route-championId="@Model.Champion.ChampionId"
+                   asp-route-merchantId="@Model.Consumables.MerchantId" asp-route-page="@Model.CurrentPage" asp-route-sort="name">Name</a>
             </th>
             <th>
-                <label>Restore healt</label>
+                <a asp-controller="MerchantConsumables" asp-action="SellConsumablesToChampion" asp-route-championId="@Model.Champion.ChampionId"
+                   asp-route-merchantId="@Model.Consumables.MerchantId" asp-route-page="@Model.CurrentPage" asp-route-sort="restorehealth"> Restore healt</a>
             </th>
             <th>
-                <label>Cost</label>
+                <a asp-controller="MerchantConsumables" asp-action="SellConsumablesToChampion" asp-route-championId="@Model.Champion.ChampionId"
+                   asp-route-merchantId="@Model.Consumables.MerchantId" asp-route-page="@Model.CurrentPage" asp-route-sort="Value">Cost</a>
             </th>
             <th>
             </th>
@@ -53,6 +56,22 @@
         }
     </tbody>
 </table>
+
+<div class="row mb-5">
+
+    <div class="col-md-6">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="MerchantConsumables" asp-action="SellConsumablesToChampion" asp-route-championId="@Model.Champion.ChampionId"
+           asp-route-merchantId="@Model.Consumables.MerchantId" asp-route-page="@Model.PreviusPageNumber"><<</a>
+    </div>
+
+    <div class="col-md-6">
+        <a class="btn btn-primary float-sm-right @(Model.CurrentPage>=Model.MaxPages ? "disabled" : string.Empty)" style="margin-top: 10px"
+           asp-controller="MerchantConsumables" asp-action="SellConsumablesToChampion" asp-route-championId="@Model.Champion.ChampionId"
+           asp-route-merchantId="@Model.Consumables.MerchantId" asp-route-page="@Model.NextPageNumber">>></a>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-4">
         <a class="btn btn-primary" asp-controller="Merchants" asp-action="Market" asp-route-championId="@Model.Champion.ChampionId" style="width:100%">Back to market</a>

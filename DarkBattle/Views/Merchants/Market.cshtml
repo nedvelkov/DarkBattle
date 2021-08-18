@@ -1,6 +1,6 @@
-﻿@using DarkBattle.Services.ServiceModels.Merchants
+﻿@using DarkBattle.ViewModels.Merchants;
 
-@model MerchantMarketViewModel
+@model MarketViewModel
 
 <partial name="_ChampionBar" model="@Model.Champion" />
 
@@ -19,4 +19,19 @@
             </div>
         </div>
     }
+</div>
+
+<div class="row mb-5">
+
+    <div class="col-md-6">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Merchants" asp-action="Market" asp-route-championId="@Model.Champion.ChampionId"
+           asp-route-page="@Model.PreviusPageNumber"><<</a>
+    </div>
+
+    <div class="col-md-6">
+        <a class="btn btn-primary float-sm-right @(Model.CurrentPage>=Model.MaxPages ? "disabled" : string.Empty)" style="margin-top: 10px"
+           asp-controller="Merchants" asp-action="Market" asp-route-championId="@Model.Champion.ChampionId"
+           asp-route-page="@Model.NextPageNumber">>></a>
+    </div>
 </div>

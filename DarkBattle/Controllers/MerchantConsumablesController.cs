@@ -9,6 +9,9 @@
     using static DarkBattle.DarkBattleRoles;
     using DarkBattle.ViewModels.Merchants;
     using DarkBattle.ViewModels.MerchantConsumables;
+    using System.Linq;
+    using System.Collections.Generic;
+    using DarkBattle.Services.ServiceModels.Consumables;
 
     [Authorize(Roles = PlayerRoleName)]
     public class MerchantConsumablesController:Controller
@@ -28,7 +31,7 @@
             this.consumableService = consumableService;
             this.merchantService = merchantService;
         }
-        public IActionResult SellConsumablesToChampion(string championId, string merchantId)
+        public IActionResult SellConsumablesToChampion(string championId, string merchantId, string page, string sort)
         {
             var playerId = this.User.GetId();
             var champion = this.championService.ChampionBar(championId, playerId);
@@ -41,8 +44,20 @@
                     MerchantId=merchantId,
                     MerchantName=this.merchantService.MerchantName(merchantId),
                     Consumables = consumables
-                }
+                },
+                MaxPages=consumables.Count,   
             };
+
+            if (page != null)
+            {
+                model.CurrentPage = int.Parse(page);
+            }
+            model.Consumables.Consumables = model.Consumables.Consumables.Skip((model.CurrentPage - 1)*model.MaxConsumablesPerPage).Take(model.MaxConsumablesPerPage).ToList();
+            if (sort != null)
+            {
+                model.Consumables.Consumables = SortCollection(sort, model.Consumables.Consumables);
+            }
+
             return View(model);
         }
 
@@ -50,6 +65,17 @@
         {
             var result= this.service.SellConsumable(championId, consumableId);
             return RedirectToAction("SellConsumablesToChampion", "MerchantConsumables", new { championId = $"{championId}", merchantId = $"{merchantId}" });
+        }
+
+        private ICollection<ConsumableViewServiceModel> SortCollection(string sort, ICollection<ConsumableViewServiceModel> collection)
+        {
+            collection = sort.ToLower() switch
+            {
+                "restorehealth" => collection.OrderByDescending(x => x.RestoreHealth).ToList(),
+                "value" => collection.OrderByDescending(x => x.Value).ToList(),
+                "name" or _ => collection.OrderByDescending(x => x.Name).ToList(),
+            };
+            return collection;
         }
     }
 }
