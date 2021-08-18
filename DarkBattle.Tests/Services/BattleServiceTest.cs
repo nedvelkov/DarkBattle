@@ -77,7 +77,61 @@
             var result = battleService.FightWithCreature(championId, areaId, playerId);
 
             //Assert
-            Assert.True(result.Champion.Gold == 50);
+            Assert.True(result.Champion.Gold == profit);
+
+        }
+
+        [Theory]
+        [InlineData(200000)]
+        public void TestTraining(int gold)
+        {
+            //Arrange
+            const string championId = "z1";
+            const string classId = "zzt";
+            const string championName = "zzz";
+            const string playerId = "SJ";
+
+            using var data = DatabaseMock.Instance;
+            var config = ConfigurationMock.Configuration;
+            var mapper = MapperMock.Instance;
+
+            var championClass = new ChampionClass
+            {
+                Id = classId,
+                Name = championName,
+                Agility = 1,
+                Health = 100,
+                Strenght = 5,
+                SpellPower = 25,
+            };
+            var champion = new Champion
+            {
+                Id = championId,
+                ChampionClass = championClass,
+                ChampionClassId = classId,
+                Level = 5,
+                CurrentHealth = 10,
+                Gold=gold
+            };
+            var player = new Player { Id = playerId };
+            player.Champions.Add(champion);
+
+            data.Users.Add(player);
+
+            data.SaveChanges();
+
+            var championService = new ChampionService(config, data, mapper);
+            var areaCreatureService = new AreaCreatureService(data);
+            var creatureService = new CreatureService(data, mapper);
+            var areaService = new AreaService(data, mapper);
+            var battleService = new BattleService(data, championService, mapper, areaCreatureService, config, creatureService, areaService);
+
+            //Act
+            var result = battleService.TrainChampion(championId, playerId,gold.ToString());
+
+            //Assert
+            Assert.True(result.Champion.Level == 15);
+            Assert.True(result.Champion.Experience == 999);
 
         }
     }

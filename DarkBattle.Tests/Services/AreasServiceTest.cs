@@ -79,18 +79,23 @@
         {   
             //Arrange
             const string name = "Test";
+            const string id = "TestId";
             var mapper = MapperMock.Instance;
             using var data = DatabaseMock.Instance;
 
-            var model = new AreaServiceViewModel() { Name = name };
-
+            var area = new Area { Id = id, Name = name };
+            data.Areas.Add(area);
+            data.SaveChanges();
             var areaService = new AreaService(data, mapper);
             //Act
-            areaService.Add(model);
-            var result = data.Areas.FirstOrDefault(x => x.Name == name);
+            var model = areaService.GetArea(id);
+            model.MinLevelEnterence = 3;
+            areaService.Edit(model);
+            var result = data.Areas.FirstOrDefault();
 
             //Assert
             Assert.NotNull(result);
+            Assert.True(result.MinLevelEnterence==3);
         }
         [Fact]
         public void TestDeleteArea()

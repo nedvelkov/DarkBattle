@@ -1,20 +1,14 @@
 ﻿namespace DarkBattle.Tests.Services
 {
-    using System;
     using System.Linq;
 
     using Xunit;
-    using AutoMapper;
+    using Microsoft.EntityFrameworkCore;
 
     using DarkBattle.Tests.Mocks;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Models;
-    using DarkBattle.Services.MappingConfiguration;
-    using DarkBattle.Services.ServiceModels.Consumables;
-    using Microsoft.Extensions.Configuration;
-    using System.Collections.Generic;
-    using DarkBattle.Services.ServiceModels.Champions;
-    using Microsoft.EntityFrameworkCore;
+
    public class CreatureConsumableServiceTest
     {
         [Fact]

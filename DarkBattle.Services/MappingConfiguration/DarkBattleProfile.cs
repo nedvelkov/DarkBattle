@@ -2,7 +2,6 @@
 {
     using AutoMapper;
     using DarkBattle.Data.Models;
-    using DarkBattle.Services.ServiceModels;
     using DarkBattle.Services.ServiceModels.Areas;
     using DarkBattle.Services.ServiceModels.ChampionClass;
     using DarkBattle.Services.ServiceModels.Champions;

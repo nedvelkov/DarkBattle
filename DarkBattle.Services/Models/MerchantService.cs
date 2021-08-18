@@ -13,7 +13,6 @@
     using DarkBattle.Data;
     using DarkBattle.Data.Models;
     using DarkBattle.Services.Interface;
-    using DarkBattle.Services.ServiceModels;
     using DarkBattle.Services.ServiceModels.Merchants;
 
     public class MerchantService : IMerchantService

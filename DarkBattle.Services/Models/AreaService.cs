@@ -35,15 +35,16 @@
         public void Edit(AreaServiceViewModel model)
         {
             var area = this.data.Areas.Single(x => x.Id == model.Id);
+            var newArea = this.mapper.Map<Area>(model);
 
-            var properties = model.GetType().GetProperties();
+            var properties = newArea.GetType().GetProperties();
             foreach (var prop in properties)
             {
                 if (prop.Name == "Id")
                 {
                     continue;
                 }
-                var value = prop.GetValue(model);
+                var value = prop.GetValue(newArea);
                 var property = area.GetType().GetProperty(prop.Name);
                 property.SetValue(area, value);
             }
