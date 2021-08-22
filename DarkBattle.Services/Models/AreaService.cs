@@ -95,6 +95,7 @@
         private ICollection<T> GetAreaCollection<T>()
             => this.data.Areas
                         .Include(x => x.Creatures)
+                        .OrderBy(x=>x.MinLevelEnterence)
                         .Select(this.mapper.Map<T>)
                         .ToList();
     }

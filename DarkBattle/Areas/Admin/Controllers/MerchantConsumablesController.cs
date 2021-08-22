@@ -57,7 +57,8 @@
             if (model.MerchantName == null)
             {
                 model.MerchantName = this.merchantService.MerchantName(model.MerchantId);
-                model.Consumables = this.consumableService.ConsumablesSellByMerchant(model.MerchantId);
+                var tmp= this.consumableService.ConsumablesSellByMerchant(model.MerchantId);
+                model.Consumables = tmp;
             }
             if (model.SearchByName != null)
             {

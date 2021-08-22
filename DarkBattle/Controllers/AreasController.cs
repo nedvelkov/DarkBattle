@@ -1,5 +1,7 @@
 ﻿namespace DarkBattle.Controllers
 {
+    using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
 
     using DarkBattle.Infrastructure;
@@ -9,7 +11,7 @@
     using Microsoft.AspNetCore.Authorization;
 
     using static DarkBattle.DarkBattleRoles;
-    using System.Linq;
+    using static DarkBattle.WebStatistics;
 
     [Authorize(Roles = PlayerRoleName)]
 
@@ -17,6 +19,8 @@
     {
         private readonly IAreaService areaService;
         private readonly IChampionService championService;
+
+
 
         public AreasController(IAreaService areaService, IChampionService championService)
         {
@@ -29,7 +33,7 @@
 
             if (championId == null)
             {
-                return RedirectToAction("Index", "Champions");
+                return RedirectToAction("Index", "Champions", new {error=SelectChampionError });
             }
 
             var playerId = this.User.GetId();

@@ -1,16 +1,18 @@
 ﻿@using DarkBattle.ViewModels.Champions
 @model IndexViewModel
-@{
-    ViewData["Title"] = "Champions";
+@{ ViewData["Title"] = "Champions";
 }
-
+@if (ViewBag.Error != null)
+{
+    var text = ViewBag.Error;
+<h3 class="text-danger"> @text </h3>
+}
 <h1>Champions </h1>
 <hr />
 <p>
-    @if (Model.Champions.Count() < ViewBag.MaxChampions && Model.IsBanned==false)
+    @if (Model.Champions.Count() < ViewBag.MaxChampions && Model.IsBanned == false)
     {
-        <a asp-action="Create">Create New</a>
-    }
+<a asp-action="Create">Create New</a>}
 </p>
 
 
@@ -18,40 +20,38 @@
     <div class="row">
         @foreach (var champions in Model.Champions)
         {
-            <div class="col-4">
-                <div class="card" style="width:300px;">
-                    <img class="card-img-top" src="@champions.ImageUrl" alt="@champions.Name" style="height:350px">
-                    <div class="card-body">
-                        <h5 class="card-title">@champions.Name</h5>
-                        <h6 class="card-title font-italic">@champions.ChampionClass</h6>
-                        <div class="row">
-                            <div class="col">
-                                <label asp-for="@champions.Level"></label>
-                            </div>
-                            <div class="col">
-                                <span class="font-weight-bold">@champions.Level</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label asp-for="@champions.Experience"></label>
-                            </div>
-                            <div class="col">
-                                <span class="font-weight-bold">@champions.Experience</span>
-
-                            </div>
-                        </div>
-                        <div class="@(Model.IsBanned?"d-none":string.Empty )">
-                        <a asp-controller="Areas" asp-action="BattleZones" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Play</a>
-                        <a asp-action="Details" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Details</a>
-                        <a asp-action="Delete" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Delete</a>
-                        </div>
-                        <div class="@(Model.IsBanned?string.Empty:"d-none" ) text-danger">
-                            <h3>You are banned</h3>
-                        </div>
-                    </div>
+<div class="col-4">
+    <div class="card" style="width:300px;">
+        <img class="card-img-top" src="@champions.ImageUrl" alt="@champions.Name" style="height:350px">
+        <div class="card-body">
+            <h5 class="card-title">@champions.Name</h5>
+            <h6 class="card-title font-italic">@champions.ChampionClass</h6>
+            <div class="row">
+                <div class="col">
+                    <label asp-for="@champions.Level"></label>
+                </div>
+                <div class="col">
+                    <span class="font-weight-bold">@champions.Level</span>
                 </div>
             </div>
-        }
+            <div class="row">
+                <div class="col">
+                    <label asp-for="@champions.Experience"></label>
+                </div>
+                <div class="col">
+                    <span class="font-weight-bold">@champions.Experience</span>
+
+                </div>
+            </div>
+            <div class="@(Model.IsBanned?"d-none":string.Empty )">
+                <a asp-action="Details" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Select</a>
+                <a asp-action="Delete" asp-route-championId="@champions.ChampionId" class="btn btn-primary">Delete</a>
+            </div>
+            <div class="@(Model.IsBanned?string.Empty:"d-none" ) text-danger">
+                <h3>You are banned</h3>
+            </div>
+        </div>
+    </div>
+</div>}
     </div>
 </form>

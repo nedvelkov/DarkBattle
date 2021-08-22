@@ -28,9 +28,10 @@
             this.playerService = playerService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string error)
         {
             ViewBag.MaxChampions = int.Parse(this.cofing.GetSection("GameSettings").GetSection("MaxChampions").Value);
+            ViewBag.Error = error;
             var playerId = this.User.GetId();
             var champions = this.championService.ChampionCollection(playerId);
             var playerStats = this.playerService.IsBanned(playerId);

@@ -21,7 +21,7 @@
         <div class="form-group col-md-4">
             <label asp-for="Sorting"></label>
             <select asp-for="Sorting" class="form-control">
-                <option value="2" selected>Healt</option>
+                <option value="2" selected>Health</option>
                 <option value="1">Value</option>
             </select>
         </div>
@@ -32,7 +32,7 @@
 </form>
 
 
-@*@if (Model.Consumables.Count == 0)
+@if (Model.Consumables.Count == 0)
 {
 <div>
     <a class="btn btn-primary mb-2" asp-area="Admin" asp-controller="MerchantConsumables" asp-action="ListConsumables" asp-route-merchantId="@Model.MerchantId">Add consumables</a>
@@ -56,7 +56,7 @@ else
             </div>
         }
     </div>
-}*@
+}
 
 <div>
     <a asp-area="Admin" class="btn btn-primary" asp-controller="Merchants" asp-action="Index">Back to List</a>

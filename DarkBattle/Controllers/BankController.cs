@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using static DarkBattle.DarkBattleRoles;
+    using static DarkBattle.WebStatistics;
 
     [Authorize(Roles = PlayerRoleName)]
 
@@ -21,7 +22,8 @@
         {
             if (championId == null)
             {
-                return RedirectToAction("Index", "Champions");
+                return RedirectToAction("Index", "Champions", new { error = SelectChampionError });
+
             }
 
             this.bankService.GetLoan(championId);

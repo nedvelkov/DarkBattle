@@ -52,8 +52,9 @@
 
         public IActionResult CreaturesInArea(string areaId, AreaCreaturesPageModel model)
         {
-            var area = this.areaService.AreaForCreatures(areaId);
-            var listCreatures = this.creatureService.CreatureInArea(areaId);
+            var area = this.areaService.AreaForCreatures(areaId == null ? model.Area.Id : areaId);
+
+            var listCreatures = this.creatureService.CreatureInArea(areaId == null ? model.Area.Id : areaId);
 
             if (model.SearchTerm != null)
             {

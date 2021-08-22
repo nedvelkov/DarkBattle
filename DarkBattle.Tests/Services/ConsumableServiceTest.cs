@@ -47,10 +47,10 @@
             var consumableService = new ConsumableService(data, mapper);
 
             //Act
-            var newModel = new ConsumableViewServiceModel() 
-            { 
+            var newModel = new ConsumableViewServiceModel()
+            {
                 Id = id,
-                RestoreHealth=healthRestore
+                RestoreHealth = healthRestore
             };
             consumableService.Edit(newModel);
 
@@ -84,5 +84,37 @@
 
         }
 
+        [Fact]
+        public void TestConsumableCollectionOwnByMerchant()
+        {
+            //Arrange
+            const int allConsumables = 10;
+            const string merchantId = "merchant";
+            const string merchantName = "Fisherman";
+            using var data = DatabaseMock.Instance;
+            var mapper = MapperMock.Instance;
+            var merchant = new Merchant { Id = merchantId, Name = merchantName };
+            var consumables = Enumerable.Range(0, allConsumables)
+                                        .Select(x => new Consumable
+                                        {
+                                            Id = Guid.NewGuid().ToString(),
+                                            Merchant = merchant,
+                                            MerchantId = merchantId
+                                        });
+
+            data.Consumables.AddRange(consumables);
+            data.SaveChanges();
+
+            var consumableService = new ConsumableService(data, mapper);
+            //Act
+            var test1 = consumableService.ConsumablesSellByMerchant(merchantId);
+            var test2 = data.Merchants.First().Consumables.Count;
+            var test3 = data.Consumables.First().Merchant;
+            //Assert
+            Assert.Equal(allConsumables, test1.Count);
+            Assert.Equal(allConsumables, test2);
+            Assert.Equal(merchant, test3);
+
+        }
     }
 }

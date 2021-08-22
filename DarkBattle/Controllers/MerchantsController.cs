@@ -1,14 +1,15 @@
 ﻿namespace DarkBattle.Controllers
 {
+    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
+    using DarkBattle.ViewModels.Merchants;
     using DarkBattle.Services.Interface;
     using DarkBattle.Infrastructure;
 
     using static DarkBattle.DarkBattleRoles;
-    using DarkBattle.ViewModels.Merchants;
-    using System.Linq;
+    using static DarkBattle.WebStatistics;
 
     [Authorize(Roles = PlayerRoleName)]
     public class MerchantsController:Controller
@@ -27,7 +28,7 @@
         {
             if (championId == null)
             {
-                return RedirectToAction("Index", "Champions");
+                return RedirectToAction("Index", "Champions", new { error = SelectChampionError });
             }
 
             var playerId = this.User.GetId();
